@@ -27,10 +27,11 @@ Checks that images resolve and carry alt text, internal links are live, no
 page requests an external host except Google Fonts, and each page has a lang,
 a title, a description, exactly one `<h1>` and a skip link.
 
-**`privacy.html` is not signed off.** It publishes the W110 wording as a
-public legal statement, and that wording is marked pending operator
-re-signature in `design-docs/01-privacy-and-data.md`. Do not go live until
-that signature exists.
+`privacy.html` publishes the W110 wording as a public legal statement. That
+wording was signed off by the operator on 2026-08-23 and is cleared to go
+live. If you change a privacy claim on that page, change
+`design-docs/01-privacy-and-data.md` first and get the wording re-signed —
+the page is downstream of that document, not a place to draft in.
 
 ## Design
 
