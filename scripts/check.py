@@ -69,9 +69,40 @@ def check(page, html):
             problems.append(f'{name}: possible clinical claim -> "{phrase}"')
 
 
+# Y130 — the site may only reference screenshots the capture harness produced.
+#
+# The manifest is rebuilt from `design-docs/assets/` on every capture run, so
+# an image that is in the site but not the manifest is either hand-copied or
+# left over from a deleted screen. Both have already happened once: a blank
+# settings capture survived a failed run and was committed as part of the set.
+MANIFEST = os.path.normpath(
+    os.path.join(ROOT, '..', 'design-docs', 'assets', 'MANIFEST.md'))
+
+
+def check_manifest():
+    if not os.path.exists(MANIFEST):
+        problems.append('no screenshot manifest at ' + MANIFEST)
+        return
+    listed = set(re.findall(r'`([^`]+\.png)`', open(MANIFEST, encoding='utf-8').read()))
+    if not listed:
+        problems.append('manifest lists no images — it should name every capture')
+        return
+    used = set()
+    for page in glob.glob(os.path.join(ROOT, '*.html')):
+        html = open(page, encoding='utf-8').read()
+        for src in re.findall(r'src="assets/img/([^"]+)"', html):
+            used.add(src)
+    for name in sorted(used - listed):
+        problems.append(
+            f'{name} is used by the site but is not in the capture manifest — '
+            'run scripts/sync-assets.py, or recapture')
+
+
 pages = sorted(glob.glob(os.path.join(ROOT, '*.html')))
 for page in pages:
     check(page, open(page, encoding='utf-8').read())
+
+check_manifest()
 
 print(f'checked {len(pages)} page(s)')
 if problems:

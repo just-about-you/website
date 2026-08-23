@@ -65,7 +65,8 @@ p {
 }
 
 a {
-  color: var(--emerald);
+  /* Not --emerald: that is 4.19:1 on --sand, under AA. See tokens.css. */
+  color: var(--emerald-text);
   text-underline-offset: 0.18em;
   text-decoration-thickness: from-font;
 }
@@ -76,7 +77,7 @@ a:hover {
 
 /* Visible for keyboard users, absent for mouse users. */
 :focus-visible {
-  outline: 2px solid var(--emerald);
+  outline: 2px solid var(--emerald-text);
   outline-offset: 3px;
   border-radius: 3px;
 }

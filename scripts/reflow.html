@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Reflow check</title>
+    <style>
+      body {
+        font: 13px/1.5 ui-monospace, monospace;
+        background: #111;
+        color: #eee;
+        margin: 0;
+        padding: 8px;
+      }
+      /* The point of the whole file: a real 360px layout viewport for the
+       * inner document. Headless Edge on Windows will not size its own window
+       * below ~477px, so the narrow case cannot be tested by shrinking the
+       * browser — but an iframe's content gets exactly the width it is given. */
+      iframe {
+        width: 360px;
+        height: 300px;
+        border: 0;
+        position: absolute;
+        left: -10000px;
+      }
+      .pass {
+        color: #6f6;
+      }
+      .fail {
+        color: #f66;
+        font-weight: bold;
+      }
+      h1 {
+        font-size: 14px;
+        margin: 0 0 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Horizontal reflow at 360px</h1>
+    <div id="out">running…</div>
+
+    <script>
+      // Must be run with --allow-file-access-from-files, or contentDocument is
+      // null for a file:// iframe and every page reports "unreadable" rather
+      // than passing silently.
+      const PAGES = [
+        "index.html",
+        "features.html",
+        "privacy.html",
+        "help.html",
+        "about.html",
+      ];
+
+      const out = document.getElementById("out");
+      let done = 0;
+      let failures = 0;
+      const lines = [];
+
+      PAGES.forEach((page, i) => {
+        const frame = document.createElement("iframe");
+        frame.src = "../" + page;
+        frame.onload = () => {
+          let line;
+          try {
+            const d = frame.contentDocument.documentElement;
+            const vw = d.clientWidth;
+            const sw = d.scrollWidth;
+            // 1px of tolerance for sub-pixel rounding; anything more is a real
+            // element sticking out.
+            const ok = sw <= vw + 1;
+            if (!ok) failures++;
+            let culprit = "";
+            if (!ok) {
+              let max = 0;
+              let worst = null;
+              frame.contentDocument.querySelectorAll("*").forEach((el) => {
+                const r = el.getBoundingClientRect();
+                if (r.right > max) {
+                  max = r.right;
+                  worst = el;
+                }
+              });
+              culprit = worst
+                ? `  widest: <${worst.tagName.toLowerCase()} class="${worst.className}"> right=${Math.round(max)}`
+                : "";
+            }
+            line = `${ok ? "PASS" : "FAIL"}  ${page.padEnd(16)} viewport=${vw} scrollWidth=${sw}${culprit}`;
+          } catch (e) {
+            failures++;
+            line = `FAIL  ${page.padEnd(16)} unreadable (needs --allow-file-access-from-files)`;
+          }
+          lines[i] = line;
+          if (++done === PAGES.length) {
+            out.innerHTML =
+              lines
+                .map(
+                  (l) =>
+                    `<div class="${l.startsWith("PASS") ? "pass" : "fail"}">${l}</div>`,
+                )
+                .join("") +
+              `<div style="margin-top:8px">${failures ? failures + " FAILED" : "all pages reflow cleanly at 360px"}</div>`;
+          }
+        };
+        document.body.appendChild(frame);
+      });
+    </script>
+  </body>
+</html>

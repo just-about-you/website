@@ -21,7 +21,15 @@
   --ink-soft: #5e6e60; /* secondary text, captions, labels */
 
   /* ── accents ──────────────────────────────────────────────────────── */
-  --emerald: #14805c; /* primary action, links, the brand colour */
+  --emerald: #14805c; /* the brand colour — fills, icons, accents */
+
+  /* Y140: the brand emerald is 4.19:1 on --sand, which is under AA's 4.5 for
+   * normal text. It passes on --paper (4.58) but links appear on both, so
+   * link TEXT uses this 5%-darker variant instead: 4.53:1 on sand, 4.96:1 on
+   * paper. Measured by scripts/contrast.py, which fails the build if either
+   * drifts back under. The brand colour itself is untouched — this exists so
+   * the palette did not have to change. */
+  --emerald-text: #137a57;
   --bronze: #a8703c; /* secondary accent, used sparingly */
 
   /* ── the inverted surface ─────────────────────────────────────────── */
