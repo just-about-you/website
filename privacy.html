@@ -1,0 +1,325 @@
+<!doctype html>
+<!--
+  Y122 — the public privacy page.
+
+  EVERY factual claim here is derived from `design-docs/01-privacy-and-data.md`
+  and `design-docs/DATA-INVENTORY.md`, which W110 re-audited against the schema
+  on 2026-08-23. Do not add a claim to this page that is not in those files;
+  add it there first, with its evidence, and copy it here.
+
+  NOT YET SIGNED OFF. The W110 wording is marked pending operator re-signature,
+  and this page publishes it to the public as a legal statement. Y150 must not
+  go live until that signature exists.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy — Your Health</title>
+    <meta
+      name="description"
+      content="Exactly what Your Health stores, what leaves your phone, and what a stolen database would contain. Every claim traced to the code that implements it."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <div class="wrap">
+      <header class="site-header">
+        <a class="wordmark" href="./">Your Health</a>
+        <nav aria-label="Main">
+          <a href="features.html">Features</a>
+          <a href="privacy.html" aria-current="page">Privacy</a>
+          <a href="help.html">Help</a>
+          <a href="about.html">About</a>
+        </nav>
+      </header>
+    </div>
+
+    <main id="main">
+      <section class="wrap" style="padding-top: var(--gap-l)">
+        <p class="eyebrow">Privacy</p>
+        <h1>What we store, and what we don't.</h1>
+        <p class="lede">
+          Most privacy policies are written to be defensible. This one is written
+          to be checked. Everything below states what the app actually does, and
+          names the part of it that does so.
+        </p>
+      </section>
+
+      <!-- ── the short version ─────────────────────────────────────────── -->
+      <section class="wrap" style="padding-block: var(--gap-l)">
+        <h2>The short version</h2>
+        <div class="grid" style="margin-top: var(--gap-m)">
+          <article class="card">
+            <h3>We never see a reading</h3>
+            <p>
+              Blood pressure, blood sugar, oxygen, heart rate, sleep, weight,
+              water, cycle, symptoms — none of it has a column on our servers.
+              It lives in an encrypted database on your phone.
+            </p>
+          </article>
+          <article class="card">
+            <h3>We hold no name</h3>
+            <p>
+              Not your real one and not a chosen one. What you call the people
+              you know is stored on your phone and never sent to us.
+            </p>
+          </article>
+          <article class="card">
+            <h3>There is no account</h3>
+            <p>
+              No email, no phone number, no password, no date of birth. Your
+              phone makes a random code and that is what we know you by.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ── what does leave ───────────────────────────────────────────── -->
+      <section class="wrap">
+        <h2>What does leave your phone</h2>
+        <p>
+          Some features need a server to pass something between you and someone
+          you chose. This is the complete list.
+        </p>
+
+        <div class="table-scroll" style="margin-top: var(--gap-m)">
+          <table>
+            <caption class="muted" style="text-align: left; padding-bottom: 0.6em">
+              Everything the app sends, and why.
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">When</th>
+                <th scope="col">What is sent</th>
+                <th scope="col">What is <em>not</em></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>You add a friend</td>
+                <td>Your random code and theirs, and the link between them.</td>
+                <td>No name. Each phone labels its own contacts.</td>
+              </tr>
+              <tr>
+                <td>You check in</td>
+                <td>Your code and today's date.</td>
+                <td>Nothing about how you are.</td>
+              </tr>
+              <tr>
+                <td>Someone cares for you</td>
+                <td>
+                  For each category you switched on: your code, the date, and
+                  whether you logged it. A true or a false.
+                </td>
+                <td>
+                  Never the reading. There is no column that could hold one.
+                </td>
+              </tr>
+              <tr>
+                <td>You share a task</td>
+                <td>
+                  The text, encrypted on your phone to the people on the task,
+                  plus the dates and who ticked it off.
+                </td>
+                <td>
+                  We cannot read the words. The key never reaches us.
+                </td>
+              </tr>
+              <tr>
+                <td>A carer asks for one reading</td>
+                <td>
+                  Only if you approve that request: the value, encrypted to their
+                  phone, held briefly and deleted when they pick it up.
+                </td>
+                <td>
+                  Nothing is kept. Approving once does not approve the next.
+                </td>
+              </tr>
+              <tr>
+                <td>You turn on notifications</td>
+                <td>A delivery token so messages can reach your phone.</td>
+                <td>No content of yours is stored with it.</td>
+              </tr>
+              <tr>
+                <td>You read an article</td>
+                <td>A request for the article.</td>
+                <td>It carries no identity at all.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ── the breach question ───────────────────────────────────────── -->
+      <section class="band">
+        <div class="wrap">
+          <p class="eyebrow">The question worth asking</p>
+          <h2>If our database were stolen</h2>
+          <p class="lede">
+            It would contain no name, no email address, no phone number, no
+            postal address, no date of birth, no password, and no health reading.
+            Every person in it appears as a random code their own device
+            generated, which is not derived from anything about them.
+          </p>
+          <p style="max-width: var(--measure)">
+            <strong>Nothing in it names, contacts, or locates a person.</strong>
+          </p>
+        </div>
+      </section>
+
+      <!-- ── the caveats, stated by us first ───────────────────────────── -->
+      <section class="wrap">
+        <h2>Where that claim stops</h2>
+        <p>
+          "Nothing identifies you" would be a stronger sentence and a false one.
+          Three things below are worth knowing, and you should hear them from us
+          rather than find them later.
+        </p>
+
+        <div class="grid" style="margin-top: var(--gap-m)">
+          <article class="card">
+            <h3>The code is still about you</h3>
+            <p>
+              It is random and it is not your name — but it is the same code
+              every day, so it singles you out. Regulators treat that as personal
+              data, and so do we. It is pseudonymous, not anonymous.
+            </p>
+          </article>
+          <article class="card">
+            <h3>The notification token</h3>
+            <p>
+              To reach your phone with a notification, we hold a delivery token
+              issued by Google. We cannot turn it into a person. Google could.
+              It is the strongest identifier we hold.
+            </p>
+          </article>
+          <article class="card">
+            <h3>A daily yes or no adds up</h3>
+            <p>
+              "Logged medications" every day for a month says something about
+              someone, even with no name attached. It is the largest thing we
+              hold, and it exists because being able to show it to someone who
+              cares for you is the point of that feature.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ── control ───────────────────────────────────────────────────── -->
+      <section class="wrap">
+        <h2>What you control</h2>
+        <ul>
+          <li>
+            Sharing is off until you switch it on, one category at a time.
+          </li>
+          <li>
+            Switching a category off deletes the days it already recorded — not
+            just future ones.
+          </li>
+          <li>
+            A carer seeing you have logged something never entitles them to the
+            number. Each reading is asked for, and refused or approved, one at a
+            time.
+          </li>
+          <li>
+            "Delete all data" clears your rows on our side and the app's data on
+            this phone.
+          </li>
+          <li>
+            A backup file you export is the one copy that can exist outside this
+            phone. You choose whether to make one and where it goes.
+          </li>
+        </ul>
+      </section>
+
+      <!-- ── traceability ──────────────────────────────────────────────── -->
+      <section class="wrap">
+        <h2>How to check any of this</h2>
+        <p>
+          Each claim above corresponds to something specific in the system. This
+          is the map.
+        </p>
+        <div class="table-scroll" style="margin-top: var(--gap-m)">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Claim on this page</th>
+                <th scope="col">What makes it true</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>No reading is stored on our servers</td>
+                <td>
+                  No table has a column for one. A guard test fails the build if
+                  a forbidden column name appears in the schema or a query.
+                </td>
+              </tr>
+              <tr>
+                <td>We hold no name</td>
+                <td>
+                  The name columns were removed from the database, and the app no
+                  longer sends one at all.
+                </td>
+              </tr>
+              <tr>
+                <td>Shared task text is unreadable to us</td>
+                <td>
+                  It is encrypted on the phone with a key sealed to each person
+                  on the task. A test seals with the real cipher and proves the
+                  text cannot be recovered without the key.
+                </td>
+              </tr>
+              <tr>
+                <td>A received reading is never written down</td>
+                <td>
+                  The code that holds it cannot reach the database, the backup or
+                  the disk cache — a test fails if those imports ever appear.
+                </td>
+              </tr>
+              <tr>
+                <td>Switching a category off removes its past days</td>
+                <td>
+                  History is filtered by present visibility, and the rows are
+                  deleted rather than hidden.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <h2>Questions</h2>
+        <p>
+          If something here is unclear, or you think it is wrong, we would rather
+          hear it than not. See <a href="help.html">Help &amp; support</a>.
+        </p>
+      </section>
+    </main>
+
+    <div class="wrap">
+      <footer class="site-footer">
+        <nav aria-label="Footer">
+          <a href="features.html">Features</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="help.html">Help &amp; support</a>
+          <a href="about.html">About</a>
+        </nav>
+        <p class="muted" style="max-width: none">
+          Your Health is an independent project.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

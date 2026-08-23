@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Features — Your Health</title>
+    <meta name="description" content="Everything Your Health does today: readings, trends, medications, friends, check-ins, shared tasks, the care circle, App Lock, backups and the home-screen widget." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <div class="wrap">
+      <header class="site-header">
+        <a class="wordmark" href="./">Your Health</a>
+        <nav aria-label="Main">
+          <a href="features.html" aria-current="page">Features</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="help.html">Help</a>
+          <a href="about.html">About</a>
+        </nav>
+      </header>
+    </div>
+
+    <main id="main">
+      <section class="wrap" style="padding-top: var(--gap-l)">
+        <p class="eyebrow">Features</p>
+        <h1>What the app actually does.</h1>
+        <p class="lede">
+          Everything below ships today. Nothing here is planned, in beta, or
+          described from a design document.
+        </p>
+      </section>
+
+      <section class="wrap" style="padding-block: var(--gap-l)">
+        <div class="shot-row">
+          <figure>
+            <img class="shot" src="assets/img/10-home.png" width="1344" height="2992"
+                 alt="The home screen with a circular wheel of tracked readings." loading="lazy" />
+            <figcaption>Home</figcaption>
+          </figure>
+          <figure>
+            <img class="shot" src="assets/img/20-trends.png" width="1344" height="2992"
+                 alt="Trends, listing sleep, blood pressure, blood sugar, oxygen and water with small bar charts." loading="lazy" />
+            <figcaption>Trends</figcaption>
+          </figure>
+          <figure>
+            <img class="shot" src="assets/img/40-tasks.png" width="1344" height="2992"
+                 alt="The shared tasks screen." loading="lazy" />
+            <figcaption>Tasks</figcaption>
+          </figure>
+          <figure>
+            <img class="shot" src="assets/img/50-checkin.png" width="1344" height="2992"
+                 alt="The daily check-in screen." loading="lazy" />
+            <figcaption>Check in</figcaption>
+          </figure>
+          <figure>
+            <img class="shot" src="assets/img/02-onboarding-2.png" width="1344" height="2992"
+                 alt="One of the setup screens shown when the app is first opened." loading="lazy" />
+            <figcaption>First run</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <h2>Recording things</h2>
+        <div class="grid" style="margin-top: var(--gap-m)">
+          <article class="card">
+            <h3>Day-to-day readings</h3>
+            <p>
+              Sleep, blood pressure, blood sugar, blood oxygen, heart rate,
+              water, and trackers you define yourself. One wedge each on the home
+              wheel: tap, enter, done.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Things that are not numbers</h3>
+            <p>
+              A symptom journal, a cycle calendar, and a weight trend each get
+              their own page rather than a wedge, because "logged today" is not a
+              useful thing to say about them.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Trends</h3>
+            <p>
+              Every metric you track appears here whether or not it has data yet,
+              with a chart and the latest value. Colours come from published
+              general guidelines, not from anything personal to you.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Medications</h3>
+            <p>
+              A list with daily doses to tick off. If you share the category, a
+              carer sees adherence — and, only if you tag them, which
+              medications.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <h2>People</h2>
+        <div class="grid" style="margin-top: var(--gap-m)">
+          <article class="card">
+            <h3>Friends</h3>
+            <p>
+              Added by a short code you share directly. No usernames, no
+              directory, no search — if you have not handed someone your code,
+              they cannot find you.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Check In</h3>
+            <p>
+              A daily "I'm all right" that friends can see. It carries a date and
+              nothing else.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Shared tasks</h3>
+            <p>
+              A task you and a friend can both see and tick off. The text is
+              encrypted on your phone to the people on the task, so the server
+              stores words it cannot read.
+            </p>
+          </article>
+          <article class="card">
+            <h3>The care circle</h3>
+            <p>
+              Someone who looks after you sees whether you logged a category
+              today — never the number, unless you approve a specific request for
+              it.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <h2>On the device</h2>
+        <div class="grid" style="margin-top: var(--gap-m)">
+          <article class="card">
+            <h3>App Lock</h3>
+            <p>Biometrics or a PIN in front of the app.</p>
+          </article>
+          <article class="card">
+            <h3>Backup &amp; restore</h3>
+            <p>
+              An encrypted file you control. See
+              <a href="help.html">Help</a> for what cannot be recovered.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Home-screen widget</h3>
+            <p>
+              One metric per page with a small chart, rotating on its own.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Reading feed</h3>
+            <p>
+              Short articles, fetched in a way that is not tied to you.
+            </p>
+          </article>
+        </div>
+      </section>
+
+    </main>
+
+    <div class="wrap">
+      <footer class="site-footer">
+        <nav aria-label="Footer">
+          <a href="features.html">Features</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="help.html">Help &amp; support</a>
+          <a href="about.html">About</a>
+        </nav>
+        <p class="muted" style="max-width: none">
+          Your Health is an independent project. It is not medical care.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

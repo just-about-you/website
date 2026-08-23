@@ -1,0 +1,83 @@
+/* Y110 — the founder light palette, as web tokens.
+ *
+ * Values are copied verbatim from `_founderLight` in
+ * `app/lib/core/theme/app_theme.dart`. If a value here disagrees with that
+ * file, that file is right and this one is stale.
+ *
+ * LIGHT MODE ONLY, by operator instruction. There is deliberately no
+ * `prefers-color-scheme: dark` block: the site commits to one look rather
+ * than following the visitor's system setting, so every colour below is a
+ * final value and `body` paints an explicit background.
+ */
+
+:root {
+  /* ── surfaces ─────────────────────────────────────────────────────── */
+  --sand: #f0ede0; /* page ground */
+  --paper: #faf7ec; /* raised cards, panels */
+  --line: #dcd5be; /* hairlines, dividers, card borders */
+
+  /* ── ink ──────────────────────────────────────────────────────────── */
+  --ink: #16241c; /* headings and body */
+  --ink-soft: #5e6e60; /* secondary text, captions, labels */
+
+  /* ── accents ──────────────────────────────────────────────────────── */
+  --emerald: #14805c; /* primary action, links, the brand colour */
+  --bronze: #a8703c; /* secondary accent, used sparingly */
+
+  /* ── the inverted surface ─────────────────────────────────────────── */
+  /* Fixed within the style regardless of light/dark in the app, which is
+   * why it reads as a deliberate "pop" rather than a theme artefact. */
+  --ink-surface: #1c4a38;
+  --on-ink-surface: #f0d9a8;
+
+  /* ── type ─────────────────────────────────────────────────────────── */
+  /* Newsreader (serif) for display, Hanken Grotesk for body — the same
+   * pairing the app ships. Both are on Google Fonts, which is the only
+   * external host an artifact CSP allows, and both carry a real fallback
+   * stack so a blocked font request degrades rather than breaks. */
+  --font-display: "Newsreader", "Iowan Old Style", "Palatino Linotype",
+    Palatino, Georgia, serif;
+  --font-body: "Hanken Grotesk", "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* A modular scale, clamped so it reflows without media queries. The
+   * lower bound of each clamp is what a 360px viewport gets — the width
+   * Y140 tests against. */
+  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.09rem);
+  --step-1: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
+  --step-2: clamp(1.5rem, 1.3rem + 1vw, 2.1rem);
+  --step-3: clamp(1.9rem, 1.5rem + 2vw, 3rem);
+  --step-4: clamp(2.3rem, 1.7rem + 3.2vw, 4.2rem);
+
+  /* ── spacing, radii, shadow ───────────────────────────────────────── */
+  --gap-xs: 0.5rem;
+  --gap-s: 0.85rem;
+  --gap-m: 1.4rem;
+  --gap-l: 2.4rem;
+  --gap-xl: 4rem;
+  --gap-xxl: 6.5rem;
+
+  --radius-s: 10px;
+  --radius-m: 16px;
+  --radius-l: 24px;
+
+  /* Low and warm. A neutral grey shadow on this sand reads as dirt. */
+  --shadow-card: 0 1px 2px rgba(22, 36, 28, 0.04),
+    0 8px 24px rgba(22, 36, 28, 0.06);
+
+  --measure: 34rem; /* readable line length */
+  --page-max: 68rem;
+}
+
+/* Honour a reduced-motion preference everywhere, once. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
