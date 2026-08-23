@@ -1,0 +1,6 @@
+# Harness session state. Not site content, and this repo becomes public.
+.claude/
+
+# OS noise
+.DS_Store
+Thumbs.db
