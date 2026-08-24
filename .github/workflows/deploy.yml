@@ -56,14 +56,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # enablement turns Pages on via the API if it is not already on, and sets
-      # the build source to "workflow". Without it the first run of a repo that
-      # has never had Pages enabled fails with a bare
-      # "Get Pages site failed ... Error: Not Found", which reads like a broken
-      # workflow rather than an unset repository setting.
+      # Pages must already be enabled on the repository, with
+      #   Settings > Pages > Build and deployment > Source = "GitHub Actions".
+      #
+      # This cannot be done from the workflow. `enablement: true` was tried on
+      # run #3 and the API refused it -- "Create Pages site failed. Error:
+      # Resource not accessible by integration" -- because creating a Pages
+      # site is an admin-level call and GITHUB_TOKEN's `pages: write` does not
+      # cover it. It was removed rather than left in as a call that can only
+      # fail; once Pages is on, it would be a no-op anyway.
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       # path '.' matches README.md's "GitHub Pages serves this directory
       # as-is". .git is excluded by the action; scripts/ and README.md ship,
