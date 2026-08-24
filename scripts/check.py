@@ -75,11 +75,21 @@ def check(page, html):
 # an image that is in the site but not the manifest is either hand-copied or
 # left over from a deleted screen. Both have already happened once: a blank
 # settings capture survived a failed run and was committed as part of the set.
-MANIFEST = os.path.normpath(
-    os.path.join(ROOT, '..', 'design-docs', 'assets', 'MANIFEST.md'))
+DESIGN_DOCS = os.path.normpath(os.path.join(ROOT, '..', 'design-docs'))
+MANIFEST = os.path.join(DESIGN_DOCS, 'assets', 'MANIFEST.md')
 
 
 def check_manifest():
+    # design-docs is a separate repo. On a checkout that has it — any working
+    # copy of the four-repo tree — the manifest must be there and must agree
+    # with the site. On a checkout that does not (CI clones this repo alone),
+    # the question is unanswerable, not answered "no": skip it and say so.
+    # Absent sibling repo != missing manifest, and conflating them made the
+    # Pages deploy fail on a check it could never have passed.
+    if not os.path.isdir(DESIGN_DOCS):
+        print('  SKIP: no design-docs checkout beside this repo — '
+              'manifest agreement not checkable here')
+        return
     if not os.path.exists(MANIFEST):
         problems.append('no screenshot manifest at ' + MANIFEST)
         return
