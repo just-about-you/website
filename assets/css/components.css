@@ -516,6 +516,48 @@ section + section {
   justify-content: center;
 }
 
+/* ── document pages ───────────────────────────────────────────────────── */
+
+/* about / help / privacy carry no media. Given the landing page's layout they
+ * inherited a 68rem wrap holding paragraphs that base.css caps at --measure
+ * (34rem) — so text filled the left half and stopped, while the card grids
+ * filled the whole width. A reader arriving from index.html, where that
+ * right-hand space IS an image, reads the gap as a picture that failed to
+ * load. Nothing was ever meant to go there.
+ *
+ * So these pages become what they actually are: a document. One centred
+ * reading column at the measure the text was already using, with the wider
+ * elements stepping outside it deliberately.
+ *
+ * --measure is NOT widened to fill the space. At the body size that is about
+ * 62 characters a line, which is the number it should be; the column was
+ * right and the container around it was wrong.
+ */
+.doc main .wrap {
+  width: min(100% - 2.5rem, 37rem);
+}
+
+/* Cards, tables and screenshot rows need more room than a reading column.
+ * They break out of it and centre on the page instead — a deliberate step
+ * out reads as designed, where a half-filled row reads as broken.
+ *
+ * The margin resolves to zero once the viewport is narrower than the
+ * breakout, so this collapses to a plain full-width block on a phone with no
+ * media query and no overflow. */
+.doc main .grid,
+.doc main .steps,
+.doc main .table-scroll,
+.doc main .shot-row,
+.doc main .cta-panel {
+  width: min(100vw - 2.5rem, 58rem);
+  margin-inline: calc(50% - min(50vw - 1.25rem, 29rem));
+}
+
+/* The band is already full-bleed; only its inner column needs centring. */
+.doc .band .section-head {
+  margin-inline: auto;
+}
+
 /* ── small print ──────────────────────────────────────────────────────── */
 
 .fineprint {
