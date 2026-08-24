@@ -56,7 +56,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # enablement turns Pages on via the API if it is not already on, and sets
+      # the build source to "workflow". Without it the first run of a repo that
+      # has never had Pages enabled fails with a bare
+      # "Get Pages site failed ... Error: Not Found", which reads like a broken
+      # workflow rather than an unset repository setting.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       # path '.' matches README.md's "GitHub Pages serves this directory
       # as-is". .git is excluded by the action; scripts/ and README.md ship,
