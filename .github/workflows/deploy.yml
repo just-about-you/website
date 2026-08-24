@@ -1,0 +1,69 @@
+# Deploys this directory to GitHub Pages on every push to main.
+#
+# The site has no build step — GitHub Pages serves the repo root as-is, which is
+# what README.md describes. So there is nothing to compile; the only thing worth
+# doing before publishing is refusing to publish a broken page.
+#
+# Free on public repositories. On a private repo, Pages needs GitHub Pro/Team
+# and the run consumes Actions minutes.
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time. Queue rather than cancel: a push landing mid-deploy
+# should still ship, not be silently dropped.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  # Runs on pull requests too, so a broken link is caught before merge
+  # rather than after it is live.
+  check:
+    name: Y140 gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # scripts/check.py is stdlib-only by design, so there is no install step
+      # and nothing to pin. It exits 1 on: a dead internal link, an image that
+      # does not resolve, an image with no alt text, an external host outside
+      # the Google Fonts allowlist, or an image the capture manifest omits.
+      - name: Links, alt text, external hosts, capture manifest
+        run: python scripts/check.py
+
+  deploy:
+    name: Publish
+    needs: check
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      # path '.' matches README.md's "GitHub Pages serves this directory
+      # as-is". .git is excluded by the action; scripts/ and README.md ship,
+      # which is harmless on a repo that is already public.
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
