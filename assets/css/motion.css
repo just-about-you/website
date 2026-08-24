@@ -1,0 +1,182 @@
+/* Motion.
+ *
+ * The whole file is built around one rule: NOTHING is hidden unless we are
+ * certain we can show it again. There are four combinations to survive —
+ * JS on/off crossed with prefers-reduced-motion on/off — and the failure mode
+ * of getting it wrong is a blank page, which is worse than no animation.
+ *
+ *   no JS            .reveal never gets opacity:0, because the rules are all
+ *                    scoped under .js, which only exists once the script runs.
+ *   JS + motion ok   normal behaviour: hidden, then revealed on scroll.
+ *   JS + reduced     the media query below un-hides everything; the observer
+ *                    also marks all of them immediately, so neither half
+ *                    depends on the other.
+ *   JS errors        the script sets .js last, after the observer is wired,
+ *                    so a throw leaves the page in the no-JS state.
+ *
+ * tokens.css already zeroes animation and transition durations globally under
+ * prefers-reduced-motion. That is necessary but NOT sufficient here: a zeroed
+ * transition on an element still at opacity:0 leaves it invisible forever.
+ * Hence the explicit un-hide.
+ */
+
+/* ── scroll reveal ────────────────────────────────────────────────────── */
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Deliberately no will-change. These pages carry 20+ reveal targets, and
+   * promoting every one to its own layer costs more memory than the opacity
+   * transition saves. */
+}
+
+.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Children stagger against their parent. Set --i on each child. */
+.js .reveal-group > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+.js .reveal-group.is-in > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* The un-hide. Must come after the rules it overrides. */
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal,
+  .js .reveal-group > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── hero entrance ────────────────────────────────────────────────────── */
+
+/* Runs once on load rather than on scroll — the hero is already in view, and
+ * an IntersectionObserver firing for it would be a frame late. */
+.js .hero-in > * {
+  animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.js .hero-in > *:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.js .hero-in > *:nth-child(2) {
+  animation-delay: 0.14s;
+}
+.js .hero-in > *:nth-child(3) {
+  animation-delay: 0.23s;
+}
+.js .hero-in > *:nth-child(4) {
+  animation-delay: 0.32s;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The device arrives from slightly further, slightly later. */
+.js .device-in {
+  animation: rise-device 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.18s backwards;
+}
+
+@keyframes rise-device {
+  from {
+    opacity: 0;
+    transform: translateY(34px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* A very slow drift, so the hero is never completely static. Deliberately
+ * small — 6px over 7s reads as "alive", 20px reads as "broken". */
+.js .device-float {
+  animation: drift 7s ease-in-out 1.4s infinite;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.js .float-card {
+  animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.js .float-card--a {
+  animation-delay: 0.75s;
+}
+
+.js .float-card--b {
+  animation-delay: 0.95s;
+}
+
+/* Reduced motion: no entrance, no drift, no float-in. Everything simply is. */
+@media (prefers-reduced-motion: reduce) {
+  .js .hero-in > *,
+  .js .device-in,
+  .js .device-float,
+  .js .float-card {
+    animation: none;
+  }
+}
+
+/* ── link and card affordances ────────────────────────────────────────── */
+
+.card,
+.steps li {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card:hover,
+.steps li:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--emerald) 35%, var(--line));
+  box-shadow: 0 14px 38px rgba(22, 36, 28, 0.11);
+}
+
+/* Hover lift is pointer-only. On touch it fires on tap and sticks. */
+@media (hover: none) {
+  .card:hover,
+  .steps li:hover {
+    transform: none;
+    box-shadow: var(--shadow-card);
+  }
+}
+
+.feature-media .shot {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .feature-row:hover .feature-media .shot {
+    transform: translateY(-4px) rotate(-0.4deg);
+  }
+}

@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Features — Your Health</title>
-    <meta name="description" content="Everything Your Health does today: readings, trends, medications, friends, check-ins, shared tasks, the care circle, App Lock, backups and the home-screen widget." />
+    <meta
+      name="description"
+      content="What the app does today: readings on the home wheel, trends, medications, a care circle that sees a tick rather than a number, App Lock, encrypted backup and a home-screen widget."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,166 +16,294 @@
     />
     <link rel="stylesheet" href="assets/css/tokens.css" />
     <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <link rel="stylesheet" href="assets/css/motion.css" />
+    <script src="assets/js/motion.js" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
 
-    <div class="wrap">
+    <div class="header-shell">
       <header class="site-header">
-        <a class="wordmark" href="./">Your Health</a>
-        <nav aria-label="Main">
-          <a href="features.html" aria-current="page">Features</a>
-          <a href="privacy.html">Privacy</a>
-          <a href="help.html">Help</a>
-          <a href="about.html">About</a>
-        </nav>
+        <div class="wrap" style="display: contents">
+          <a class="wordmark" href="./">Your Health</a>
+          <nav aria-label="Main">
+            <a href="features.html" aria-current="page">Features</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="help.html">Help</a>
+            <a href="about.html">About</a>
+          </nav>
+        </div>
       </header>
     </div>
 
     <main id="main">
-      <section class="wrap" style="padding-top: var(--gap-l)">
-        <p class="eyebrow">Features</p>
-        <h1>What the app actually does.</h1>
-        <p class="lede">
-          Everything below ships today. Nothing here is planned, in beta, or
-          described from a design document.
-        </p>
-      </section>
-
-      <section class="wrap" style="padding-block: var(--gap-l)">
-        <div class="shot-row">
-          <figure>
-            <img class="shot" src="assets/img/10-home.png" width="1344" height="2992"
-                 alt="The home screen with a circular wheel of tracked readings." loading="lazy" />
-            <figcaption>Home</figcaption>
-          </figure>
-          <figure>
-            <img class="shot" src="assets/img/20-trends.png" width="1344" height="2992"
-                 alt="Trends, listing sleep, blood pressure, blood sugar, oxygen and water with small bar charts." loading="lazy" />
-            <figcaption>Trends</figcaption>
-          </figure>
-          <figure>
-            <img class="shot" src="assets/img/40-tasks.png" width="1344" height="2992"
-                 alt="The shared tasks screen." loading="lazy" />
-            <figcaption>Tasks</figcaption>
-          </figure>
-          <figure>
-            <img class="shot" src="assets/img/50-checkin.png" width="1344" height="2992"
-                 alt="The daily check-in screen." loading="lazy" />
-            <figcaption>Check in</figcaption>
-          </figure>
-          <figure>
-            <img class="shot" src="assets/img/02-onboarding-2.png" width="1344" height="2992"
-                 alt="One of the setup screens shown when the app is first opened." loading="lazy" />
-            <figcaption>First run</figcaption>
-          </figure>
+      <section class="wrap hero" style="padding-bottom: var(--gap-l)">
+        <div class="hero-in" style="max-width: 44rem">
+          <p class="eyebrow">Features</p>
+          <h1>What the app <span class="hl">actually</span> does.</h1>
+          <p class="lede">
+            Everything on this page ships today. Nothing here is planned, in
+            beta, or described from a design document — if it is written below,
+            you can open the app and use it.
+          </p>
         </div>
       </section>
 
+      <!-- ── recording ─────────────────────────────────────────────────── -->
       <section class="wrap">
-        <h2>Recording things</h2>
-        <div class="grid" style="margin-top: var(--gap-m)">
-          <article class="card">
+        <div class="section-head reveal">
+          <p class="eyebrow">Recording things</p>
+          <h2>Track the two things you care about, or all of them.</h2>
+        </div>
+
+        <div class="feature-row reveal">
+          <div>
             <h3>Day-to-day readings</h3>
             <p>
               Sleep, blood pressure, blood sugar, blood oxygen, heart rate,
-              water, and trackers you define yourself. One wedge each on the home
-              wheel: tap, enter, done.
+              water, and trackers you make up yourself. Each gets one wedge on
+              the home wheel: tap, type, done.
             </p>
-          </article>
+            <p>
+              Hold the plus or minus and it speeds up, so entering a blood
+              pressure is not forty taps.
+            </p>
+          </div>
+          <div class="feature-media">
+            <img
+              class="shot"
+              src="assets/img/10-home.png"
+              width="1344"
+              height="2992"
+              alt="The home screen: a circular wheel with one wedge per tracked
+                   reading, and prompt cards underneath."
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="feature-row feature-row--flip reveal">
+          <div>
+            <h3>Trends, including the empty ones</h3>
+            <p>
+              Every metric you track appears here whether or not it has any data
+              yet — an entry point that vanishes when you have not used it is a
+              feature you forget you have.
+            </p>
+            <p>
+              Colours against a reading come from published general guidelines,
+              not from anything personal to you.
+            </p>
+          </div>
+          <div class="feature-media">
+            <img
+              class="shot"
+              src="assets/img/20-trends.png"
+              width="1344"
+              height="2992"
+              alt="The trends screen, listing each tracked metric with a small
+                   bar chart and its latest value."
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="grid reveal-group" style="margin-top: var(--gap-xxl)">
           <article class="card">
             <h3>Things that are not numbers</h3>
             <p>
-              A symptom journal, a cycle calendar, and a weight trend each get
-              their own page rather than a wedge, because "logged today" is not a
-              useful thing to say about them.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Trends</h3>
-            <p>
-              Every metric you track appears here whether or not it has data yet,
-              with a chart and the latest value. Colours come from published
-              general guidelines, not from anything personal to you.
+              A symptom journal, a cycle calendar and a weight trend each get
+              their own page rather than a wedge, because "logged today" is not
+              a useful thing to say about them.
             </p>
           </article>
           <article class="card">
             <h3>Medications</h3>
             <p>
               A list with daily doses to tick off. If you share the category, a
-              carer sees adherence — and, only if you tag them, which
-              medications.
+              carer sees whether you took them — and, only if you tag them,
+              which ones.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Choose what you track</h3>
+            <p>
+              Turn off everything you do not use. The wheel, the trends list and
+              the widget all follow, so an unused metric stops taking up room.
             </p>
           </article>
         </div>
       </section>
 
+      <!-- ── people ────────────────────────────────────────────────────── -->
       <section class="wrap">
-        <h2>People</h2>
-        <div class="grid" style="margin-top: var(--gap-m)">
-          <article class="card">
-            <h3>Friends</h3>
+        <div class="section-head reveal">
+          <p class="eyebrow">People</p>
+          <h2>Nobody can find you. You hand out an invite, or nothing happens.</h2>
+          <p class="lede">
+            There are no usernames, no directory and no search. If you have not
+            given someone an invite yourself, there is no way for them to reach
+            you — not by guessing, and not by looking you up.
+          </p>
+        </div>
+
+        <div class="feature-row reveal">
+          <div>
+            <h3>Friends, and a daily "I'm all right"</h3>
             <p>
-              Added by a short code you share directly. No usernames, no
-              directory, no search — if you have not handed someone your code,
-              they cannot find you.
+              Add someone with a single-use invite you send them however you
+              like. Check In tells the people you chose that you are fine today.
+              It carries a date and nothing else.
             </p>
-          </article>
-          <article class="card">
-            <h3>Check In</h3>
             <p>
-              A daily "I'm all right" that friends can see. It carries a date and
-              nothing else.
+              Names live on your phone, not ours — you label people yourself,
+              and that label never leaves the device.
             </p>
-          </article>
-          <article class="card">
-            <h3>Shared tasks</h3>
-            <p>
-              A task you and a friend can both see and tick off. The text is
-              encrypted on your phone to the people on the task, so the server
-              stores words it cannot read.
-            </p>
-          </article>
-          <article class="card">
+          </div>
+          <div class="feature-media">
+            <img
+              class="shot"
+              src="assets/img/30-people.png"
+              width="1344"
+              height="2992"
+              alt="The people screen, listing friends and the people you care
+                   for."
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="feature-row feature-row--flip reveal">
+          <div>
             <h3>The care circle</h3>
             <p>
               Someone who looks after you sees whether you logged a category
-              today — never the number, unless you approve a specific request for
-              it.
+              today. Not the number. If they need an actual figure they have to
+              ask for that one reading, and it is sent only if you approve that
+              request.
             </p>
-          </article>
+            <p>
+              Turning a category off removes its past days too — what they can
+              see is always what you allow now, not what you once allowed.
+            </p>
+          </div>
+          <div class="feature-media">
+            <img
+              class="shot"
+              src="assets/img/70-care.png"
+              width="1344"
+              height="2992"
+              alt="The caring-for view, showing each shared category as logged
+                   or not logged per day, with no values shown."
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="feature-row reveal">
+          <div>
+            <h3>Shared tasks</h3>
+            <p>
+              A task you and a friend can both see and tick off — a repeat
+              prescription to collect, an appointment to get to. The words are
+              encrypted on your phone to the people on the task, so the server
+              stores text it cannot read.
+            </p>
+          </div>
+          <div class="feature-media">
+            <img
+              class="shot"
+              src="assets/img/40-tasks.png"
+              width="1344"
+              height="2992"
+              alt="The shared tasks screen, showing a task visible to both
+                   people on it."
+              loading="lazy"
+            />
+          </div>
         </div>
       </section>
 
+      <!-- ── on the device ─────────────────────────────────────────────── -->
       <section class="wrap">
-        <h2>On the device</h2>
-        <div class="grid" style="margin-top: var(--gap-m)">
+        <div class="section-head reveal">
+          <p class="eyebrow">On the device</p>
+          <h2>The bits that matter when the phone is out of your hands.</h2>
+        </div>
+
+        <div class="grid reveal-group">
           <article class="card">
             <h3>App Lock</h3>
-            <p>Biometrics or a PIN in front of the app.</p>
+            <p>
+              Your fingerprint, your face, or a PIN in front of the whole app.
+              Off by default — it is offered during setup, and declining costs
+              you nothing.
+            </p>
           </article>
           <article class="card">
-            <h3>Backup &amp; restore</h3>
+            <h3>Backup and restore</h3>
             <p>
-              An encrypted file you control. See
-              <a href="help.html">Help</a> for what cannot be recovered.
+              An encrypted file that you keep, wherever you like. Only your
+              password opens it. See <a href="help.html">Help</a> for the part
+              that cannot be recovered.
             </p>
           </article>
           <article class="card">
             <h3>Home-screen widget</h3>
             <p>
-              One metric per page with a small chart, rotating on its own.
+              One metric per page with a small chart, turning over on its own
+              without waking the app. Choose which metrics appear.
             </p>
           </article>
           <article class="card">
             <h3>Reading feed</h3>
             <p>
-              Short articles, fetched in a way that is not tied to you.
+              Short articles on sleep, stress and the rest, fetched in a way
+              that is not tied to you — the request carries no identity at all.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Themes</h3>
+            <p>
+              Several palettes, light and dark. The app is readable at large
+              text sizes; screens are tested at double the normal size.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Delete everything</h3>
+            <p>
+              One button empties the database, clears your settings, cancels
+              scheduled reminders and overwrites the freed space so the old rows
+              are not left readable on disk.
             </p>
           </article>
         </div>
       </section>
 
+      <!-- ── closing ───────────────────────────────────────────────────── -->
+      <section class="wrap">
+        <div class="cta-panel reveal">
+          <h2>Have a look at what is stored.</h2>
+          <p class="lede">
+            The privacy page lists it table by table, including the parts that
+            need a caveat.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="privacy.html">What we store</a>
+            <a class="btn btn--ghost" href="help.html">Help &amp; support</a>
+          </div>
+        </div>
+
+        <div class="fineprint" style="margin-top: var(--gap-xl)">
+          <p>
+            Your Health is a self-help tool for recording how you feel and
+            keeping track of things over time. It is not a medical device. It
+            does not diagnose, treat, cure, or prevent any illness, and it is
+            not a substitute for professional advice.
+          </p>
+        </div>
+      </section>
     </main>
 
     <div class="wrap">
@@ -184,7 +315,8 @@
           <a href="about.html">About</a>
         </nav>
         <p class="muted" style="max-width: none">
-          Your Health is an independent project. It is not medical care.
+          Your Health is an independent project. Screenshots show the app
+          running with demonstration data.
         </p>
       </footer>
     </div>

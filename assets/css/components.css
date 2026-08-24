@@ -1,0 +1,530 @@
+/* The structural layer — everything base.css did not need when the site was
+ * five documents in a column.
+ *
+ * Loaded after base.css, before motion.css. Same rule as base.css: every
+ * colour is a var(--…), because the palette's source of truth is the app's
+ * _founderLight, not this file.
+ */
+
+/* ── page furniture ───────────────────────────────────────────────────── */
+
+/* A soft warm glow behind the hero. Two radial gradients on the body's own
+ * ::before rather than an image, so it costs nothing to download and cannot
+ * be a stale asset. Fixed height: it lights the top of the page and stops. */
+body {
+  /* The glow below is absolutely positioned. Without this it would anchor to
+   * the initial containing block — the viewport — and stay put while the page
+   * scrolled under it. */
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 78vh;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(
+      60% 50% at 78% 12%,
+      color-mix(in srgb, var(--emerald) 11%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 45% at 12% 4%,
+      color-mix(in srgb, var(--bronze) 9%, transparent),
+      transparent 70%
+    );
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Sticky header, in two parts.
+ *
+ * .header-shell is full-bleed and carries the sticky behaviour and all the
+ * chrome, so the background and hairline run edge to edge.
+ * .site-header is the constrained, centred row inside it.
+ *
+ * The markup nests a `.wrap` with `display: contents` between them, which
+ * contributes nothing to layout by design — so .site-header has to carry the
+ * width constraint itself. It used to inherit that from a .wrap that sat
+ * outside the header; moving the wrap inside quietly dropped it and let the
+ * header run the full width of the viewport.
+ */
+.header-shell {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--sand) 82%, transparent);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .header-shell {
+    backdrop-filter: blur(12px) saturate(1.4);
+  }
+}
+
+.header-shell.is-stuck {
+  border-bottom-color: var(--line);
+  background: color-mix(in srgb, var(--sand) 92%, transparent);
+}
+
+.site-header {
+  /* Same measurements as .wrap. */
+  width: min(100% - 2.5rem, var(--page-max));
+  margin-inline: auto;
+}
+
+/* ── vertical rhythm ──────────────────────────────────────────────────── */
+
+/* base.css gives every section 6.5rem top AND bottom, so two adjacent
+ * sections put 13rem of empty page between their content. On a long page that
+ * stops reading as breathing room and starts reading as a failed render. One
+ * section owns the gap: the one above.
+ *
+ * Bands are the exception — they carry a background, so their padding is the
+ * inset of a visible panel rather than a gap between two invisible ones, and
+ * the section after a band needs its own top padding back. */
+section + section {
+  padding-top: 0;
+}
+
+.band,
+.band + section {
+  padding-top: var(--gap-xxl);
+}
+
+/* ── hero ─────────────────────────────────────────────────────────────── */
+
+.hero {
+  padding-block: clamp(var(--gap-l), 8vw, var(--gap-xxl)) var(--gap-xl);
+}
+
+.hero-grid {
+  display: grid;
+  gap: var(--gap-xl);
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 62rem) {
+  .hero-grid {
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: var(--gap-l);
+  }
+}
+
+.hero h1 {
+  /* Bigger than the base scale: the hero headline is the one place on the
+   * site that is allowed to shout. */
+  font-size: clamp(2.6rem, 1.6rem + 4.4vw, 4.9rem);
+  letter-spacing: -0.025em;
+  margin-bottom: var(--gap-m);
+}
+
+.hero .lede {
+  max-width: 32rem;
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.32rem);
+  color: var(--ink-soft);
+}
+
+/* Emphasis inside a headline, without leaving the palette. */
+.hl {
+  color: var(--emerald);
+  font-style: italic;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-s);
+  align-items: center;
+  margin-top: var(--gap-l);
+}
+
+/* ── the store badge (placeholder until the listing exists) ───────────── */
+
+.store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  background: var(--ink-surface);
+  color: var(--on-ink-surface);
+  border-radius: var(--radius-m);
+  padding: 0.62em 1.15em;
+  text-decoration: none;
+  line-height: 1.15;
+  border: 1px solid transparent;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.store-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(22, 36, 28, 0.16);
+}
+
+.store-badge svg {
+  flex: 0 0 auto;
+  width: 1.55em;
+  height: 1.55em;
+}
+
+.store-badge b {
+  display: block;
+  font-size: var(--step-0);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.store-badge span {
+  display: block;
+  font-size: 0.72em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+
+/* Not yet on a store. Says so, rather than linking to a 404. */
+.store-badge--soon {
+  cursor: default;
+}
+
+.store-badge--soon:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── device frame ─────────────────────────────────────────────────────── */
+
+.device {
+  position: relative;
+  width: min(17.5rem, 68vw);
+  margin-inline: auto;
+  border-radius: 2.2rem;
+  padding: 0.55rem;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--ink) 88%, var(--emerald)),
+    var(--ink)
+  );
+  box-shadow: 0 2px 6px rgba(22, 36, 28, 0.14),
+    0 28px 70px rgba(22, 36, 28, 0.24);
+}
+
+.device::after {
+  /* The speaker slot. Purely decorative, hidden from assistive tech. */
+  content: "";
+  position: absolute;
+  top: 1.05rem;
+  left: 50%;
+  translate: -50% 0;
+  width: 22%;
+  height: 0.28rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--on-ink-surface) 22%, transparent);
+  z-index: 2;
+}
+
+.device-screen {
+  position: relative;
+  border-radius: 1.75rem;
+  overflow: hidden;
+  background: var(--paper);
+  aspect-ratio: 1344 / 2992;
+}
+
+.device-screen img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.device-screen img.is-current {
+  opacity: 1;
+}
+
+/* A card that floats beside the device, carrying one claim. */
+.float-card {
+  position: absolute;
+  z-index: 3;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  box-shadow: 0 12px 34px rgba(22, 36, 28, 0.14);
+  padding: 0.72rem 0.95rem;
+  font-size: var(--step--1);
+  line-height: 1.35;
+  max-width: 12.5rem;
+}
+
+.float-card b {
+  display: block;
+  font-weight: 600;
+}
+
+.float-card span {
+  color: var(--ink-soft);
+}
+
+/* Far enough out to sit beside the phone rather than on top of its screen —
+ * they are captions, and a caption covering the thing it captions is worse
+ * than no caption. They still overlap the bezel, which is the point. */
+.float-card--a {
+  top: 16%;
+  left: -4.25rem;
+}
+
+.float-card--b {
+  bottom: 17%;
+  right: -4.25rem;
+}
+
+/* Below the two-column breakpoint the floats would hang off the viewport. */
+@media (max-width: 61.99rem) {
+  .float-card {
+    display: none;
+  }
+}
+
+/* ── section headers ──────────────────────────────────────────────────── */
+
+.section-head {
+  max-width: 44rem;
+  margin-bottom: var(--gap-xl);
+}
+
+.section-head h2 {
+  font-size: clamp(1.9rem, 1.4rem + 2.2vw, 3.1rem);
+}
+
+.section-head .lede {
+  max-width: 40rem;
+}
+
+/* Centre variant, for the full-bleed bands. */
+.section-head--mid {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-head--mid .lede,
+.section-head--mid p {
+  margin-inline: auto;
+}
+
+/* ── alternating feature rows ─────────────────────────────────────────── */
+
+.feature-row {
+  display: grid;
+  gap: var(--gap-l);
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 56rem) {
+  .feature-row {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap-xl);
+  }
+
+  /* Media on the left, text on the right, without reordering the DOM —
+   * reading order stays text-then-image for a screen reader. */
+  .feature-row--flip .feature-media {
+    order: -1;
+  }
+}
+
+.feature-row + .feature-row {
+  margin-top: var(--gap-xxl);
+}
+
+.feature-media {
+  display: flex;
+  justify-content: center;
+}
+
+.feature-media .shot {
+  width: min(15rem, 60vw);
+  box-shadow: 0 18px 48px rgba(22, 36, 28, 0.16);
+}
+
+/* ── stat strip ───────────────────────────────────────────────────────── */
+
+.stats {
+  display: grid;
+  gap: var(--gap-m);
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+  margin-top: var(--gap-xl);
+}
+
+.stat {
+  text-align: center;
+  padding: var(--gap-m) var(--gap-s);
+  border-radius: var(--radius-m);
+  border: 1px solid color-mix(in srgb, var(--on-ink-surface) 18%, transparent);
+}
+
+.stat b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 2rem + 2.4vw, 3.8rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.stat span {
+  display: block;
+  margin-top: var(--gap-xs);
+  font-size: var(--step--1);
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--on-ink-surface) 78%, transparent);
+}
+
+/* ── numbered steps ───────────────────────────────────────────────────── */
+
+.steps {
+  counter-reset: step;
+  display: grid;
+  gap: var(--gap-m);
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  margin-top: var(--gap-xl);
+  padding: 0;
+  list-style: none;
+}
+
+.steps li {
+  counter-increment: step;
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding: var(--gap-l) var(--gap-m) var(--gap-m);
+  max-width: none;
+  box-shadow: var(--shadow-card);
+}
+
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  top: var(--gap-m);
+  left: var(--gap-m);
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  line-height: 1;
+  /* Solid, not a tint. A 55% emerald here measured 2.2:1 on --paper, which
+   * fails even the large-text threshold — and these numerals are content
+   * (they carry the step order), not decoration. Solid emerald is 4.58:1.
+   * Checked by scripts/contrast.py. */
+  color: var(--emerald);
+}
+
+.steps h3 {
+  font-size: var(--step-1);
+  margin-top: var(--gap-m);
+  margin-bottom: var(--gap-xs);
+}
+
+.steps p {
+  margin-bottom: 0;
+  color: var(--ink-soft);
+  max-width: none;
+}
+
+/* ── the "what we don't do" list ──────────────────────────────────────── */
+
+.nots {
+  display: grid;
+  gap: var(--gap-s);
+  margin-top: var(--gap-l);
+  padding: 0;
+  list-style: none;
+}
+
+.nots li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--gap-s);
+  align-items: start;
+  max-width: 42rem;
+  padding: var(--gap-s) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.nots li:last-child {
+  border-bottom: 0;
+}
+
+.nots .mark {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  line-height: 1.1;
+  color: var(--bronze);
+}
+
+.nots b {
+  display: block;
+  margin-bottom: 0.15em;
+}
+
+.nots span {
+  color: var(--ink-soft);
+}
+
+/* ── pull quote ───────────────────────────────────────────────────────── */
+
+.pull {
+  max-width: 46rem;
+  margin: var(--gap-xl) auto;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.4rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+/* ── closing call to action ───────────────────────────────────────────── */
+
+.cta-panel {
+  text-align: center;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: clamp(var(--gap-l), 6vw, var(--gap-xl));
+  box-shadow: var(--shadow-card);
+}
+
+.cta-panel h2 {
+  margin-bottom: var(--gap-s);
+}
+
+.cta-panel p {
+  margin-inline: auto;
+}
+
+.cta-panel .cta-row {
+  justify-content: center;
+}
+
+/* ── small print ──────────────────────────────────────────────────────── */
+
+.fineprint {
+  border-top: 1px solid var(--line);
+  padding-top: var(--gap-m);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+.fineprint p {
+  max-width: 46rem;
+}

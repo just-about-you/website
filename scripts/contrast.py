@@ -50,6 +50,16 @@ PAIRS = [
     ('emerald-text', 'sand', 'links on the page ground', AA_BODY),
     ('emerald-text', 'paper', 'links on a card', AA_BODY),
     ('on-ink-surface', 'ink-surface', 'text on the inverted band', AA_BODY),
+
+    # Added with the redesign. The brand emerald is 4.19:1 on --sand, under
+    # AA for normal text — which is why --emerald-text exists for links. These
+    # two uses are display-sized, so the large-text threshold is the right one
+    # and the brand colour itself can be used:
+    ('emerald', 'sand', 'accented word in the hero headline', AA_LARGE),
+    ('bronze', 'sand', 'list marks in "what we do not do"', AA_LARGE),
+    # Step numerals are content, not decoration — they carry the order — so
+    # they are held to the body threshold even though they render large.
+    ('emerald', 'paper', 'numerals on the numbered steps', AA_BODY),
 ]
 
 # Deliberately NOT checked, with the reason recorded so it is a decision rather

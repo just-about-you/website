@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Your Health — a health tracker that keeps your readings on your phone</title>
+    <title>Your Health — health tracking that stays on your phone</title>
     <meta
       name="description"
-      content="A private health tracker for Android. Your readings are encrypted on your device. Share a daily yes-or-no with someone who looks after you — never the numbers, unless you approve each one."
+      content="A private health tracker for Android. Your readings are encrypted on your own device. Someone who looks after you sees that you logged today — not what you logged — unless you approve sending a number."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,50 +16,397 @@
     />
     <link rel="stylesheet" href="assets/css/tokens.css" />
     <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <link rel="stylesheet" href="assets/css/motion.css" />
+    <script src="assets/js/motion.js" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
 
-    <div class="wrap">
+    <div class="header-shell">
       <header class="site-header">
-        <a class="wordmark" href="./">Your Health</a>
-        <nav aria-label="Main">
-          <a href="features.html">Features</a>
-          <a href="privacy.html">Privacy</a>
-          <a href="help.html">Help</a>
-          <a href="about.html">About</a>
-        </nav>
+        <div class="wrap" style="display: contents">
+          <a class="wordmark" href="./">Your Health</a>
+          <nav aria-label="Main">
+            <a href="features.html">Features</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="help.html">Help</a>
+            <a href="about.html">About</a>
+          </nav>
+        </div>
       </header>
     </div>
 
     <main id="main">
       <!-- ── hero ──────────────────────────────────────────────────────── -->
-      <section class="wrap" style="padding-top: var(--gap-l)">
-        <p class="eyebrow">Android · free to use</p>
-        <h1>Your readings stay<br />on your phone.</h1>
-        <p class="lede">
-          A tracker for sleep, blood pressure, blood sugar, oxygen, heart rate,
-          water and more — kept in an encrypted database on your own device.
-          Someone who looks after you can see that you logged today. They cannot
-          see the number unless you send it to them.
-        </p>
-        <p style="margin-top: var(--gap-m)">
-          <a class="btn" href="#what">See how it works</a>
-          <a class="btn btn--ghost" href="privacy.html">What we store</a>
+      <section class="wrap hero">
+        <div class="hero-grid">
+          <div class="hero-in">
+            <p class="eyebrow">Android · no account · free to use</p>
+            <h1>Your health is <span class="hl">nobody else's</span> business.</h1>
+            <p class="lede">
+              Most health apps ask for your name, your email address, and every
+              reading you take — then keep all three together on their servers.
+              This one keeps your readings in an encrypted file on your own
+              phone, and never learns who you are.
+            </p>
+            <div class="cta-row">
+              <span class="store-badge store-badge--soon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    fill="currentColor"
+                    d="M4.2 2.6a1.5 1.5 0 0 0-.7 1.3v16.2a1.5 1.5 0 0 0 .7 1.3l9-9.4-9-9.4Zm10.1 8.3 2.6-2.7-9.6-5.4a1.4 1.4 0 0 0-.5-.2l7.5 8.3Zm0 2.2-7.5 8.3c.2 0 .4-.1.5-.2l9.6-5.4-2.6-2.7Zm4-2.4-2.2-1.2-2.9 3 2.9 3 2.2-1.2a1.5 1.5 0 0 0 0-2.6Z"
+                  />
+                </svg>
+                <span style="text-align: left">
+                  <b>Coming to Google Play</b>
+                  <span>Android · in preparation</span>
+                </span>
+              </span>
+              <a class="btn btn--ghost" href="privacy.html"
+                >See exactly what we store</a
+              >
+            </div>
+          </div>
+
+          <div class="feature-media">
+            <div class="device device-in device-float">
+              <div class="device-screen" data-rotate>
+                <img
+                  class="is-current"
+                  src="assets/img/10-home.png"
+                  width="1344"
+                  height="2992"
+                  alt="The home screen: a circular wheel with one wedge for each
+                       reading being tracked, and prompt cards below it."
+                />
+                <img
+                  src="assets/img/20-trends.png"
+                  width="1344"
+                  height="2992"
+                  alt="The trends screen, showing a small chart and the latest
+                       value for each tracked reading."
+                  loading="lazy"
+                />
+                <img
+                  src="assets/img/70-care.png"
+                  width="1344"
+                  height="2992"
+                  alt="The caring-for screen, showing whether each category was
+                       logged today rather than any reading."
+                  loading="lazy"
+                />
+              </div>
+              <p class="float-card float-card--a">
+                <b>No sign-up</b>
+                <span>No email, no password, no name.</span>
+              </p>
+              <p class="float-card float-card--b">
+                <b>They see a tick</b>
+                <span>Not your blood pressure.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── why this matters ──────────────────────────────────────────── -->
+      <section class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Why bother</p>
+          <h2>You can change a password. You cannot change your medical history.</h2>
+          <p class="lede">
+            If a shopping site leaks your password, you spend an afternoon
+            fixing it. Health data does not work like that. A record of a
+            diagnosis, a mental-health note, a pregnancy, a blood sugar that has
+            been climbing for a year — those follow a person for the rest of
+            their life, and no reset link takes them back.
+          </p>
+        </div>
+
+        <div class="grid reveal-group">
+          <article class="card">
+            <h3>It is permanent</h3>
+            <p>
+              Leaked health information cannot be rotated, revoked or reissued.
+              Once it is out, it is out — and it stays accurate about you for
+              decades.
+            </p>
+          </article>
+          <article class="card">
+            <h3>It is worth money</h3>
+            <p>
+              Health records sell for far more than card details, because they
+              are richer, they do not expire, and they are useful to people who
+              make decisions about your job, your cover, or your credit.
+            </p>
+          </article>
+          <article class="card">
+            <h3>It is usually kept next to your name</h3>
+            <p>
+              Most trackers need an account before they will show you anything.
+              That account puts your email address in the same database row as
+              everything you have ever recorded.
+            </p>
+          </article>
+        </div>
+
+        <p class="pull reveal">
+          The safest health data in the world is the kind nobody collected.
         </p>
       </section>
 
-      <!-- ── screenshots ───────────────────────────────────────────────── -->
-      <section class="wrap" style="padding-block: var(--gap-l)">
-        <div class="shot-row">
+      <!-- ── caregiving ────────────────────────────────────────────────── -->
+      <section class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">The part general apps get wrong</p>
+          <h2>Looking after someone should not mean watching everything they do.</h2>
+          <p class="lede">
+            Say your dad lives on his own. You would like to know he is doing
+            all right today. He would rather you were not reading his blood
+            sugar over breakfast every morning. Both of those are reasonable,
+            and almost every tool makes you pick one.
+          </p>
+        </div>
+
+        <div class="feature-row reveal">
+          <div>
+            <h3>The usual options are all-or-nothing</h3>
+            <p>
+              A shared spreadsheet means he hands over the lot. A group chat
+              means he types his numbers out where they sit on somebody else's
+              server for good. Saying nothing means you find out something was
+              wrong a fortnight late.
+            </p>
+            <p>
+              None of those is a privacy setting. They are three different ways
+              of giving up.
+            </p>
+          </div>
+          <div class="feature-media">
+            <img
+              class="shot"
+              src="assets/img/70-care.png"
+              width="1344"
+              height="2992"
+              alt="The caring-for view, showing each shared category as logged
+                   or not logged for the day, with no values displayed."
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="feature-row feature-row--flip reveal">
+          <div>
+            <h3>What people actually need is much smaller</h3>
+            <p>
+              Nearly all of the worry is answered by one bit of information:
+              <strong>did he log today, yes or no.</strong> That is all a
+              carer's screen shows here — a tick or a gap, per category, per
+              day. No number appears anywhere on it.
+            </p>
+            <p>
+              When you genuinely do need a figure, you can ask for that one
+              reading. It arrives only if he taps approve, it is encrypted on
+              his phone before it leaves, and it is gone when the app closes.
+              He can say no, and saying no tells you nothing more than that.
+            </p>
+          </div>
+          <div class="feature-media">
+            <img
+              class="shot"
+              src="assets/img/72-reading-request.png"
+              width="1344"
+              height="2992"
+              alt="A request for a single reading, waiting to be approved or
+                   declined by the person it was sent to."
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="feature-row reveal">
+          <div>
+            <h3>Medicines work the same way</h3>
+            <p>
+              You can let one particular person see the names of your
+              medicines and whether you took them — and not the next person.
+              It is off until you turn it on, one medicine and one carer at a
+              time, and switching the whole category off stops all of it at
+              once.
+            </p>
+          </div>
+          <div class="feature-media">
+            <img
+              class="shot"
+              src="assets/img/71-medication-sharing.png"
+              width="1344"
+              height="2992"
+              alt="The medication sharing screen, where each medicine can be
+                   shared with one named carer and not another."
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- ── what we deliberately don't do ─────────────────────────────── -->
+      <section class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">On purpose</p>
+          <h2>We are not trying to replace the apps you already like.</h2>
+          <p class="lede">
+            A lot of health apps grow until they want to be your calendar, your
+            chat app and your social network too. Every one of those additions
+            is another thing to move over to, another habit to break, and
+            another copy of your life on somebody's server. We would rather do
+            one job properly.
+          </p>
+        </div>
+
+        <ul class="nots reveal-group">
+          <li>
+            <span class="mark" aria-hidden="true">—</span>
+            <span>
+              <b>No chat, and no video calls</b>
+              <span>
+                You already have ways of talking to the people you love, and you
+                like them. Keep using them. A message that matters should not be
+                stuck inside a health app that your family would have to install
+                first.
+              </span>
+            </span>
+          </li>
+          <li>
+            <span class="mark" aria-hidden="true">—</span>
+            <span>
+              <b>No social feed, no streaks, no leaderboards</b>
+              <span>
+                Your sleep is not a competition. Nothing here is designed to be
+                posted, compared, or kept up for its own sake.
+              </span>
+            </span>
+          </li>
+          <li>
+            <span class="mark" aria-hidden="true">—</span>
+            <span>
+              <b>No sign-in with Google or Facebook</b>
+              <span>
+                Those buttons are convenient because they hand a third party a
+                permanent link between you and this app. There is no account
+                here to sign in to, which is why the button is missing.
+              </span>
+            </span>
+          </li>
+          <li>
+            <span class="mark" aria-hidden="true">—</span>
+            <span>
+              <b>No advertising, and no analytics following you around</b>
+              <span>
+                Nothing about you is sold, and nothing about you is worth
+                selling, because we do not hold it.
+              </span>
+            </span>
+          </li>
+        </ul>
+
+        <p class="pull reveal">
+          Every integration is one more company holding a copy. Not integrating
+          is the feature.
+        </p>
+      </section>
+
+      <!-- ── what a stolen database would hold ─────────────────────────── -->
+      <section class="band">
+        <div class="wrap">
+          <div class="section-head section-head--mid reveal">
+            <p class="eyebrow">The part most apps leave out</p>
+            <h2>What a thief would get</h2>
+            <p class="lede">
+              You should be able to check this rather than take our word for it.
+              If somebody stole our entire database tomorrow, here is what would
+              be in it.
+            </p>
+          </div>
+
+          <div class="stats reveal-group">
+            <div class="stat">
+              <b>0</b>
+              <span>names, email addresses or phone numbers</span>
+            </div>
+            <div class="stat">
+              <b>0</b>
+              <span>passwords — there is nothing to sign in to</span>
+            </div>
+            <div class="stat">
+              <b>0</b>
+              <span>health readings of any kind</span>
+            </div>
+            <div class="stat">
+              <b>0</b>
+              <span>addresses, birthdays or locations</span>
+            </div>
+          </div>
+
+          <p
+            class="lede reveal"
+            style="margin: var(--gap-xl) auto 0; text-align: center"
+          >
+            What it would hold: random codes, which of those codes are linked to
+            each other, the dates people checked in, a yes-or-no per category
+            per day, and text that was encrypted on the phone that wrote it.
+            Nothing in there names, contacts or locates a single person.
+          </p>
+          <p style="text-align: center; margin-top: var(--gap-m)">
+            <a class="btn btn--ghost" href="privacy.html"
+              >Read the full account, table by table →</a
+            >
+          </p>
+        </div>
+      </section>
+
+      <!-- ── how it works ──────────────────────────────────────────────── -->
+      <section class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Getting going</p>
+          <h2>Three steps, and none of them is "create an account".</h2>
+        </div>
+
+        <ol class="steps reveal-group">
+          <li>
+            <h3>Open it</h3>
+            <p>
+              No email address, no password, no verification code. Your phone
+              makes up a random code for itself the first time you open the app,
+              and that code is the only thing we ever know about you.
+            </p>
+          </li>
+          <li>
+            <h3>Track what you care about</h3>
+            <p>
+              Sleep, blood pressure, blood sugar, oxygen, heart rate, weight,
+              water, symptoms, periods, medicines — or just the two that matter
+              to you. Everything else stays out of your way.
+            </p>
+          </li>
+          <li>
+            <h3>Share a tick, if you want to</h3>
+            <p>
+              Add someone who looks after you and choose which categories they
+              can see. They get a yes-or-no per day. You can turn any of it off
+              again, and switching a category off removes its past days too.
+            </p>
+          </li>
+        </ol>
+
+        <div class="shot-row reveal" style="margin-top: var(--gap-xl)">
           <figure>
             <img
               class="shot"
               src="assets/img/10-home.png"
               width="1344"
               height="2992"
-              alt="The home screen: a circular wheel with a wedge for each
-                   tracked reading, and cards below it."
+              alt="Home screen with a wheel of tracked readings."
               loading="lazy"
             />
             <figcaption>Home — one wedge per reading.</figcaption>
@@ -70,9 +417,8 @@
               src="assets/img/20-trends.png"
               width="1344"
               height="2992"
-              alt="The trends screen showing sleep, blood pressure, blood sugar,
-                   blood oxygen and water, each with a small bar chart and the
-                   latest value."
+              alt="Trends screen listing every tracked metric with a small
+                   chart."
               loading="lazy"
             />
             <figcaption>Trends — every metric you track.</figcaption>
@@ -80,13 +426,26 @@
           <figure>
             <img
               class="shot"
-              src="assets/img/40-tasks.png"
+              src="assets/img/30-people.png"
               width="1344"
               height="2992"
-              alt="The tasks screen, where a task can be shared with a friend."
+              alt="The people screen, listing friends and the people you care
+                   for."
               loading="lazy"
             />
-            <figcaption>Tasks — shared, and encrypted.</figcaption>
+            <figcaption>People — friends and carers.</figcaption>
+          </figure>
+          <figure>
+            <img
+              class="shot"
+              src="assets/img/62-medications.png"
+              width="1344"
+              height="2992"
+              alt="The medications screen, listing each medicine and whether it
+                   was taken."
+              loading="lazy"
+            />
+            <figcaption>Medicines — taken, or not.</figcaption>
           </figure>
           <figure>
             <img
@@ -103,73 +462,42 @@
         </div>
       </section>
 
-      <!-- ── the three claims ──────────────────────────────────────────── -->
-      <section class="wrap" id="what">
-        <h2>Three things worth knowing</h2>
-        <div class="grid" style="margin-top: var(--gap-l)">
-          <article class="card">
-            <h3>No account, ever</h3>
-            <p>
-              No email address, no phone number, no password. Your phone
-              generates a random code the first time you open the app, and that
-              code is the only thing that identifies you to us.
-            </p>
-          </article>
-          <article class="card">
-            <h3>The numbers stay here</h3>
-            <p>
-              Every reading you enter is written to an encrypted database on this
-              phone. There is no column for a blood pressure or a blood sugar
-              anywhere on our servers, so there is nothing there to leak.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Sharing is a yes or a no</h3>
-            <p>
-              If someone looks after you, their app shows whether you logged a
-              category today — not what you logged. They can ask you for one
-              reading, and it is sent only if you approve that request.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <!-- ── the honest bit ────────────────────────────────────────────── -->
-      <section class="band">
-        <div class="wrap">
-          <p class="eyebrow">The part most apps leave out</p>
-          <h2>What a stolen database would contain</h2>
-          <p class="lede">
-            We think you should be able to check this rather than trust it. If
-            our entire database were taken tomorrow, it would hold no name, no
-            email address, no phone number, no postal address, no date of birth,
-            no password, and no health reading.
-          </p>
-          <p style="max-width: var(--measure)">
-            It would hold random codes, the links between them, the dates people
-            checked in, a yes-or-no per category per day, and text encrypted on
-            the phones that wrote it. Nothing in it names, contacts, or locates a
-            person.
-          </p>
-          <p style="margin-top: var(--gap-m)">
-            <a class="btn btn--ghost" href="privacy.html"
-              >Read the full account →</a
-            >
-          </p>
-        </div>
-      </section>
-
-      <!-- ── not medical care ──────────────────────────────────────────── -->
+      <!-- ── closing ───────────────────────────────────────────────────── -->
       <section class="wrap">
-        <h2>This is not medical care</h2>
-        <p>
-          Your Health is a self-help tool for recording how you feel and tracking
-          things over time. It is not a medical device. It does not diagnose,
-          treat, cure, or prevent any illness, and it is not a substitute for
-          professional advice. Colours shown against readings come from published
-          general guidelines, not from anything personal to you. If a result
-          concerns you, contact a doctor.
-        </p>
+        <div class="cta-panel reveal">
+          <h2>Keep your own records.</h2>
+          <p class="lede">
+            Free, no account, and nothing about you on our servers worth
+            stealing.
+          </p>
+          <div class="cta-row">
+            <span class="store-badge store-badge--soon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  fill="currentColor"
+                  d="M4.2 2.6a1.5 1.5 0 0 0-.7 1.3v16.2a1.5 1.5 0 0 0 .7 1.3l9-9.4-9-9.4Zm10.1 8.3 2.6-2.7-9.6-5.4a1.4 1.4 0 0 0-.5-.2l7.5 8.3Zm0 2.2-7.5 8.3c.2 0 .4-.1.5-.2l9.6-5.4-2.6-2.7Zm4-2.4-2.2-1.2-2.9 3 2.9 3 2.2-1.2a1.5 1.5 0 0 0 0-2.6Z"
+                />
+              </svg>
+              <span style="text-align: left">
+                <b>Coming to Google Play</b>
+                <span>Android · in preparation</span>
+              </span>
+            </span>
+            <a class="btn btn--ghost" href="features.html">See what it does</a>
+          </div>
+        </div>
+
+        <div class="fineprint" style="margin-top: var(--gap-xl)">
+          <h3 style="font-size: var(--step-1)">This is not medical care</h3>
+          <p>
+            Your Health is a self-help tool for recording how you feel and
+            keeping track of things over time. It is not a medical device. It
+            does not diagnose, treat, cure, or prevent any illness, and it is
+            not a substitute for professional advice. The colours shown against
+            readings come from published general guidelines, not from anything
+            personal to you. If a result worries you, speak to a doctor.
+          </p>
+        </div>
       </section>
     </main>
 
@@ -182,8 +510,8 @@
           <a href="about.html">About</a>
         </nav>
         <p class="muted" style="max-width: none">
-          Your Health is an independent project. Screenshots show the app running
-          with demonstration data.
+          Your Health is an independent project. Screenshots show the app
+          running with demonstration data.
         </p>
       </footer>
     </div>

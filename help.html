@@ -6,7 +6,7 @@
     <title>Help &amp; support — Your Health</title>
     <meta
       name="description"
-      content="Getting started, sharing with someone who cares for you, backups and recovery, App Lock, the home-screen widget, and what to do when something goes wrong."
+      content="How Your Health works: invites, what a carer can see, App Lock, the home-screen widget, and the parts that genuinely cannot be recovered if you lose them."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,162 +16,227 @@
     />
     <link rel="stylesheet" href="assets/css/tokens.css" />
     <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <link rel="stylesheet" href="assets/css/motion.css" />
+    <script src="assets/js/motion.js" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
 
-    <div class="wrap">
+    <div class="header-shell">
       <header class="site-header">
-        <a class="wordmark" href="./">Your Health</a>
-        <nav aria-label="Main">
-          <a href="features.html">Features</a>
-          <a href="privacy.html">Privacy</a>
-          <a href="help.html" aria-current="page">Help</a>
-          <a href="about.html">About</a>
-        </nav>
+        <div class="wrap" style="display: contents">
+          <a class="wordmark" href="./">Your Health</a>
+          <nav aria-label="Main">
+            <a href="features.html">Features</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="help.html" aria-current="page">Help</a>
+            <a href="about.html">About</a>
+          </nav>
+        </div>
       </header>
     </div>
 
     <main id="main">
-      <section class="wrap" style="padding-top: var(--gap-l)">
-        <p class="eyebrow">Help &amp; support</p>
-        <h1>How things work.</h1>
-        <p class="lede">
-          The app keeps its own explanations short. This is the longer version,
-          including the parts that are genuinely unrecoverable — which you should
-          know about before you need to.
-        </p>
+      <section class="wrap hero" style="padding-bottom: var(--gap-l)">
+        <div class="hero-in" style="max-width: 44rem">
+          <p class="eyebrow">Help &amp; support</p>
+          <h1>How things <span class="hl">work</span>.</h1>
+          <p class="lede">
+            The app keeps its own explanations short. This is the longer
+            version, including the parts that are genuinely unrecoverable —
+            which you want to know about before you need to, not after.
+          </p>
+        </div>
       </section>
 
       <!-- ── getting started ───────────────────────────────────────────── -->
-      <section class="wrap" style="padding-block: var(--gap-l)">
-        <h2>Getting started</h2>
-        <p>
-          There is nothing to sign up for. Open the app and it works. The first
-          run asks a few questions to set up the home screen, and you can change
-          every answer later in Settings.
-        </p>
-        <p>
-          Readings are entered from the wheel on the home screen — one wedge per
-          thing you track. Anything that is not a number you record and move on
-          from (a symptom journal, a cycle calendar, a weight trend) gets its own
-          card instead.
-        </p>
+      <section class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Getting started</p>
+          <h2>There is nothing to sign up for.</h2>
+        </div>
+        <div class="reveal" style="max-width: 42rem">
+          <p>
+            Open the app and it works. The first run asks a few questions to set
+            up the home screen, and you can change every answer later in
+            Settings.
+          </p>
+          <p>
+            Readings are entered from the wheel on the home screen — one wedge
+            per thing you track. Anything that is not a number you record and
+            move on from (a symptom journal, a cycle calendar, a weight trend)
+            gets its own page instead.
+          </p>
+        </div>
       </section>
 
       <!-- ── people and care ───────────────────────────────────────────── -->
       <section class="wrap">
-        <h2>Friends, and people who care for you</h2>
-        <p>
-          You add someone by sharing a short code. There are no usernames to
-          search and no directory to appear in — if you have not given someone
-          your code, they cannot find you.
-        </p>
-        <h3>The name you pick is yours alone</h3>
-        <p>
-          The name you choose stays on your phone. It is not sent to us, and the
-          people you connect with see whatever name <em>they</em> saved for you
-          on their own device. That is why the app suggests not using your real
-          name: it serves no purpose outside your own screen.
-        </p>
-        <h3>What a carer can see</h3>
-        <p>
-          For each category you switch on, they see whether you logged it today —
-          a tick or a blank. They do not see the reading. If they want a number
-          they have to ask, and each request is approved or refused on its own:
-          saying yes once does not say yes to the next one.
-        </p>
-        <p>
-          Switching a category off removes the days it already recorded, not just
-          future ones. Sharing is off until you turn it on.
-        </p>
-        <p class="muted">
-          A day with no record is not a missed day. Rows only exist when a phone
-          has synced, so a gap means "no record" — someone who installed the app
-          last week is not shown as having ignored it for a month.
-        </p>
+        <div class="section-head reveal">
+          <p class="eyebrow">People</p>
+          <h2>Invites, and what a carer can see.</h2>
+        </div>
+
+        <div class="reveal" style="max-width: 42rem">
+          <h3>You send an invite, and you name it</h3>
+          <p>
+            To connect with someone you create a single-use invite and send it
+            to them however you normally talk — a message, an email, in person.
+            When you make it you say who it is for, so that name is already
+            waiting when they accept. There is no username to search and no
+            directory to appear in.
+          </p>
+          <p>
+            An invite works once and can be withdrawn before it is used. Two
+            people redeeming the same one is not possible; the first use spends
+            it.
+          </p>
+
+          <h3>Names live on your phone, not ours</h3>
+          <p>
+            You label the people you connect with, and those labels stay on your
+            device. We never receive them. That means the other person sees
+            whatever name <em>they</em> saved for you, on their own phone — and
+            there is no name of yours anywhere on our side to leak.
+          </p>
+
+          <h3>Check who sent an incoming request</h3>
+          <p>
+            Because we hold no names, the app genuinely cannot tell you who an
+            incoming request is from — only that somebody used your invite. It
+            says so plainly, above the accept and decline buttons. If you were
+            not expecting it, check with the person directly before accepting.
+          </p>
+
+          <h3>What a carer can see</h3>
+          <p>
+            For each category you switch on, they see whether you logged it
+            today — a tick or a blank. They do not see the reading. If they want
+            a number they have to ask, and each request is approved or refused
+            on its own: saying yes once does not say yes to the next one.
+          </p>
+          <p>
+            Switching a category off removes the days it already recorded, not
+            just future ones. Sharing is off until you turn it on.
+          </p>
+          <p class="muted">
+            A day with no record is not a missed day. Rows only exist when a
+            phone has synced, so a gap means "no record" — someone who installed
+            the app last week is not shown as having ignored it for a month.
+          </p>
+        </div>
       </section>
 
       <!-- ── backup ────────────────────────────────────────────────────── -->
       <section class="wrap">
-        <h2>Backups, and what cannot be recovered</h2>
-        <p>
-          Because your readings are only on your phone, a backup file is the one
-          copy that can exist anywhere else. You choose whether to make one and
-          where it goes.
-        </p>
-        <div class="card" style="margin-top: var(--gap-m)">
-          <h3>Read this part before you need it</h3>
+        <div class="section-head reveal">
+          <p class="eyebrow">Backups</p>
+          <h2>The part that cannot be undone.</h2>
+          <p class="lede">
+            Because your readings are only on your phone, a backup file is the
+            one copy that can exist anywhere else. You choose whether to make
+            one, and where it goes.
+          </p>
+        </div>
+
+        <div class="card reveal" style="max-width: 42rem">
+          <h3>Read this before you need it</h3>
           <p>
             A backup is encrypted with a passphrase you choose.
-            <strong>If you lose that passphrase, the file cannot be opened</strong>
-            — not by you and not by us. There is no reset link, because there is
-            no account behind it and nothing on our side to reset.
+            <strong
+              >If you lose that passphrase, the file cannot be opened</strong
+            >
+            — not by you, and not by us. There is no reset link, because there
+            is no account behind it and nothing on our side to reset.
           </p>
           <p>
-            The hint you set is written into the file in plain text. Anyone
-            holding the file can read the hint, so do not make it the passphrase.
+            The app offers to generate a passphrase for you, and that is the
+            option to take. It is far stronger than one you invent, and you only
+            need to write it down once.
+          </p>
+          <p>
+            The hint you set is written into the file in plain text. Anybody
+            holding the file can read the hint, so do not make it the
+            passphrase.
           </p>
           <p style="margin-bottom: 0">
             If you lose the phone <em>and</em> have no backup, the readings are
-            gone. That is the direct cost of them never being on our servers, and
+            gone. That is the direct cost of them not being on our servers, and
             it is a real trade rather than a detail.
           </p>
         </div>
       </section>
 
-      <!-- ── app lock ──────────────────────────────────────────────────── -->
+      <!-- ── device ────────────────────────────────────────────────────── -->
       <section class="wrap">
-        <h2>App Lock</h2>
-        <p>
-          App Lock puts the app behind your device biometrics or a PIN you set
-          for it. It protects against someone picking up your unlocked phone. It
-          is not the thing encrypting your data — that happens regardless of
-          whether App Lock is on.
-        </p>
-      </section>
+        <div class="section-head reveal">
+          <p class="eyebrow">On the device</p>
+          <h2>App Lock and the widget.</h2>
+        </div>
 
-      <!-- ── widget ────────────────────────────────────────────────────── -->
-      <section class="wrap">
-        <h2>The home-screen widget</h2>
-        <p>
-          The widget shows one metric at a time and rotates through them on its
-          own. The arrow moves to the next one. It shows a small bar chart and
-          the latest value, and tapping through opens the app at that metric.
-        </p>
-        <p class="muted">
-          There is no swipe. Android's widget system does not deliver taps on
-          individual items in a scrolling widget, so a page with both a chart and
-          a working button cannot be one — the arrow is the way to move.
-        </p>
+        <div class="grid reveal-group">
+          <article class="card">
+            <h3>What App Lock is for</h3>
+            <p>
+              It puts the app behind your device biometrics or a PIN you set for
+              it, which protects against somebody picking up your unlocked
+              phone. It is <em>not</em> the thing encrypting your data — that
+              happens whether App Lock is on or off.
+            </p>
+          </article>
+          <article class="card">
+            <h3>The widget has an arrow, not a swipe</h3>
+            <p>
+              It shows one metric at a time and turns over on its own; the arrow
+              moves to the next. Android does not deliver taps on individual
+              items in a scrolling widget, so a page with both a chart and a
+              working button cannot be one — the arrow is the way to move.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Deleting everything</h3>
+            <p>
+              "Delete all data" empties the database, clears your settings,
+              cancels scheduled reminders, and overwrites the freed space so the
+              old rows are not left readable in the file. It does not remove a
+              backup you already made — that file is yours.
+            </p>
+          </article>
+        </div>
       </section>
 
       <!-- ── troubleshooting ───────────────────────────────────────────── -->
       <section class="wrap">
-        <h2>When something is wrong</h2>
-        <div class="grid" style="margin-top: var(--gap-m)">
+        <div class="section-head reveal">
+          <p class="eyebrow">When something is wrong</p>
+          <h2>The three we get asked about most.</h2>
+        </div>
+
+        <div class="grid reveal-group">
           <article class="card">
             <h3>Notifications are not arriving</h3>
             <p>
               Check that notifications are allowed for the app in Android
-              settings, and that battery optimisation is not restricting it. Some
-              phones are aggressive about background apps by default.
+              settings, and that battery optimisation is not restricting it.
+              Some phones are aggressive about background apps by default, and
+              Samsung devices especially so.
             </p>
           </article>
           <article class="card">
-            <h3>A friend's code will not add</h3>
+            <h3>An invite will not work</h3>
             <p>
-              Codes are checked exactly. Confirm the characters, and make sure
-              they have opened the People screen at least once — a code has to be
-              registered before anyone can add it.
+              Invites are single-use — if it has already been accepted, it is
+              spent, and a fresh one is needed. Check it has not been withdrawn,
+              and that it has not expired.
             </p>
           </article>
           <article class="card">
             <h3>Trends looks empty</h3>
             <p>
-              Trends lists every metric you track, whether or not it has data
-              yet. Charts fill in as you log. Nothing is hidden because it is
-              empty.
+              Trends lists every metric you track whether or not it has data
+              yet. Charts fill in as you log. Nothing is hidden for being empty
+              — that is deliberate, so an entry point never disappears on you.
             </p>
           </article>
         </div>
@@ -179,12 +244,19 @@
 
       <section class="band">
         <div class="wrap">
-          <h2>Still stuck?</h2>
-          <p class="lede">
-            There is a "Help &amp; contact" row in the app's settings that will
-            reach us. If something in the privacy account looks wrong, we would
-            particularly like to know.
-          </p>
+          <div class="section-head section-head--mid reveal">
+            <h2>Still stuck?</h2>
+            <p class="lede">
+              There is a "Help &amp; contact" row in the app's settings that
+              reaches us. If something in the privacy account looks wrong, we
+              would particularly like to hear about that one.
+            </p>
+            <p style="margin-top: var(--gap-m)">
+              <a class="btn btn--ghost" href="privacy.html"
+                >Read the privacy account →</a
+              >
+            </p>
+          </div>
         </div>
       </section>
     </main>

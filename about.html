@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>About — Your Health</title>
-    <meta name="description" content="Why Your Health exists, and how it talks about privacy." />
+    <meta
+      name="description"
+      content="Why Your Health exists: health tracking that answers a carer's question with a yes-or-no instead of a stream of numbers, and a privacy page written to be checked rather than believed."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,74 +16,136 @@
     />
     <link rel="stylesheet" href="assets/css/tokens.css" />
     <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <link rel="stylesheet" href="assets/css/motion.css" />
+    <script src="assets/js/motion.js" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
 
-    <div class="wrap">
+    <div class="header-shell">
       <header class="site-header">
-        <a class="wordmark" href="./">Your Health</a>
-        <nav aria-label="Main">
-          <a href="features.html">Features</a>
-          <a href="privacy.html">Privacy</a>
-          <a href="help.html">Help</a>
-          <a href="about.html" aria-current="page">About</a>
-        </nav>
+        <div class="wrap" style="display: contents">
+          <a class="wordmark" href="./">Your Health</a>
+          <nav aria-label="Main">
+            <a href="features.html">Features</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="help.html">Help</a>
+            <a href="about.html" aria-current="page">About</a>
+          </nav>
+        </div>
       </header>
     </div>
 
     <main id="main">
-      <section class="wrap" style="padding-top: var(--gap-l)">
-        <p class="eyebrow">About</p>
-        <h1>Why this exists.</h1>
-        <p class="lede">
-          Most health apps ask for an account before they will hold a single
-          number, and then keep those numbers on a server for as long as the
-          company lasts. This one was built the other way round: the readings
-          never leave the phone, and the parts that need a server were designed
-          to carry as little as they possibly could.
-        </p>
+      <section class="wrap hero" style="padding-bottom: var(--gap-l)">
+        <div class="hero-in" style="max-width: 44rem">
+          <p class="eyebrow">About</p>
+          <h1>Why this <span class="hl">exists</span>.</h1>
+          <p class="lede">
+            Most health apps want an account before they will hold a single
+            number, then keep those numbers on a server for as long as the
+            company lasts. This one was built the other way round: your readings
+            live on your phone, and the parts that genuinely need a server were
+            designed to carry as little as they possibly could.
+          </p>
+        </div>
       </section>
 
-      <section class="wrap" style="padding-block: var(--gap-l)">
-        <h2>The idea</h2>
-        <p>
-          Someone tracking their blood pressure usually has a reason, and often
-          has someone who worries about them. Those two things pull in opposite
-          directions: the person who worries wants to know you are all right, and
-          you may not want to hand over a stream of numbers about your body.
-        </p>
-        <p>
-          The compromise the app makes is a yes-or-no. A carer sees that you
-          logged today, which answers the question they actually have. If they
-          want a number, they ask, and you decide each time.
+      <section class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">The idea</p>
+          <h2>Two reasonable people, pulling in opposite directions.</h2>
+        </div>
+
+        <div class="reveal" style="max-width: 42rem">
+          <p>
+            Somebody tracking their blood pressure usually has a reason, and
+            often has somebody who worries about them. Those two facts pull
+            against each other. The person who worries wants to know you are all
+            right. You may not want to hand over a running commentary on your
+            body to get them to stop asking.
+          </p>
+          <p>
+            The compromise this app makes is a yes-or-no. A carer sees that you
+            logged today, which answers the question they actually have. If they
+            want a number, they have to ask for it, and you decide each time —
+            including deciding no, which tells them nothing except that you said
+            no.
+          </p>
+          <p>
+            That is a small idea. It is also the whole product, and most of the
+            engineering exists to keep it honest.
+          </p>
+        </div>
+
+        <p class="pull reveal">
+          A carer's real question is "are they all right?" — not "what was it
+          this morning?"
         </p>
       </section>
 
       <section class="wrap">
-        <h2>How we talk about privacy</h2>
-        <p>
-          Claims about privacy are easy to make and hard to check, so the
-          <a href="privacy.html">privacy page</a> is written to be checked. It
-          lists what is stored, what leaves the phone, what a stolen database
-          would contain, and — deliberately — the three places where the strong
-          version of the claim stops being true.
-        </p>
-        <p>
-          We would rather you heard those from us than found them yourself.
-        </p>
+        <div class="section-head reveal">
+          <p class="eyebrow">How we talk about privacy</p>
+          <h2>Written to be checked, not believed.</h2>
+        </div>
+
+        <div class="grid reveal-group">
+          <article class="card">
+            <h3>We name the exceptions</h3>
+            <p>
+              The <a href="privacy.html">privacy page</a> lists what is stored,
+              what leaves the phone, and what a stolen database would contain —
+              including the places where the strong version of the claim stops
+              being true. You should hear those from us rather than find them
+              yourself.
+            </p>
+          </article>
+          <article class="card">
+            <h3>No absolutes we cannot keep</h3>
+            <p>
+              This site used to say readings "never leave the phone". That was
+              too strong: one reading can cross, encrypted, when you approve a
+              specific request for it. The sentence was wrong, so it was
+              changed rather than defended.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Claims are tied to tests</h3>
+            <p>
+              The important ones are held up by tests that fail the build if the
+              behaviour drifts — including one that searches a produced backup
+              file, byte by byte, for data that should not be in it.
+            </p>
+          </article>
+        </div>
       </section>
 
       <section class="wrap">
-        <h2>This is not medical care</h2>
-        <p>
-          Your Health is a self-help tool for recording how you feel and tracking
-          things over time. It is not a medical device. It does not diagnose,
-          treat, cure, or prevent any illness, and it is not a substitute for
-          professional advice. If a result concerns you, contact a doctor.
-        </p>
-      </section>
+        <div class="cta-panel reveal">
+          <h2>Read the uncomfortable version.</h2>
+          <p class="lede">
+            The privacy page is the longest thing on this site, and the only one
+            worth your scepticism.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="privacy.html">What we store</a>
+            <a class="btn btn--ghost" href="features.html">What it does</a>
+          </div>
+        </div>
 
+        <div class="fineprint" style="margin-top: var(--gap-xl)">
+          <h3 style="font-size: var(--step-1)">This is not medical care</h3>
+          <p>
+            Your Health is a self-help tool for recording how you feel and
+            keeping track of things over time. It is not a medical device. It
+            does not diagnose, treat, cure, or prevent any illness, and it is
+            not a substitute for professional advice. If a result worries you,
+            speak to a doctor.
+          </p>
+        </div>
+      </section>
     </main>
 
     <div class="wrap">
