@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How you can check this — Your Health</title>
+    <meta name="description" content="Every privacy claim this app makes, with the part of the code that implements it and the test that keeps it true. Including the three claims that have code and no test." />
+    <!-- chrome:assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <link rel="stylesheet" href="assets/css/motion.css" />
+    <script src="assets/js/motion.js" defer></script>
+    <!-- /chrome:assets -->
+  </head>
+  <body>
+    <!-- chrome:header -->
+    <a class="skip" href="#main">Skip to content</a>
+
+    <div class="header-shell">
+      <header class="site-header">
+        <div class="wrap" style="display: contents">
+          <a class="wordmark" href="./">Your Health</a>
+          <nav aria-label="Main">
+            <a href="features.html">Features</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="help.html">Help</a>
+            <a href="about.html">About</a>
+          </nav>
+        </div>
+      </header>
+    </div>
+    <!-- /chrome:header -->
+
+    <main id="main">
+      <section class="wrap hero" style="padding-bottom: var(--gap-l)">
+        <div class="hero-in">
+          <p class="eyebrow">Checking</p>
+          <h1>Do not take our word for <span class="hl">any</span> of it.</h1>
+          <p class="lede">Anyone can say their app is private. This page lists every claim we make, what implements it, and what stops it quietly becoming false. The last section is the claims that have no test yet.</p>
+        </div>
+      </section>
+
+      <section class="wrap" style="padding-block: var(--gap-l)">
+        <h2 class="reveal">Why a claim needs a test</h2>
+        <p class="lede" style="margin-top: var(--gap-s)">
+          Every claim below has been true, and has stopped being true, at least
+          once in this project’s history. That is not unusual — it is what
+          happens to any promise nobody checks. The difference is whether
+          something fails when it happens.
+        </p>
+      </section>
+
+      <section class="wrap" style="padding-block: var(--gap-l)">
+        <h2 class="reveal">The claims</h2>
+        <div class="grid reveal-group" style="margin-top: var(--gap-m)">
+          <article class="card">
+            <h3>No reading value reaches our server</h3>
+            <p>Blood pressure, blood sugar, oxygen, heart rate, sleep, weight, water — none of these has a column on our side. What a caregiver can see is a tick against a category and a date.</p>
+            <p class="muted"><strong>Where:</strong> The table that records sharing holds four things: a random code, a date, a category, and yes-or-no. There is nowhere for a number to go.</p>
+            <p class="muted"><strong>What keeps it true:</strong> A test fails the build if a forbidden column name appears in the table definitions or in a query.</p>
+          </article>
+          <article class="card">
+            <h3>No name of any kind is stored</h3>
+            <p>Not your real one and not a chosen one. What you call the people you know is written on your phone and never sent.</p>
+            <p class="muted"><strong>Where:</strong> Neither the people table nor the care links have a name column, and the app sends none when it registers.</p>
+            <p class="muted"><strong>What keeps it true:</strong> A test asserts the registration request carries the random code alone.</p>
+          </article>
+          <article class="card">
+            <h3>The words of a shared task are unreadable to us</h3>
+            <p>A task you share is encrypted on your phone before it leaves, with a key sealed to each person in it.</p>
+            <p class="muted"><strong>Where:</strong> One key per task, sealed separately to every participant. We store what comes out and cannot open it.</p>
+            <p class="muted"><strong>What keeps it true:</strong> A test seals with the real cipher, opens with the real device key, and asserts the text cannot be recovered without it — with a control that proves the test can fail.</p>
+          </article>
+          <article class="card">
+            <h3>A reading someone sends you is never written down</h3>
+            <p>If you approve a request for one number, that number reaches the person who asked and is then gone. It is not saved on either phone.</p>
+            <p class="muted"><strong>Where:</strong> It lives in memory that dies with the app. The modules that hold it do not import the database, the preferences store, the files it keeps on disk, or the file system at all.</p>
+            <p class="muted"><strong>What keeps it true:</strong> One test asserts those imports stay absent. A second searches the raw bytes of a produced backup for the value, with a control.</p>
+          </article>
+          <article class="card">
+            <h3>Turning a category off removes the days it already shared</h3>
+            <p>Sharing is about now. Switch something off and its past days go with it — they are deleted, not hidden.</p>
+            <p class="muted"><strong>Where:</strong> History is filtered by what is shared today, and the stored rows are removed.</p>
+            <p class="muted"><strong>What keeps it true:</strong> A server test covers it.</p>
+          </article>
+          <article class="card">
+            <h3>A day with no record is not a missed day</h3>
+            <p>Someone who installed the app last week is not shown as having ignored it for a month.</p>
+            <p class="muted"><strong>Where:</strong> The count of missed days starts at a person’s earliest record rather than at the beginning of time.</p>
+            <p class="muted"><strong>What keeps it true:</strong> A server test covers exactly the newcomer case. Before it existed, a new account was shown as having missed thirty days.</p>
+          </article>
+          <article class="card">
+            <h3>The privacy words in the app match what the app does</h3>
+            <p>The text you read inside the app is held to the code by tests, not by anyone remembering to update it.</p>
+            <p class="muted"><strong>Where:</strong> Four separate guards: one for coverage per feature, one that fails the build when a new category or table appears, and two for specific claims.</p>
+            <p class="muted"><strong>What keeps it true:</strong> Four guards on wording looks excessive until you know that shipped privacy text in this project has been falsified by its own code three separate times.</p>
+          </article>
+          <article class="card">
+            <h3>A category you have not shared is never uploaded</h3>
+            <p>Not uploaded and then filtered — never sent. A phone with nobody looking after it sends nothing at all.</p>
+            <p class="muted"><strong>Where:</strong> The upload is filtered by the shared set before it is built.</p>
+            <p class="muted"><strong>What keeps it true:</strong> A server test, plus assertions on the wiring in the app. Those are checked at source level on purpose: the obvious behavioural test passed with the gate deleted.</p>
+          </article>
+          <article class="card">
+            <h3>An installed app was built with its real server address</h3>
+            <p>A release built without its settings compiles a placeholder address, installs perfectly, and can reach nothing.</p>
+            <p class="muted"><strong>Where:</strong> A tool opens the built file and counts the expected address inside it.</p>
+            <p class="muted"><strong>What keeps it true:</strong> Not a test — a tool, run at release time. Every build handed over before August 2026 had this wrong and nothing said so.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="wrap" style="padding-block: var(--gap-l)">
+          <h2 class="reveal">Claims with no test yet</h2>
+          <p class="lede" style="margin-top: var(--gap-s)">
+            Listed because a gap you can see is worth more than one you cannot.
+            Each of these is true; none of them has something that would fail
+            if it stopped being true.
+          </p>
+          <div class="grid reveal-group" style="margin-top: var(--gap-m)">
+          <article class="card">
+            <h3>The database on your phone is encrypted at rest</h3>
+            <p>True, and exercised by every test that touches it — but nothing asserts that the file on disk is unreadable without the key. That needs a real phone and a rooted read.</p>
+          </article>
+          <article class="card">
+            <h3>The backup hint is stored as plain text inside the file</h3>
+            <p>True and intended, and the app warns you about it. Nothing tests that the warning is read.</p>
+          </article>
+          <article class="card">
+            <h3>A reading in transit is deleted when it is picked up</h3>
+            <p>Covered by a server test behaviourally, but nothing proves the bytes are gone from the disk underneath.</p>
+          </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" style="padding-block: var(--gap-l)">
+        <h2 class="reveal">Running them yourself</h2>
+        <p>
+          The tests are in the source, not behind a login. The app’s run on any
+          machine with Flutter installed; the server’s run inside its own
+          container.
+        </p>
+        <p class="muted">
+          See also <a href="data.html">what is stored, and where</a> — the full
+          list of tables, and what is provably not in them.
+        </p>
+      </section>
+
+    </main>
+
+    <div class="wrap">
+      <!-- chrome:footer -->
+      <footer class="site-footer">
+        <nav aria-label="Footer">
+          <a href="features.html">Features</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="verify.html">How to check this</a>
+          <a href="data.html">What is stored</a>
+          <a href="security.html">Security</a>
+          <a href="help.html">Help &amp; support</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="accessibility.html">Accessibility</a>
+          <a href="changes.html">What&rsquo;s new</a>
+          <a href="terms.html">Terms</a>
+        </nav>
+        <p class="muted" style="max-width: none">
+          Your Health is an independent project. Screenshots show the app running with demonstration data.
+        </p>
+      </footer>
+      <!-- /chrome:footer -->
+    </div>
+  </body>
+</html>

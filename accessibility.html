@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accessibility — Your Health</title>
+    <meta name="description" content="What Your Health asserts about accessibility, how it is tested, and the one place it is known to fall short." />
+    <!-- chrome:assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <link rel="stylesheet" href="assets/css/motion.css" />
+    <script src="assets/js/motion.js" defer></script>
+    <!-- /chrome:assets -->
+  </head>
+  <body>
+    <!-- chrome:header -->
+    <a class="skip" href="#main">Skip to content</a>
+
+    <div class="header-shell">
+      <header class="site-header">
+        <div class="wrap" style="display: contents">
+          <a class="wordmark" href="./">Your Health</a>
+          <nav aria-label="Main">
+            <a href="features.html">Features</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="help.html">Help</a>
+            <a href="about.html">About</a>
+          </nav>
+        </div>
+      </header>
+    </div>
+    <!-- /chrome:header -->
+
+    <main id="main">
+      <section class="wrap hero" style="padding-bottom: var(--gap-l)">
+        <div class="hero-in">
+          <p class="eyebrow">Accessibility</p>
+          <h1>What is tested, and what <span class="hl">falls short</span>.</h1>
+          <p class="lede">Most accessibility statements describe an intention. This one lists what is asserted by a test that would fail, and names the one thing we know does not meet the bar.</p>
+        </div>
+      </section>
+
+      <section class="wrap" style="padding-block: var(--gap-l)">
+        <h2 class="reveal">In the app, asserted</h2>
+        <div class="grid reveal-group" style="margin-top: var(--gap-m)">
+          <article class="card">
+            <h3>Text at 200% on a small screen</h3>
+            <p>
+              Every walkthrough step is checked at double text size on a 360
+              pixel screen. Nothing may truncate or overflow.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Reduce motion means no motion</h3>
+            <p>
+              Turn it on and the walkthroughs give the same steps and the same
+              words with nothing moving &mdash; not a shortened animation, none.
+            </p>
+          </article>
+          <article class="card">
+            <h3>A screen reader gets the whole step</h3>
+            <p>
+              Each step announces as one piece rather than as fragments that can
+              be interrupted, and in the order it is meant to be heard.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="wrap" style="padding-block: var(--gap-l)">
+          <h2 class="reveal">Where it falls short</h2>
+          <p class="lede" style="margin-top: var(--gap-s)">
+            One known failure, recorded rather than quietly carried.
+          </p>
+          <div class="grid reveal-group" style="margin-top: var(--gap-m)">
+            <article class="card">
+              <h3>One theme&rsquo;s main button is below the bar</h3>
+              <p>
+                In the original colour family, the primary button&rsquo;s text
+                sits at 3.32 against its background where the standard asks for
+                4.5.
+              </p>
+              <p class="muted">
+                It is not fixed rather than not noticed: darkening it enough
+                drops the button&rsquo;s own contrast against the page below
+                the bar for a control, so it needs a per-brightness colour
+                rather than a nudge. Every other family passes.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" style="padding-block: var(--gap-l)">
+        <h2 class="reveal">On this site</h2>
+        <div class="grid reveal-group" style="margin-top: var(--gap-m)">
+          <article class="card">
+            <h3>Checked before anything is published</h3>
+            <p>
+              Colour contrast and a 360 pixel layout are verified by a script
+              that runs before the site goes anywhere, along with a skip link,
+              a page language and alt text on every image.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Tell us if we have missed something</h3>
+            <p>
+              An accessibility problem is a bug, and we would rather hear about
+              it than have you work around it. See <a href="contact.html">contact</a>.
+            </p>
+          </article>
+        </div>
+      </section>
+
+    </main>
+
+    <div class="wrap">
+      <!-- chrome:footer -->
+      <footer class="site-footer">
+        <nav aria-label="Footer">
+          <a href="features.html">Features</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="verify.html">How to check this</a>
+          <a href="data.html">What is stored</a>
+          <a href="security.html">Security</a>
+          <a href="help.html">Help &amp; support</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="accessibility.html">Accessibility</a>
+          <a href="changes.html">What&rsquo;s new</a>
+          <a href="terms.html">Terms</a>
+        </nav>
+        <p class="muted" style="max-width: none">
+          Your Health is an independent project. Screenshots show the app running with demonstration data.
+        </p>
+      </footer>
+      <!-- /chrome:footer -->
+    </div>
+  </body>
+</html>

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What is stored, and where — Your Health</title>
+    <meta name="description" content="Every place Your Health keeps anything: the encrypted database on your phone, nineteen tables on the server, and the short list of what is provably not in any of them." />
+    <!-- chrome:assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <link rel="stylesheet" href="assets/css/motion.css" />
+    <script src="assets/js/motion.js" defer></script>
+    <!-- /chrome:assets -->
+  </head>
+  <body>
+    <!-- chrome:header -->
+    <a class="skip" href="#main">Skip to content</a>
+
+    <div class="header-shell">
+      <header class="site-header">
+        <div class="wrap" style="display: contents">
+          <a class="wordmark" href="./">Your Health</a>
+          <nav aria-label="Main">
+            <a href="features.html">Features</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="help.html">Help</a>
+            <a href="about.html">About</a>
+          </nav>
+        </div>
+      </header>
+    </div>
+    <!-- /chrome:header -->
+
+    <main id="main">
+      <section class="wrap hero" style="padding-bottom: var(--gap-l)">
+        <div class="hero-in">
+          <p class="eyebrow">Data</p>
+          <h1>Every place anything is <span class="hl">kept</span>.</h1>
+          <p class="lede">Not a summary — the actual list. Six places hold something, and the section after them is what is provably not in any of the ones we run.</p>
+        </div>
+      </section>
+
+      <section class="wrap" style="padding-block: var(--gap-l)">
+        <h2 class="reveal">The six places</h2>
+        <div class="grid reveal-group" style="margin-top: var(--gap-m)">
+          <article class="card">
+            <h3>On your phone, encrypted</h3>
+            <p>
+              Every reading, note, medication, task and setting. The database is
+              encrypted with a key held in the phone&rsquo;s own secure storage,
+              which is the same place your other apps keep their credentials.
+            </p>
+            <p class="muted">
+              Sixteen tables. This is the copy that matters — it is the one
+              that survives us.
+            </p>
+          </article>
+          <article class="card">
+            <h3>On our server, durable</h3>
+            <p>
+              Nineteen tables, none of which has a column for a number you
+              recorded. What is there: random codes that stand for people, which
+              of those codes are linked to which, whether a category was logged
+              on a date, and the encrypted text of anything you chose to share.
+            </p>
+            <p class="muted">
+              We can see that two codes are connected. We cannot see who they
+              are, or what either of them recorded.
+            </p>
+          </article>
+          <article class="card">
+            <h3>On our server, briefly</h3>
+            <p>
+              One thing only: a reading you approved sending to someone,
+              encrypted to their phone and deleted when they pick it up. It has
+              an expiry even if they never do.
+            </p>
+            <p class="muted">
+              It is never written to the durable side, and never to either
+              phone.
+            </p>
+          </article>
+          <article class="card">
+            <h3>In the phone&rsquo;s secure storage</h3>
+            <p>
+              The key to your database, this device&rsquo;s keypair, and the
+              token that proves your phone owns its random code. Nothing you
+              typed.
+            </p>
+          </article>
+          <article class="card">
+            <h3>In ordinary settings</h3>
+            <p>
+              Preferences: which metrics you track, your theme, what you have
+              already seen. Every key is classified, and the ones that would be
+              meaningless or unsafe on another phone are left out of a backup.
+            </p>
+          </article>
+          <article class="card">
+            <h3>In files</h3>
+            <p>
+              Only what you asked for: a backup you exported, wherever you chose
+              to put it. We never see it, and cannot open it.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="wrap" style="padding-block: var(--gap-l)">
+          <h2 class="reveal">What is provably not there</h2>
+          <p class="lede" style="margin-top: var(--gap-s)">
+            &ldquo;Provably&rdquo; is doing real work in that heading. Each of
+            these is a column that does not exist, which is a stronger thing
+            than a policy that says we would not look.
+          </p>
+          <div class="grid reveal-group" style="margin-top: var(--gap-m)">
+          <article class="card">
+            <h3>No reading, value or number</h3>
+            <p>
+              No blood pressure, blood sugar, oxygen, heart rate, weight, water,
+              sleep length, cycle day or symptom severity appears as a column
+              anywhere on our side.
+            </p>
+            <p class="muted">
+              The sharing table holds a yes-or-no named <code>logged</code>, and
+              nothing else.
+            </p>
+          </article>
+          <article class="card">
+            <h3>No name of any kind</h3>
+            <p>
+              Not your real one, and not a chosen one. No table has a name
+              column and no route reads or writes one.
+            </p>
+            <p class="muted">
+              What you call the people you know is held on your phone and is
+              never transmitted at all.
+            </p>
+          </article>
+          <article class="card">
+            <h3>No email, phone number or password</h3>
+            <p>
+              There is no account to have them in. Your phone generates a random
+              code on first run and that is what we know you by.
+            </p>
+          </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap" style="padding-block: var(--gap-l)">
+        <h2 class="reveal">How this list stays true</h2>
+        <p>
+          It is regenerated from the actual table definitions rather than
+          written from memory, and a test fails the build when a new table or a
+          new shareable category appears without the words catching up.
+        </p>
+        <p class="muted">
+          The tests are listed on <a href="verify.html">the checking page</a>.
+        </p>
+      </section>
+
+    </main>
+
+    <div class="wrap">
+      <!-- chrome:footer -->
+      <footer class="site-footer">
+        <nav aria-label="Footer">
+          <a href="features.html">Features</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="verify.html">How to check this</a>
+          <a href="data.html">What is stored</a>
+          <a href="security.html">Security</a>
+          <a href="help.html">Help &amp; support</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="accessibility.html">Accessibility</a>
+          <a href="changes.html">What&rsquo;s new</a>
+          <a href="terms.html">Terms</a>
+        </nav>
+        <p class="muted" style="max-width: none">
+          Your Health is an independent project. Screenshots show the app running with demonstration data.
+        </p>
+      </footer>
+      <!-- /chrome:footer -->
+    </div>
+  </body>
+</html>
