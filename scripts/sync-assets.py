@@ -1,22 +1,40 @@
-"""Y130 — one screenshot set, two outputs.
+#!/usr/bin/env python3
+"""Y130 / BB102 — one screenshot set, two outputs, and the site gets the small one.
 
 `design-docs/assets/` is the single source: the capture harness in `app/`
-writes there and rebuilds MANIFEST.md from the folder. This copies that set
-into the site, and is the only supported way to do it — a hand-copied image
-is exactly the drift `check.py`'s manifest rule exists to catch.
+writes there and rebuilds MANIFEST.md from the folder. This produces the site's
+copy, and is the only supported way to do it — a hand-copied image is exactly
+the drift `check.py`'s manifest rule exists to catch.
 
-    python scripts/sync-assets.py          # copy, report what changed
-    python scripts/sync-assets.py --check   # fail if out of sync, copy nothing
+**BB102 — this used to copy the PNGs verbatim.** That meant 52 files at 9.7 MB,
+averaging 191 KB each, on a site whose audience skews toward older phones and
+slower connections. The app had already solved the same problem in
+`app/scripts/build_help_assets.py`: downscale, re-encode as WebP, and the same
+pictures come out at about 35 KB — five and a half times smaller. There was no
+argument for the site carrying the heavy set except that nobody had looked.
+
+    python scripts/sync-assets.py           # build, report what changed
+    python scripts/sync-assets.py --check   # fail if out of date, write nothing
+
+Width is chosen so the site never upscales: the widest a screenshot is drawn is
+the `.device` frame at ~420 CSS px, so 900 px covers 2x displays with room over.
 """
-import filecmp
+import io
 import os
-import shutil
 import sys
+
+try:
+    from PIL import Image
+except ImportError:  # pragma: no cover - developer setup
+    sys.exit('Pillow is required: python -m pip install Pillow')
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(HERE)
 SRC = os.path.normpath(os.path.join(SITE, '..', 'design-docs', 'assets'))
 DST = os.path.join(SITE, 'assets', 'img')
+
+TARGET_WIDTH = 900
+QUALITY = 82
 
 check_only = '--check' in sys.argv
 
@@ -27,34 +45,73 @@ if not os.path.isdir(SRC):
 
 os.makedirs(DST, exist_ok=True)
 
-source = {f for f in os.listdir(SRC) if f.endswith('.png')}
-present = {f for f in os.listdir(DST) if f.endswith('.png')}
+source = sorted(f for f in os.listdir(SRC) if f.endswith('.png'))
+wanted = {os.path.splitext(f)[0] + '.webp' for f in source}
+present = {f for f in os.listdir(DST) if f.endswith('.webp')}
 
-added = sorted(source - present)
-removed = sorted(present - source)
-changed = sorted(
-    f for f in (source & present)
-    if not filecmp.cmp(os.path.join(SRC, f), os.path.join(DST, f), shallow=False)
-)
+# Anything still shipped as PNG is left over from before BB102 and is dead
+# weight the moment its WebP exists.
+stale_png = sorted(f for f in os.listdir(DST) if f.endswith('.png'))
 
-if not (added or removed or changed):
-    print('in sync — %d image(s)' % len(source))
-    sys.exit(0)
+built, changed, removed = [], [], sorted(present - wanted) + stale_png
 
-for label, items in (('new', added), ('changed', changed), ('stale', removed)):
-    for f in items:
-        print('  %-8s %s' % (label, f))
+
+def build(name):
+    src_path = os.path.join(SRC, name)
+    out_path = os.path.join(DST, os.path.splitext(name)[0] + '.webp')
+    with Image.open(src_path) as im:
+        im = im.convert('RGB')
+        if im.width > TARGET_WIDTH:
+            height = round(im.height * TARGET_WIDTH / im.width)
+            im = im.resize((TARGET_WIDTH, height), Image.LANCZOS)
+        buf = io.BytesIO()
+        im.save(buf, 'WEBP', quality=QUALITY, method=6)
+    data = buf.getvalue()
+    existing = None
+    if os.path.exists(out_path):
+        with open(out_path, 'rb') as f:
+            existing = f.read()
+    if existing == data:
+        return None
+    if not check_only:
+        with open(out_path, 'wb') as f:
+            f.write(data)
+    return len(data)
+
+
+for name in source:
+    size = build(name)
+    if size is None:
+        continue
+    (built if os.path.splitext(name)[0] + '.webp' not in present else changed).append(
+        (name, size))
+
+if not check_only:
+    for name in removed:
+        os.remove(os.path.join(DST, name))
 
 if check_only:
-    print('\nout of sync. Run: python scripts/sync-assets.py')
-    sys.exit(1)
+    if built or changed or removed:
+        for name, _ in built:
+            print('  MISSING:', name)
+        for name, _ in changed:
+            print('  STALE:  ', name)
+        for name in removed:
+            print('  ORPHAN: ', name)
+        print('\nout of date. Run: python scripts/sync-assets.py')
+        sys.exit(1)
+    total = sum(os.path.getsize(os.path.join(DST, f)) for f in present)
+    print(f'in sync — {len(present)} images, {total / 1048576:.2f} MB')
+    sys.exit(0)
 
-for f in added + changed:
-    shutil.copy2(os.path.join(SRC, f), os.path.join(DST, f))
-# Stale images are removed, not left behind. A capture run that drops a screen
-# would otherwise leave the old image in the site for a page to keep using —
-# the same trap that left a blank settings screenshot in the doc set.
-for f in removed:
-    os.remove(os.path.join(DST, f))
+for name, size in built:
+    print(f'  new      {name} -> {size / 1024:.0f} KB')
+for name, size in changed:
+    print(f'  changed  {name} -> {size / 1024:.0f} KB')
+for name in removed:
+    print(f'  removed  {name}')
 
-print('\nsynced — %d copied, %d removed' % (len(added) + len(changed), len(removed)))
+final = sorted(f for f in os.listdir(DST) if f.endswith('.webp'))
+total = sum(os.path.getsize(os.path.join(DST, f)) for f in final)
+print(f'\n{len(final)} images, {total / 1048576:.2f} MB total '
+      f'(mean {total / max(len(final), 1) / 1024:.0f} KB)')
