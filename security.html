@@ -48,11 +48,15 @@
         <h2 class="reveal">The shape of it</h2>
         <div class="grid reveal-group" style="margin-top: var(--gap-m)">
           <article class="card">
-            <h3>Your records never leave in the clear</h3>
+            <h3>What you share is encrypted before it goes</h3>
             <p>
-              The database on your phone is encrypted. Anything you choose to
-              share is encrypted before it goes, with a key sealed to the
-              person you shared it with.
+              The database on your phone is encrypted. The words of a shared
+              task, and a reading you approve sending, are encrypted on your
+              phone with a key sealed to the person receiving them.
+            </p>
+            <p class="muted">
+              That is the content. The connection itself is a separate
+              question, and the honest answer is below.
             </p>
           </article>
           <article class="card">
@@ -109,6 +113,22 @@
       <section class="wrap" style="padding-block: var(--gap-l)">
         <h2 class="reveal">Things we know are imperfect</h2>
         <div class="grid reveal-group" style="margin-top: var(--gap-m)">
+          <article class="card">
+            <h3>The connection is not encrypted yet</h3>
+            <p>
+              The app talks to our server over plain HTTP, not HTTPS. Anyone
+              positioned between your phone and us can see which random code is
+              making a request, which categories you have shared, and the token
+              that proves your phone owns that code.
+            </p>
+            <p class="muted">
+              This is the largest finding in our own audit and it is not fixed.
+              What it does not expose: a reading, a medication name, or the
+              words of a shared task, because those are encrypted before they
+              are sent. What it does expose is enough, and a captured token is
+              good for months.
+            </p>
+          </article>
           <article class="card">
             <h3>This site loads fonts from Google</h3>
             <p>
