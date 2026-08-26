@@ -36,46 +36,60 @@
     <!-- /chrome:header -->
 
     <main id="main">
-      <section class="wrap hero" style="padding-bottom: var(--gap-l)">
-        <div class="hero-in">
-          <p class="eyebrow">Trends</p>
-          <h1>A run of readings, <span class="hl">side by side</span>.</h1>
-          <p class="lede">One reading says very little. The point of writing them down is the shape they make over weeks.</p>
+      <section class="wrap hero">
+        <div class="hero-grid">
+          <div class="hero-in">
+            <p class="eyebrow">Trends</p>
+            <h1>A run of readings, <span class="hl">side by side</span>.</h1>
+            <p class="lede">One reading says very little. The point of writing them down is the shape they make over weeks.</p>
+            <div class="cta-row">
+              <a class="btn btn--ghost" href="../features.html">All features</a>
+            </div>
+          </div>
+
+          <div class="feature-media">
+            <div class="device">
+              <div class="device-screen">
+                <img
+                  src="../assets/img/20-trends.webp"
+                  width="900"
+                  height="2004"
+                  alt="The trends screen, a small chart for every number you track."
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="wrap" data-role="what" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">What Trends shows</h2>
-        <p class="lede">Every number you track gets a row, with a small chart of the last stretch of days. Tap one and it opens into a larger chart with the detail underneath.</p>
+      <section class="wrap" data-role="what">
+        <div class="section-head reveal">
+          <h2>What Trends shows</h2>
+          <p class="lede">Every number you track gets a row, with a small chart of the last stretch of days. Tap one and it opens into a larger chart with the detail underneath.</p>
+        </div>
         <p class="lede">A number you have never recorded still appears, showing nothing. That is deliberate: a gap you can see is worth more than one hidden from you.</p>
         <div class="feature-row reveal">
           <div>
             <h3>Every tracked number, in one place</h3>
             <p>The rows are the things you chose to track. Turning one on or off in the menu changes what appears here.</p>
           </div>
-          <div class="feature-media">
-            <img
-              class="shot"
-              src="../assets/img/20-trends.webp"
-              width="900"
-              height="2004"
-              alt="The trends screen, listing sleep, blood pressure, blood sugar and oxygen with small charts."
-              loading="lazy"
-            />
-          </div>
         </div>
       </section>
 
       <section class="band" data-role="why">
-        <div class="wrap" style="padding-block: var(--gap-l)">
-          <h2 class="reveal">Why an empty row is not a mistake</h2>
-        <p class="lede">If a row vanished when it had no data, you would have no way to tell &ldquo;I have not recorded this&rdquo; from &ldquo;this is not something I track&rdquo;. Those are different, and only one of them is worth acting on.</p>
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>Why an empty row is not a mistake</h2>
+            <p class="lede">If a row vanished when it had no data, you would have no way to tell &ldquo;I have not recorded this&rdquo; from &ldquo;this is not something I track&rdquo;. Those are different, and only one of them is worth acting on.</p>
+          </div>
         <p class="lede">So the row stays, empty, until you fill it.</p>
         </div>
       </section>
 
-      <section class="wrap" data-role="how" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">Looking further back</h2>
+      <section class="wrap" data-role="how">
+        <div class="section-head reveal">
+          <h2>Looking further back</h2>
+        </div>
         <div class="feature-row reveal">
           <div>
             <h3>Switch between day, week and month</h3>
@@ -126,14 +140,20 @@
         </div>
       </section>
 
-      <section class="wrap" style="padding-block: var(--gap-l)">
-        <p class="muted">
-          <a href="../features.html">All features</a> &middot;
-          <a href="../verify.html">How you can check our claims</a>
-        </p>
+      <section class="wrap">
+        <div class="cta-panel reveal">
+          <h2>Everything here runs on your own phone</h2>
+          <p>
+            No account, no email address, and no reading of yours on our
+            servers. You can check that rather than take our word for it.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="../verify.html">How you can check it</a>
+            <a class="btn btn--ghost" href="../features.html">See the rest</a>
+          </div>
+        </div>
       </section>
-
-    </main>
+</main>
 
     <div class="wrap">
       <!-- chrome:footer -->

@@ -36,46 +36,60 @@
     <!-- /chrome:header -->
 
     <main id="main">
-      <section class="wrap hero" style="padding-bottom: var(--gap-l)">
-        <div class="hero-in">
-          <p class="eyebrow">Tasks</p>
-          <h1>The bits with <span class="hl">no number</span> attached.</h1>
-          <p class="lede">An appointment, a repeat prescription, a form to send back. They sit here instead of in your head.</p>
+      <section class="wrap hero">
+        <div class="hero-grid">
+          <div class="hero-in">
+            <p class="eyebrow">Tasks</p>
+            <h1>The bits with <span class="hl">no number</span> attached.</h1>
+            <p class="lede">An appointment, a repeat prescription, a form to send back. They sit here instead of in your head.</p>
+            <div class="cta-row">
+              <a class="btn btn--ghost" href="../features.html">All features</a>
+            </div>
+          </div>
+
+          <div class="feature-media">
+            <div class="device">
+              <div class="device-screen">
+                <img
+                  src="../assets/img/40-tasks.webp"
+                  width="900"
+                  height="2004"
+                  alt="The tasks screen with a date at the top and an add-a-task button."
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="wrap" data-role="what" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">What Tasks holds</h2>
-        <p class="lede">Anything around your health that is not a reading. Some of it has a date and comes to find you; some of it just waits until you want it.</p>
+      <section class="wrap" data-role="what">
+        <div class="section-head reveal">
+          <h2>What Tasks holds</h2>
+          <p class="lede">Anything around your health that is not a reading. Some of it has a date and comes to find you; some of it just waits until you want it.</p>
+        </div>
         <p class="lede">A task can repeat, which is what a weekly tablet order or a monthly form actually is.</p>
         <div class="feature-row reveal">
           <div>
             <h3>A day at a time, or any day</h3>
             <p>The date at the top moves to any day, so something you finished last month is still there.</p>
           </div>
-          <div class="feature-media">
-            <img
-              class="shot"
-              src="../assets/img/40-tasks.webp"
-              width="900"
-              height="2004"
-              alt="The tasks screen with a date at the top and an add-a-task button."
-              loading="lazy"
-            />
-          </div>
         </div>
       </section>
 
       <section class="band" data-role="why">
-        <div class="wrap" style="padding-block: var(--gap-l)">
-          <h2 class="reveal">Why it is not a general to-do list</h2>
-        <p class="lede">Because a general list fills with everything else, and then the prescription you needed to reorder is somewhere below the shopping.</p>
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>Why it is not a general to-do list</h2>
+            <p class="lede">Because a general list fills with everything else, and then the prescription you needed to reorder is somewhere below the shopping.</p>
+          </div>
         <p class="lede">Keeping it to health admin means the list stays short enough to be worth opening.</p>
         </div>
       </section>
 
-      <section class="wrap" data-role="how" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">Adding, repeating and sharing</h2>
+      <section class="wrap" data-role="how">
+        <div class="section-head reveal">
+          <h2>Adding, repeating and sharing</h2>
+        </div>
         <div class="feature-row reveal">
           <div>
             <h3>Set a date if it has one</h3>
@@ -126,14 +140,20 @@
         </div>
       </section>
 
-      <section class="wrap" style="padding-block: var(--gap-l)">
-        <p class="muted">
-          <a href="../features.html">All features</a> &middot;
-          <a href="../verify.html">How you can check our claims</a>
-        </p>
+      <section class="wrap">
+        <div class="cta-panel reveal">
+          <h2>Everything here runs on your own phone</h2>
+          <p>
+            No account, no email address, and no reading of yours on our
+            servers. You can check that rather than take our word for it.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="../verify.html">How you can check it</a>
+            <a class="btn btn--ghost" href="../features.html">See the rest</a>
+          </div>
+        </div>
       </section>
-
-    </main>
+</main>
 
     <div class="wrap">
       <!-- chrome:footer -->

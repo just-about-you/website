@@ -36,46 +36,60 @@
     <!-- /chrome:header -->
 
     <main id="main">
-      <section class="wrap hero" style="padding-bottom: var(--gap-l)">
-        <div class="hero-in">
-          <p class="eyebrow">Appearance</p>
-          <h1>Light, dark, or <span class="hl">whatever your phone says</span>.</h1>
-          <p class="lede">Comfort matters more than decoration here. A darker screen at night, or one with more contrast, can be the difference between reading something easily and giving up on it.</p>
+      <section class="wrap hero">
+        <div class="hero-grid">
+          <div class="hero-in">
+            <p class="eyebrow">Appearance</p>
+            <h1>Light, dark, or <span class="hl">whatever your phone says</span>.</h1>
+            <p class="lede">Comfort matters more than decoration here. A darker screen at night, or one with more contrast, can be the difference between reading something easily and giving up on it.</p>
+            <div class="cta-row">
+              <a class="btn btn--ghost" href="../features.html">All features</a>
+            </div>
+          </div>
+
+          <div class="feature-media">
+            <div class="device">
+              <div class="device-screen">
+                <img
+                  src="../assets/img/68-appearance.webp"
+                  width="900"
+                  height="2004"
+                  alt="The appearance screen, with light and dark options and colour families."
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="wrap" data-role="what" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">What you can change</h2>
-        <p class="lede">Light or dark, or follow your phone. Separately, a colour family that runs through every screen rather than accenting one.</p>
+      <section class="wrap" data-role="what">
+        <div class="section-head reveal">
+          <h2>What you can change</h2>
+          <p class="lede">Light or dark, or follow your phone. Separately, a colour family that runs through every screen rather than accenting one.</p>
+        </div>
         <p class="lede">Text size lives beside it, and is worth a look if anything feels small.</p>
         <div class="feature-row reveal">
           <div>
             <h3>One screen, two decisions</h3>
             <p>Light and dark at the top, colour families underneath.</p>
           </div>
-          <div class="feature-media">
-            <img
-              class="shot"
-              src="../assets/img/68-appearance.webp"
-              width="900"
-              height="2004"
-              alt="The appearance screen with system, light and dark options and a list of colour families."
-              loading="lazy"
-            />
-          </div>
         </div>
       </section>
 
       <section class="band" data-role="why">
-        <div class="wrap" style="padding-block: var(--gap-l)">
-          <h2 class="reveal">Why it is more than a preference</h2>
-        <p class="lede">Two ends of this app&rsquo;s audience are a long way apart, and one of them is reading a phone at arm&rsquo;s length in a bright room.</p>
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>Why it is more than a preference</h2>
+            <p class="lede">Two ends of this app&rsquo;s audience are a long way apart, and one of them is reading a phone at arm&rsquo;s length in a bright room.</p>
+          </div>
         <p class="lede">Making the whole app change together, rather than tinting one bar, is what makes that actually help.</p>
         </div>
       </section>
 
-      <section class="wrap" data-role="how" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">Finding it</h2>
+      <section class="wrap" data-role="how">
+        <div class="section-head reveal">
+          <h2>Finding it</h2>
+        </div>
         <div class="feature-row reveal">
           <div>
             <h3>Open Display and text size in the menu</h3>
@@ -94,14 +108,20 @@
         </div>
       </section>
 
-      <section class="wrap" style="padding-block: var(--gap-l)">
-        <p class="muted">
-          <a href="../features.html">All features</a> &middot;
-          <a href="../verify.html">How you can check our claims</a>
-        </p>
+      <section class="wrap">
+        <div class="cta-panel reveal">
+          <h2>Everything here runs on your own phone</h2>
+          <p>
+            No account, no email address, and no reading of yours on our
+            servers. You can check that rather than take our word for it.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="../verify.html">How you can check it</a>
+            <a class="btn btn--ghost" href="../features.html">See the rest</a>
+          </div>
+        </div>
       </section>
-
-    </main>
+</main>
 
     <div class="wrap">
       <!-- chrome:footer -->

@@ -36,46 +36,60 @@
     <!-- /chrome:header -->
 
     <main id="main">
-      <section class="wrap hero" style="padding-bottom: var(--gap-l)">
-        <div class="hero-in">
-          <p class="eyebrow">Medications</p>
-          <h1>Grouped by <span class="hl">when</span>, not by name.</h1>
-          <p class="lede">A morning handful is one group rather than five separate things, and a tablet taken three times a day counts three times.</p>
+      <section class="wrap hero">
+        <div class="hero-grid">
+          <div class="hero-in">
+            <p class="eyebrow">Medications</p>
+            <h1>Grouped by <span class="hl">when</span>, not by name.</h1>
+            <p class="lede">A morning handful is one group rather than five separate things, and a tablet taken three times a day counts three times.</p>
+            <div class="cta-row">
+              <a class="btn btn--ghost" href="../features.html">All features</a>
+            </div>
+          </div>
+
+          <div class="feature-media">
+            <div class="device">
+              <div class="device-screen">
+                <img
+                  src="../assets/img/83-medications-full.webp"
+                  width="900"
+                  height="2004"
+                  alt="The medications screen, grouped by time, with a next-dose countdown."
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="wrap" data-role="what" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">What the list looks like</h2>
-        <p class="lede">Everything you take at the same hour sits together. The next dose due is at the top with a countdown, so the screen answers the only question you usually have.</p>
+      <section class="wrap" data-role="what">
+        <div class="section-head reveal">
+          <h2>What the list looks like</h2>
+          <p class="lede">Everything you take at the same hour sits together. The next dose due is at the top with a countdown, so the screen answers the only question you usually have.</p>
+        </div>
         <p class="lede">The unit is the dose, not the medication. A tablet taken three times a day is three ticks, so the count tells you what is left today.</p>
         <div class="feature-row reveal">
           <div>
             <h3>Times, then medications</h3>
             <p>Each group is an hour. Tick a dose and the chip fills in and the count for that time goes up.</p>
           </div>
-          <div class="feature-media">
-            <img
-              class="shot"
-              src="../assets/img/83-medications-full.webp"
-              width="900"
-              height="2004"
-              alt="The medications screen, grouped by time, with a next-dose countdown at the top."
-              loading="lazy"
-            />
-          </div>
         </div>
       </section>
 
       <section class="band" data-role="why">
-        <div class="wrap" style="padding-block: var(--gap-l)">
-          <h2 class="reveal">Why the dose is the unit</h2>
-        <p class="lede">&ldquo;Did I take my tablets?&rdquo; is not usually the question. The question is whether you took the eight o&rsquo;clock one, and a list that ticks off a whole medication cannot answer it.</p>
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>Why the dose is the unit</h2>
+            <p class="lede">&ldquo;Did I take my tablets?&rdquo; is not usually the question. The question is whether you took the eight o&rsquo;clock one, and a list that ticks off a whole medication cannot answer it.</p>
+          </div>
         <p class="lede">Counting doses also makes the honest answer visible on a bad day: two of three is two of three, not a failure.</p>
         </div>
       </section>
 
-      <section class="wrap" data-role="how" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">Adding one, and sharing it</h2>
+      <section class="wrap" data-role="how">
+        <div class="section-head reveal">
+          <h2>Adding one, and sharing it</h2>
+        </div>
         <div class="feature-row reveal">
           <div>
             <h3>Add a medication from the list</h3>
@@ -126,14 +140,20 @@
         </div>
       </section>
 
-      <section class="wrap" style="padding-block: var(--gap-l)">
-        <p class="muted">
-          <a href="../features.html">All features</a> &middot;
-          <a href="../verify.html">How you can check our claims</a>
-        </p>
+      <section class="wrap">
+        <div class="cta-panel reveal">
+          <h2>Everything here runs on your own phone</h2>
+          <p>
+            No account, no email address, and no reading of yours on our
+            servers. You can check that rather than take our word for it.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="../verify.html">How you can check it</a>
+            <a class="btn btn--ghost" href="../features.html">See the rest</a>
+          </div>
+        </div>
       </section>
-
-    </main>
+</main>
 
     <div class="wrap">
       <!-- chrome:footer -->

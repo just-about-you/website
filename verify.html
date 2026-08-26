@@ -44,19 +44,21 @@
         </div>
       </section>
 
-      <section class="wrap" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">Why a claim needs a test</h2>
-        <p class="lede" style="margin-top: var(--gap-s)">
-          Every claim below has been true, and has stopped being true, at least
+      <section class="wrap">
+        <div class="section-head reveal">
+          <h2>Why a claim needs a test</h2>
+          <p class="lede">Every claim below has been true, and has stopped being true, at least
           once in this project’s history. That is not unusual — it is what
           happens to any promise nobody checks. The difference is whether
-          something fails when it happens.
-        </p>
+          something fails when it happens.</p>
+        </div>
       </section>
 
-      <section class="wrap" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">The claims</h2>
-        <div class="grid reveal-group" style="margin-top: var(--gap-m)">
+      <section class="wrap">
+        <div class="section-head reveal">
+          <h2>The claims</h2>
+        </div>
+        <div class="grid reveal-group">
           <article class="card">
             <h3>No reading value reaches our server</h3>
             <p>Blood pressure, blood sugar, oxygen, heart rate, sleep, weight, water — none of these has a column on our side. What a caregiver can see is a tick against a category and a date.</p>
@@ -115,14 +117,30 @@
       </section>
 
       <section class="band">
-        <div class="wrap" style="padding-block: var(--gap-l)">
-          <h2 class="reveal">Claims with no test yet</h2>
-          <p class="lede" style="margin-top: var(--gap-s)">
-            Listed because a gap you can see is worth more than one you cannot.
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>Claims with no test yet</h2>
+            <p class="lede">Listed because a gap you can see is worth more than one you cannot.
             Each of these is true; none of them has something that would fail
-            if it stopped being true.
-          </p>
-          <div class="grid reveal-group" style="margin-top: var(--gap-m)">
+            if it stopped being true.</p>
+          </div>
+
+          <div class="stats reveal-group">
+            <div class="stat">
+              <b>9</b>
+              <span>claims mapped to the code that implements them</span>
+            </div>
+            <div class="stat">
+              <b>3</b>
+              <span>with no test yet &mdash; named below, not buried</span>
+            </div>
+            <div class="stat">
+              <b>0</b>
+              <span>readings, of anyone, on our servers</span>
+            </div>
+          </div>
+
+          <div class="grid reveal-group">
           <article class="card">
             <h3>The database on your phone is encrypted at rest</h3>
             <p>True, and exercised by every test that touches it — but nothing asserts that the file on disk is unreadable without the key. That needs a real phone and a rooted read.</p>
@@ -139,8 +157,10 @@
         </div>
       </section>
 
-      <section class="wrap" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">Running them yourself</h2>
+      <section class="wrap">
+        <div class="section-head reveal">
+          <h2>Running them yourself</h2>
+        </div>
         <p>
           The tests are in the source, not behind a login. The app’s run on any
           machine with Flutter installed; the server’s run inside its own

@@ -36,46 +36,60 @@
     <!-- /chrome:header -->
 
     <main id="main">
-      <section class="wrap hero" style="padding-bottom: var(--gap-l)">
-        <div class="hero-in">
-          <p class="eyebrow">Recording</p>
-          <h1>One number, <span class="hl">two taps</span>.</h1>
-          <p class="lede">The circle on the home screen is for the numbers you record and move on from. Everything slower than that has a page of its own.</p>
+      <section class="wrap hero">
+        <div class="hero-grid">
+          <div class="hero-in">
+            <p class="eyebrow">Recording</p>
+            <h1>One number, <span class="hl">two taps</span>.</h1>
+            <p class="lede">The circle on the home screen is for the numbers you record and move on from. Everything slower than that has a page of its own.</p>
+            <div class="cta-row">
+              <a class="btn btn--ghost" href="../features.html">All features</a>
+            </div>
+          </div>
+
+          <div class="feature-media">
+            <div class="device">
+              <div class="device-screen">
+                <img
+                  src="../assets/img/10-home.webp"
+                  width="900"
+                  height="2004"
+                  alt="The home screen, with the reading circle in the middle."
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="wrap" data-role="what" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">What the circle is for</h2>
-        <p class="lede">Sleep, blood pressure, blood sugar, oxygen, heart rate and water sit around a circle on the home screen. Each one is a segment, and the middle is a plus.</p>
+      <section class="wrap" data-role="what">
+        <div class="section-head reveal">
+          <h2>What the circle is for</h2>
+          <p class="lede">Sleep, blood pressure, blood sugar, oxygen, heart rate and water sit around a circle on the home screen. Each one is a segment, and the middle is a plus.</p>
+        </div>
         <p class="lede">Anything slower than that lives elsewhere. Your cycle, symptoms and weight each get a proper page rather than a slice of a wheel.</p>
         <div class="feature-row reveal">
           <div>
             <h3>The wheel, and the plus in the middle</h3>
             <p>Tap the middle and the app asks which reading you are adding. Tap a segment instead and it skips the question.</p>
           </div>
-          <div class="feature-media">
-            <img
-              class="shot"
-              src="../assets/img/10-home.webp"
-              width="900"
-              height="2004"
-              alt="The home screen, with the reading circle in the middle."
-              loading="lazy"
-            />
-          </div>
         </div>
       </section>
 
       <section class="band" data-role="why">
-        <div class="wrap" style="padding-block: var(--gap-l)">
-          <h2 class="reveal">Why it is a circle and not a list</h2>
-        <p class="lede">A list of eleven things asks you to read it. A circle you have used twice is muscle memory: the segment for blood pressure is always in the same place, so recording one stops being a decision.</p>
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>Why it is a circle and not a list</h2>
+            <p class="lede">A list of eleven things asks you to read it. A circle you have used twice is muscle memory: the segment for blood pressure is always in the same place, so recording one stops being a decision.</p>
+          </div>
         <p class="lede">That matters because the value of any of this comes from doing it on the dull days. A tracker you have to think about is one you stop opening.</p>
         </div>
       </section>
 
-      <section class="wrap" data-role="how" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">Recording one</h2>
+      <section class="wrap" data-role="how">
+        <div class="section-head reveal">
+          <h2>Recording one</h2>
+        </div>
         <div class="feature-row reveal">
           <div>
             <h3>Tap the plus to start</h3>
@@ -110,14 +124,20 @@
         </div>
       </section>
 
-      <section class="wrap" style="padding-block: var(--gap-l)">
-        <p class="muted">
-          <a href="../features.html">All features</a> &middot;
-          <a href="../verify.html">How you can check our claims</a>
-        </p>
+      <section class="wrap">
+        <div class="cta-panel reveal">
+          <h2>Everything here runs on your own phone</h2>
+          <p>
+            No account, no email address, and no reading of yours on our
+            servers. You can check that rather than take our word for it.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="../verify.html">How you can check it</a>
+            <a class="btn btn--ghost" href="../features.html">See the rest</a>
+          </div>
+        </div>
       </section>
-
-    </main>
+</main>
 
     <div class="wrap">
       <!-- chrome:footer -->

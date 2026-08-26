@@ -570,3 +570,14 @@ section + section {
 .fineprint p {
   max-width: 46rem;
 }
+
+/* BB-theme — a section head is followed by its content, not by an inline
+ * margin repeated on every page. The pages generated in the first BB pass
+ * each carried `style="margin-top: var(--gap-m)"` here; spacing belongs in
+ * one place or it drifts. */
+.section-head + .grid,
+.section-head + .feature-row,
+.section-head + .stats,
+.section-head + .steps {
+  margin-top: var(--gap-m);
+}

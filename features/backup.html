@@ -36,46 +36,60 @@
     <!-- /chrome:header -->
 
     <main id="main">
-      <section class="wrap hero" style="padding-bottom: var(--gap-l)">
-        <div class="hero-in">
-          <p class="eyebrow">Backup</p>
-          <h1>One file, one password, <span class="hl">no way back</span>.</h1>
-          <p class="lede">Your records live on your phone, which is the point and also the risk. A backup is the answer, and it has a sharp edge worth knowing about first.</p>
+      <section class="wrap hero">
+        <div class="hero-grid">
+          <div class="hero-in">
+            <p class="eyebrow">Backup</p>
+            <h1>One file, one password, <span class="hl">no way back</span>.</h1>
+            <p class="lede">Your records live on your phone, which is the point and also the risk. A backup is the answer, and it has a sharp edge worth knowing about first.</p>
+            <div class="cta-row">
+              <a class="btn btn--ghost" href="../features.html">All features</a>
+            </div>
+          </div>
+
+          <div class="feature-media">
+            <div class="device">
+              <div class="device-screen">
+                <img
+                  src="../assets/img/63-backup-hub.webp"
+                  width="900"
+                  height="2004"
+                  alt="The backup and restore screen."
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="wrap" data-role="what" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">What a backup holds</h2>
-        <p class="lede">Your readings, your medications, your tasks and your settings, in one file, locked with a password you choose. You pick where it goes and we never see it.</p>
+      <section class="wrap" data-role="what">
+        <div class="section-head reveal">
+          <h2>What a backup holds</h2>
+          <p class="lede">Your readings, your medications, your tasks and your settings, in one file, locked with a password you choose. You pick where it goes and we never see it.</p>
+        </div>
         <p class="lede">Restoring it puts everything back where it was, on this phone or a new one.</p>
         <div class="feature-row reveal">
           <div>
             <h3>Back up, or bring one back</h3>
             <p>Both live together under Privacy and your data.</p>
           </div>
-          <div class="feature-media">
-            <img
-              class="shot"
-              src="../assets/img/63-backup-hub.webp"
-              width="900"
-              height="2004"
-              alt="The backup and restore screen with options to back up now or restore from a file."
-              loading="lazy"
-            />
-          </div>
         </div>
       </section>
 
       <section class="band" data-role="why">
-        <div class="wrap" style="padding-block: var(--gap-l)">
-          <h2 class="reveal">Why the password cannot be recovered</h2>
-        <p class="lede">There is no account, so there is nobody holding a copy of anything to reset. That is what makes the rest of this app true, and it is also why a lost password means the file cannot be opened by anyone.</p>
+        <div class="wrap">
+          <div class="section-head reveal">
+            <h2>Why the password cannot be recovered</h2>
+            <p class="lede">There is no account, so there is nobody holding a copy of anything to reset. That is what makes the rest of this app true, and it is also why a lost password means the file cannot be opened by anyone.</p>
+          </div>
         <p class="lede">Not by you, and not by us. It is the one place where the design costs you something, so we would rather say it plainly than bury it.</p>
         </div>
       </section>
 
-      <section class="wrap" data-role="how" style="padding-block: var(--gap-l)">
-        <h2 class="reveal">Choosing a password</h2>
+      <section class="wrap" data-role="how">
+        <div class="section-head reveal">
+          <h2>Choosing a password</h2>
+        </div>
         <div class="feature-row reveal">
           <div>
             <h3>Let the app make one up</h3>
@@ -100,14 +114,20 @@
         </div>
       </section>
 
-      <section class="wrap" style="padding-block: var(--gap-l)">
-        <p class="muted">
-          <a href="../features.html">All features</a> &middot;
-          <a href="../verify.html">How you can check our claims</a>
-        </p>
+      <section class="wrap">
+        <div class="cta-panel reveal">
+          <h2>Everything here runs on your own phone</h2>
+          <p>
+            No account, no email address, and no reading of yours on our
+            servers. You can check that rather than take our word for it.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="../verify.html">How you can check it</a>
+            <a class="btn btn--ghost" href="../features.html">See the rest</a>
+          </div>
+        </div>
       </section>
-
-    </main>
+</main>
 
     <div class="wrap">
       <!-- chrome:footer -->
