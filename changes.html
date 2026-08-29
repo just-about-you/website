@@ -65,6 +65,30 @@
       <section class="wrap" style="padding-block: var(--gap-l)">
         <div class="grid reveal-group">
         <article class="card" style="grid-column: 1 / -1">
+          <h2>2.11.0 (2026-08-29)</h2>
+          <p>The look the last release described is now the look on the screen.</p>
+          <h3>Depth, pattern and colour that were specified but never drawn</h3>
+          <ul>
+            <li>Cards were meant to sit on the page with a soft shadow, a lit top edge and a gentle wash behind them. <strong>None of it was being drawn</strong> — every value was zeroed before it reached the screen, on all fifteen themes. It draws now.</li>
+            <li>Each theme was meant to carry its own background pattern. <strong>Every theme drew the same one.</strong> There are eighteen now, and they differ by theme.</li>
+            <li>The main button in each theme was meant to take that theme&#x27;s colour. Six of the eight places it appears were ignoring it.</li>
+            <li><strong>Seven of the light themes had the same white background as each other</strong> — the largest thing on the screen, identical across all of them. Each has its own now, from a bold olive through to two different near-whites.</li>
+          </ul>
+          <h3>A sixteenth theme, for contrast</h3>
+          <ul>
+            <li><strong>Stark</strong>: black, white and grey, and nothing else. It is for reading the screen easily rather than for how it looks, and it was missing since the themes were rebuilt. Every other theme is checked against it for being distinct; this one is deliberately exempt, because being plain is the point.</li>
+          </ul>
+          <h3>Saying less when it knows less</h3>
+          <ul>
+            <li>The sentence under the greeting could report a settled, confident day after reading <strong>almost nothing</strong> — a long stretch of history with only a handful of entries in it counted as a full one. It now says it is still learning until it has actually seen fourteen readings, and it counts readings rather than days.</li>
+          </ul>
+          <h3>Things the app was saying that were not true</h3>
+          <ul>
+            <li>The app said the Caregiver Circle was paid. <strong>Nothing in the app is paid</strong>, and it now says so.</li>
+            <li>The first-run walkthrough introduced a Trends screen. That screen was removed two releases ago; the card now describes where the same thing actually lives, which is Home.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
           <h2>2.10.0 (2026-08-29)</h2>
           <p>The theme now reaches the screens it had been skipping.</p>
           <h3>The whole app, one theme</h3>
