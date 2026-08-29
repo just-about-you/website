@@ -42,35 +42,40 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Each entry is (phrase, the test that bans it and why). These must agree with
 # the app: if one of these tests is ever relaxed, relax it here in the same
 # change, and if a new one is added there, add it here.
+#
+# Cited by file and by what the assertion says, deliberately without a line
+# number. The app repository is worked on independently of this one and those
+# numbers move; a citation that rots is worse than a slightly vaguer one,
+# because the next person reads a wrong line and concludes the rule is stale.
 PORTED = [
     (
         'never the reading',
-        'app/test/what_leaves_phone_test.dart:88 — "the old absolute is false '
+        'app/test/what_leaves_phone_test.dart — "the old absolute is false '
         'now that M123 has shipped". A reading does cross, encrypted, on '
         'per-instance approval.',
     ),
     (
         'they never see a number',
-        'app/test/caregiver_help_accuracy_test.dart:41 — the no-numbers claim '
+        'app/test/caregiver_help_accuracy_test.dart — the no-numbers claim '
         'is a default, not a guarantee.',
     ),
     (
         'never leaves your phone',
-        'app/test/help_copy_guard_test.dart:300 — "the absolute M123 '
+        'app/test/help_copy_guard_test.dart — "the absolute M123 '
         'falsified, in a new place".',
     ),
     (
         'nothing is sent',
-        'app/test/help_copy_guard_test.dart:301 — same list.',
+        'app/test/help_copy_guard_test.dart — same list.',
     ),
     (
         'stays on this phone',
-        'app/test/help_copy_guard_test.dart:302 — same list.',
+        'app/test/help_copy_guard_test.dart — same list.',
     ),
     (
         'never sends them anywhere',
-        'app/test/backup_copy_test.dart:499 and '
-        'app/test/caregiver_help_accuracy_test.dart:154.',
+        'app/test/backup_copy_test.dart and '
+        'app/test/caregiver_help_accuracy_test.dart.',
     ),
 ]
 

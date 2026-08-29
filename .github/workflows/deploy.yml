@@ -38,12 +38,41 @@ jobs:
         with:
           python-version: '3.12'
 
-      # scripts/check.py is stdlib-only by design, so there is no install step
-      # and nothing to pin. It exits 1 on: a dead internal link, an image that
-      # does not resolve, an image with no alt text, an external host outside
-      # the Google Fonts allowlist, or an image the capture manifest omits.
+      # Every script here is stdlib-only by design, so there is no install step
+      # and nothing to pin.
+
+      # Exits 1 on: a dead internal link, an image that does not resolve, an
+      # image with no alt text, an external host outside the Google Fonts
+      # allowlist, or an image the capture manifest omits.
       - name: Links, alt text, external hosts, capture manifest
         run: python scripts/check.py
+
+      # KK127. The app has been guarded against these sentences since M123
+      # shipped and this site was not, which is how `privacy.html` came to
+      # publish the exact string `app/test/what_leaves_phone_test.dart` exists
+      # to keep out of shipped copy. It caught 18 of them on first run.
+      #
+      # This runs here rather than inside check.py so that a failure names
+      # itself: "the site published a forbidden absolute" is a different
+      # conversation from "a link is dead", and burying it in a general gate
+      # is how the last one went unnoticed.
+      - name: Forbidden absolutes
+        run: python scripts/absolutes.py
+
+      # accessibility.html claims colour contrast is checked before the site
+      # goes anywhere. It was not — contrast.py existed and nothing ran it —
+      # so either the claim or the process had to change, and the process was
+      # the cheaper half. It passes on the current tokens with room to spare.
+      #
+      # `scripts/reflow.html` is deliberately NOT here. It is a browser harness
+      # that needs a real engine and `--allow-file-access-from-files`, it
+      # covers five of the nineteen pages, and wiring it as a headless step
+      # would mean either a browser dependency in a stdlib-only gate or a
+      # weakened check that passes without measuring. accessibility.html now
+      # says plainly that reflow is run by hand and on which pages, which is
+      # the honest half of the fix until the harness covers everything.
+      - name: WCAG contrast, computed from the tokens
+        run: python scripts/contrast.py
 
   deploy:
     name: Publish
