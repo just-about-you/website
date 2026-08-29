@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Accessibility — Your Health</title>
-    <meta name="description" content="What Your Health asserts about accessibility, how it is tested, and the one place it is known to fall short." />
+    <meta name="description" content="What Your Health asserts about accessibility, which of those assertions a test enforces, and exactly how much of this site is checked before it is published." />
     <!-- chrome:assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -40,7 +40,7 @@
         <div class="hero-in">
           <p class="eyebrow">Accessibility</p>
           <h1>What is tested, and what <span class="hl">falls short</span>.</h1>
-          <p class="lede">Most accessibility statements describe an intention. This one lists what is asserted by a test that would fail, and names the one thing we know does not meet the bar.</p>
+          <p class="lede">Most accessibility statements describe an intention. This one lists what is asserted by a test that would fail, and is equally exact about the checks on this site that are still done by hand.</p>
         </div>
       </section>
 
@@ -77,21 +77,35 @@
         <div class="wrap">
           <div class="section-head reveal">
             <h2>Where it falls short</h2>
-            <p class="lede">One known failure, recorded rather than quietly carried.</p>
+            <p class="lede">The failure this section used to name is fixed. What is left is a gap in colour, and it is a real one.</p>
           </div>
           <div class="grid reveal-group">
             <article class="card">
-              <h3>One theme&rsquo;s main button is below the bar</h3>
+              <h3>The contrast exemption is gone</h3>
               <p>
-                In the original colour family, the primary button&rsquo;s text
-                sits at 3.32 against its background where the standard asks for
-                4.5.
+                This card used to say one colour family&rsquo;s main button sat
+                at 3.32 where the standard asks for 4.5. That family was
+                deleted, and no exemption replaced it: all fifteen themes are
+                held to 4.5 for text and 3 for anything else, measured on the
+                colour you actually see on a translucent card.
               </p>
               <p class="muted">
-                It is not fixed rather than not noticed: darkening it enough
-                drops the button&rsquo;s own contrast against the page below
-                the bar for a control, so it needs a per-brightness colour
-                rather than a nudge. Every other family passes.
+                It is recorded rather than removed because the practice is the
+                point. A page that has never listed a failure is a page nobody
+                has looked at hard enough.
+              </p>
+            </article>
+            <article class="card">
+              <h3>There is no maximum-contrast theme</h3>
+              <p>
+                Every theme meets the bar, and none of them is built to exceed
+                it. A colourless, maximum-contrast option existed and was
+                removed when the roster was rebuilt.
+              </p>
+              <p class="muted">
+                This page will not describe one until there is one to describe,
+                which is why you will not find a maximum-contrast mode named
+                anywhere else here.
               </p>
             </article>
           </div>
@@ -106,9 +120,24 @@
           <article class="card">
             <h3>Checked before anything is published</h3>
             <p>
-              Colour contrast and a 360 pixel layout are verified by a script
-              that runs before the site goes anywhere, along with a skip link,
-              a page language and alt text on every image.
+              Colour contrast is computed from the stylesheet itself and fails
+              the build if any pair drops below the standard. So does a skip
+              link, a page language, alt text on every image, and a list of
+              sentences these pages are not allowed to publish.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Checked by hand, on five pages</h3>
+            <p>
+              Reflow at 360 pixels is not automatic. It runs in a browser
+              someone opens, and it covers five of the nineteen pages here:
+              the landing page, features, privacy, help and about.
+            </p>
+            <p class="muted">
+              This card used to be part of the one beside it, which said both
+              were verified before the site went anywhere. Only one of them
+              was. Splitting them is the honest version until the reflow check
+              runs on its own.
             </p>
           </article>
           <article class="card">
