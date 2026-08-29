@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Recording a reading — Your Health</title>
-    <meta name="description" content="The circle on the home screen holds every number you track day to day. Tap the middle to record one, or a segment to go straight there." />
+    <meta name="description" content="Home holds a tile for every number you track day to day. Tap one to open that number’s own screen, and the record button there to add a value." />
     <!-- chrome:assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,28 +35,28 @@
     </div>
     <!-- /chrome:header -->
 
+    <!--
+      KK127 — this page was built around a wheel that no longer exists.
+      `app/lib/features/today/today_screen.dart:47-56`: "It used to be a metric
+      wheel in a square hero, a swipeable stack of sibling hero pages, and a
+      horizontally paged, auto-advancing card deck underneath. All three are
+      gone." Home is a greeting, a week strip, link buttons and a tile grid,
+      and recording opens from a metric's own screen.
+
+      The two captures of the wheel and of the picker that opened from its
+      middle are removed rather than re-captioned; both showed controls nobody
+      can find. The entry sheet capture stays, because the sheet itself
+      survived the redesign.
+    -->
     <main id="main">
       <section class="wrap hero">
         <div class="hero-grid">
           <div class="hero-in">
             <p class="eyebrow">Recording</p>
             <h1>One number, <span class="hl">two taps</span>.</h1>
-            <p class="lede">The circle on the home screen is for the numbers you record and move on from. Everything slower than that has a page of its own.</p>
+            <p class="lede">Home holds a tile for each number you record and move on from. Everything slower than that has a page of its own.</p>
             <div class="cta-row">
               <a class="btn btn--ghost" href="../features.html">All features</a>
-            </div>
-          </div>
-
-          <div class="feature-media">
-            <div class="device">
-              <div class="device-screen">
-                <img
-                  src="../assets/img/10-home.webp"
-                  width="900"
-                  height="2004"
-                  alt="The home screen, with the reading circle in the middle."
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -64,14 +64,14 @@
 
       <section class="wrap" data-role="what">
         <div class="section-head reveal">
-          <h2>What the circle is for</h2>
-          <p class="lede">Sleep, blood pressure, blood sugar, oxygen, heart rate and water sit around a circle on the home screen. Each one is a segment, and the middle is a plus.</p>
+          <h2>What the tiles are for</h2>
+          <p class="lede">Sleep, blood pressure, blood sugar, oxygen, heart rate, weight and water each get a tile on the home screen, under a strip of the last seven days. Anything you made up yourself gets one too.</p>
         </div>
-        <p class="lede">Anything slower than that lives elsewhere. Your cycle, symptoms and weight each get a proper page rather than a slice of a wheel.</p>
+        <p class="lede">Symptoms and periods are not numbers, so they sit above the tiles as buttons rather than being squeezed into one.</p>
         <div class="feature-row reveal">
           <div>
-            <h3>The wheel, and the plus in the middle</h3>
-            <p>Tap the middle and the app asks which reading you are adding. Tap a segment instead and it skips the question.</p>
+            <h3>A tile, then that number&rsquo;s own screen</h3>
+            <p>Each tile shows the latest value, or says there is nothing recorded. Tap it and that number&rsquo;s own screen opens, with the record button at the bottom.</p>
           </div>
         </div>
       </section>
@@ -79,10 +79,10 @@
       <section class="band" data-role="why">
         <div class="wrap">
           <div class="section-head reveal">
-            <h2>Why it is a circle and not a list</h2>
-            <p class="lede">A list of eleven things asks you to read it. A circle you have used twice is muscle memory: the segment for blood pressure is always in the same place, so recording one stops being a decision.</p>
+            <h2>Why every one of them is always there</h2>
+            <p class="lede">A tile that disappeared on a day with nothing in it would leave you unable to tell &ldquo;I have not recorded this&rdquo; from &ldquo;this is not something I track&rdquo;. Those are different, and only one of them is worth acting on.</p>
           </div>
-        <p class="lede">That matters because the value of any of this comes from doing it on the dull days. A tracker you have to think about is one you stop opening.</p>
+        <p class="lede">So the tile is always in the same place, which is what makes recording stop being a decision. That matters because the value of any of this comes from doing it on the dull days.</p>
         </div>
       </section>
 
@@ -92,18 +92,8 @@
         </div>
         <div class="feature-row reveal">
           <div>
-            <h3>Tap the plus to start</h3>
-            <p>It asks which reading you are adding, then opens the number for you. That is the quickest way in.</p>
-          </div>
-          <div class="feature-media">
-            <img
-              class="shot"
-              src="../assets/img/13-home-record-picker.webp"
-              width="900"
-              height="2004"
-              alt="The picker that opens from the middle of the circle, listing each reading."
-              loading="lazy"
-            />
+            <h3>Tap the tile, then the record button</h3>
+            <p>The tile takes you to that number&rsquo;s own screen, and the button along the bottom of it opens the entry sheet. The home-screen widget opens the same sheet without going through the app.</p>
           </div>
         </div>
         <div class="feature-row feature-row--flip reveal">

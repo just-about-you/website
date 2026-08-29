@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Trends — Your Health</title>
-    <meta name="description" content="Every number you track, shown across a stretch of days. Including the ones you have never recorded, which appear on purpose." />
+    <title>Your numbers over time — Your Health</title>
+    <meta name="description" content="Where a run of readings is shown now that Trends is gone: one entry per tracked number on Home, and each number's own day, week and month screen." />
     <!-- chrome:assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,28 +35,37 @@
     </div>
     <!-- /chrome:header -->
 
+    <!--
+      KK127 — this page was `features/trends.html` and it sold a screen the app
+      no longer has. Trends was deleted in the app (EE131); the five bar
+      destinations are Home, Tasks, Medication, Actions and Care.
+
+      It was rewritten rather than deleted because roughly half of what it
+      promised is still true and still guarded. `trendsEntriesFor()`
+      (`app/lib/features/log/trends_entries.dart:60`) is now Home's tile
+      membership, it still ignores whether any data exists, and
+      `app/test/trends_entries_test.dart` still holds it there. Deleting the
+      page would have taken that live guarantee down with the dead screen name.
+
+      It kept its content and changed its URL, rather than the other way round.
+      Nothing outside `features.html` linked to the old address and the site is
+      not published yet, so there is no inbound link a redirect would preserve
+      — and a meta-refresh stub would be a page with no heading and nothing to
+      read, which is worse for anyone arriving on it.
+
+      The three screenshots are gone. They were captures of the deleted screen,
+      and no alt text makes a picture of a screen nobody can open honest. They
+      come back when the harness is next run.
+    -->
     <main id="main">
       <section class="wrap hero">
         <div class="hero-grid">
           <div class="hero-in">
-            <p class="eyebrow">Trends</p>
+            <p class="eyebrow">Over time</p>
             <h1>A run of readings, <span class="hl">side by side</span>.</h1>
             <p class="lede">One reading says very little. The point of writing them down is the shape they make over weeks.</p>
             <div class="cta-row">
               <a class="btn btn--ghost" href="../features.html">All features</a>
-            </div>
-          </div>
-
-          <div class="feature-media">
-            <div class="device">
-              <div class="device-screen">
-                <img
-                  src="../assets/img/20-trends.webp"
-                  width="900"
-                  height="2004"
-                  alt="The trends screen, a small chart for every number you track."
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -64,14 +73,14 @@
 
       <section class="wrap" data-role="what">
         <div class="section-head reveal">
-          <h2>What Trends shows</h2>
-          <p class="lede">Every number you track gets a row, with a small chart of the last stretch of days. Tap one and it opens into a larger chart with the detail underneath.</p>
+          <h2>Where a run of readings lives</h2>
+          <p class="lede">On Home, and then on each number&rsquo;s own screen. There used to be one screen called Trends holding all of them at once, and there is not any more.</p>
         </div>
-        <p class="lede">A number you have never recorded still appears, showing nothing. That is deliberate: a gap you can see is worth more than one hidden from you.</p>
+        <p class="lede">Home gives every number you track its own place. The ones that make a chart get a tile with the latest value; symptoms and periods, which are not numbers, get a button. Tap either and it opens that thing&rsquo;s own screen, with the chart and the detail underneath.</p>
         <div class="feature-row reveal">
           <div>
-            <h3>Every tracked number, in one place</h3>
-            <p>The rows are the things you chose to track. Turning one on or off in the menu changes what appears here.</p>
+            <h3>Every tracked number gets one</h3>
+            <p>What appears is exactly what you chose to track, and nothing decides otherwise on the way. A number you have never recorded still gets a tile, showing that there is nothing in it.</p>
           </div>
         </div>
       </section>
@@ -79,10 +88,10 @@
       <section class="band" data-role="why">
         <div class="wrap">
           <div class="section-head reveal">
-            <h2>Why an empty row is not a mistake</h2>
-            <p class="lede">If a row vanished when it had no data, you would have no way to tell &ldquo;I have not recorded this&rdquo; from &ldquo;this is not something I track&rdquo;. Those are different, and only one of them is worth acting on.</p>
+            <h2>Why an empty tile is not a mistake</h2>
+            <p class="lede">If a tile vanished when it had no data, you would have no way to tell &ldquo;I have not recorded this&rdquo; from &ldquo;this is not something I track&rdquo;. Those are different, and only one of them is worth acting on.</p>
           </div>
-        <p class="lede">So the row stays, empty, until you fill it.</p>
+        <p class="lede">So the tile stays, empty, until you fill it. The same rule survived the screen it was written for: it now decides what Home shows, and a test fails the build if a tracked number ever loses its place.</p>
         </div>
       </section>
 
@@ -93,39 +102,19 @@
         <div class="feature-row reveal">
           <div>
             <h3>Switch between day, week and month</h3>
-            <p>Three buttons along the top change how much of your history the chart is showing.</p>
-          </div>
-          <div class="feature-media">
-            <img
-              class="shot"
-              src="../assets/img/21-trends-detail.webp"
-              width="900"
-              height="2004"
-              alt="A sleep chart with day, week and month buttons above it, showing a week of bars."
-              loading="lazy"
-            />
+            <p>Three buttons along the top change how much of your history the chart is showing. This is per number, on that number&rsquo;s own screen &mdash; there is no one screen that charts all of them together.</p>
           </div>
         </div>
         <div class="feature-row feature-row--flip reveal">
           <div>
-            <h3>Open the calendar for an older day</h3>
-            <p>Pick any date and the chart moves to it, so an old reading is never out of reach.</p>
-          </div>
-          <div class="feature-media">
-            <img
-              class="shot"
-              src="../assets/img/22-trends-calendar.webp"
-              width="900"
-              height="2004"
-              alt="A calendar open over the chart for choosing a past date."
-              loading="lazy"
-            />
+            <h3>Look up an older day</h3>
+            <p>The strip of days above the chart moves it through the last week. For anything older, the calendar button opens a date picker and lists every reading recorded on the day you pick, which is where you go to correct one.</p>
           </div>
         </div>
         <div class="feature-row reveal">
           <div>
-            <h3>Choose what appears here</h3>
-            <p>What you track is a setting. Turn something on and its row appears; turn it off and past entries are kept.</p>
+            <h3>Choose what appears</h3>
+            <p>What you track is a setting, in the menu under <strong>What you track</strong>. Turn something on and it gets a place on Home; turn it off and past entries are kept.</p>
           </div>
           <div class="feature-media">
             <img
@@ -144,8 +133,8 @@
         <div class="cta-panel reveal">
           <h2>Everything here runs on your own phone</h2>
           <p>
-            No account, no email address, and no reading of yours on our
-            servers. You can check that rather than take our word for it.
+            No account, no email address, and no reading of yours in our
+            database. You can check that rather than take our word for it.
           </p>
           <div class="cta-row">
             <a class="btn" href="../verify.html">How you can check it</a>

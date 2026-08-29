@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Appearance — Your Health</title>
-    <meta name="description" content="Light or dark, and a colour family that runs through every screen." />
+    <meta name="description" content="Fifteen themes, each one a complete set of colours running through every screen. Some bright, some dark, and each row says which." />
     <!-- chrome:assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,28 +35,32 @@
     </div>
     <!-- /chrome:header -->
 
+    <!--
+      KK127 — this page sold a light/dark switch that was deliberately removed.
+      A theme *is* a palette: `app/lib/core/theme/app_theme.dart:2860` —
+      "a style *is* a palette, and `AppColors.isDark` is derived from" the
+      ground — and `main.dart:167` calls `clearLegacyThemeMode()`. The app
+      commit is `8e64c74`, "a theme is a palette — the brightness switch is
+      gone". `appearance_settings_screen.dart:26-55` renders exactly one list:
+      one row per style, fifteen of them, each labelled Bright or Dark by
+      `_isDarkStyle` reading the palette's own ground.
+
+      The menu path was wrong too. There is no "Display and text size" group;
+      the menu root is What you track / Help and Support / Settings, and
+      Appearance is the second row inside Settings, after Your name.
+
+      Both captures are removed. `68-appearance.webp` shows the pre-rebuild
+      screen and `60-settings.webp` shows the pre-restructure menu.
+    -->
     <main id="main">
       <section class="wrap hero">
         <div class="hero-grid">
           <div class="hero-in">
             <p class="eyebrow">Appearance</p>
-            <h1>Light, dark, or <span class="hl">whatever your phone says</span>.</h1>
+            <h1>Fifteen themes, <span class="hl">whole ones</span>.</h1>
             <p class="lede">Comfort matters more than decoration here. A darker screen at night, or one with more contrast, can be the difference between reading something easily and giving up on it.</p>
             <div class="cta-row">
               <a class="btn btn--ghost" href="../features.html">All features</a>
-            </div>
-          </div>
-
-          <div class="feature-media">
-            <div class="device">
-              <div class="device-screen">
-                <img
-                  src="../assets/img/68-appearance.webp"
-                  width="900"
-                  height="2004"
-                  alt="The appearance screen, with light and dark options and colour families."
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -65,13 +69,13 @@
       <section class="wrap" data-role="what">
         <div class="section-head reveal">
           <h2>What you can change</h2>
-          <p class="lede">Light or dark, or follow your phone. Separately, a colour family that runs through every screen rather than accenting one.</p>
+          <p class="lede">A theme. Each of the fifteen is one complete set of colours that runs through every screen, rather than an accent on one bar.</p>
         </div>
-        <p class="lede">Text size lives beside it, and is worth a look if anything feels small.</p>
+        <p class="lede">Some are bright and some are dark, and each row says which. The theme is the choice: there is no separate light and dark switch, and no follow-your-phone option. Text size is its own row, directly underneath, and is worth a look if anything feels small.</p>
         <div class="feature-row reveal">
           <div>
-            <h3>One screen, two decisions</h3>
-            <p>Light and dark at the top, colour families underneath.</p>
+            <h3>One list, one decision</h3>
+            <p>Fifteen rows, each with its colours shown beside it and the word Bright or Dark. Tapping one changes the whole app at once.</p>
           </div>
         </div>
       </section>
@@ -82,7 +86,7 @@
             <h2>Why it is more than a preference</h2>
             <p class="lede">Two ends of this app&rsquo;s audience are a long way apart, and one of them is reading a phone at arm&rsquo;s length in a bright room.</p>
           </div>
-        <p class="lede">Making the whole app change together, rather than tinting one bar, is what makes that actually help.</p>
+        <p class="lede">Making the whole app change together, rather than tinting one bar, is what makes that actually help. Every one of the fifteen is held to the same contrast floor, so picking the one you like is not a trade against being able to read it.</p>
         </div>
       </section>
 
@@ -92,18 +96,8 @@
         </div>
         <div class="feature-row reveal">
           <div>
-            <h3>Open Display and text size in the menu</h3>
-            <p>Appearance is the first thing inside it. The text-size controls live there too.</p>
-          </div>
-          <div class="feature-media">
-            <img
-              class="shot"
-              src="../assets/img/60-settings.webp"
-              width="900"
-              height="2004"
-              alt="The main menu, with display and text size among the settings rows."
-              loading="lazy"
-            />
+            <h3>Open the menu, then Settings</h3>
+            <p>Appearance is the second row, after Your name, with Text size directly under it.</p>
           </div>
         </div>
       </section>
