@@ -1,8 +1,13 @@
-/* Y110 — the founder light palette, as web tokens.
+/* Y110 — the site palette.
  *
- * Values are copied verbatim from `_founderLight` in
- * `app/lib/core/theme/app_theme.dart`. If a value here disagrees with that
- * file, that file is right and this one is stale.
+ * KK127: this used to say the values were copied verbatim from
+ * `_founderLight` in `app/lib/core/theme/app_theme.dart`, and that the app
+ * won any disagreement. `_founderLight` does not exist — the JJ cull rebuilt
+ * the roster and `AppThemeStyle.founders` is now the `Acid` template, a dark
+ * palette on a near-black ground. Following that rule would repaint this site
+ * in acid yellow, so there is no upstream to follow: these are web values,
+ * authored here. `scripts/contrast.py` reads them out of this file and fails
+ * the build if a pair drops below AA, which is what holds them.
  *
  * LIGHT MODE ONLY, by operator instruction. There is deliberately no
  * `prefers-color-scheme: dark` block: the site commits to one look rather
