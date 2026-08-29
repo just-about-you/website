@@ -65,6 +65,157 @@
       <section class="wrap" style="padding-block: var(--gap-l)">
         <div class="grid reveal-group">
         <article class="card" style="grid-column: 1 / -1">
+          <h2>2.10.0 (2026-08-29)</h2>
+          <p>The theme now reaches the screens it had been skipping.</p>
+          <h3>The whole app, one theme</h3>
+          <ul>
+            <li>Open a metric from Home and it kept its own idea of what colour that metric is, unrelated to the tile you tapped and unrelated to your theme. <strong>A metric&#x27;s colour on Home and its colour on its own screen were never the same.</strong> They come from one place now, for every metric and every theme.</li>
+            <li>Those screens also painted a fixed sand background under whatever theme you had chosen. The background, the day/week/month buttons, the reading itself and the labels around it are all yours now.</li>
+            <li>Charts drew their gridlines, ticks and average line in colours named outright rather than taken from the theme, so on a tinted card they simply vanished. They are also drawn on the card now rather than on the background behind it, because on a near-black ground a mark that thin has nowhere to show.</li>
+            <li>The marker on the week strip that says a day was logged takes the theme&#x27;s second colour, which until now was authored by every theme and used by nothing.</li>
+          </ul>
+          <h3>Menus that stop drawing lines under nothing</h3>
+          <ul>
+            <li>Every row drew its own divider and every group boundary drew a second one, so a boundary was an indented line, a gap, a full-width line, another gap. The last row of every list also drew a line under nothing at all. There is one line between two things, and no line after the last one.</li>
+            <li><strong>&quot;What you track&quot; moved to the top level of the menu.</strong> It was filed inside a group about how the app works, which is documentation, and it is not — it is the screen where you choose what the app tracks, and people were hunting for it.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.9.0 (2026-08-29)</h2>
+          <p>Fifteen themes, and every one of them looks like itself.</p>
+          <h3>The roster</h3>
+          <ul>
+            <li><strong>Twenty themes were removed and ten new ones written.</strong> What ships is Acid and fourteen others authored from colours chosen for them: Harbour, Naples, Rosewood, Carnival, Bracken, Tobacco, Slate, Meadow, Azure and the rest.</li>
+            <li>Calm, Loud, Grayscale, Royal Blue and Founder are gone. Whichever of them you were using, you are moved to Acid, the new default.</li>
+            <li><strong>Every theme is free.</strong> The two that were invite-only no longer exist, and nothing in the app is behind a grant any more.</li>
+            <li>Every pair of themes was measured against every other pair for whether a person could tell two screens apart. All hundred and five pairs clear the floor; the closest two are still comfortably distinguishable. Four of the fifty supplied colours do not appear anywhere, each for a measured reason — three sit in a band where no text can be read on them, and one is too close to the card behind it.</li>
+          </ul>
+          <h3>Three things that were quietly wrong before this</h3>
+          <ul>
+            <li><strong>Harbour was drawing a lavender navigation bar on a cyan theme.</strong> Mixing towards a white or near-grey colour lost the hue entirely and landed somewhere unrelated. Tobacco, Slate and Meadow had it too.</li>
+            <li>The colour reserved for an alarm was being adjusted as though nothing would ever be written on it. It carries text, and now it is chosen accordingly.</li>
+            <li>A pure white card cannot carry the soft background figure that cards draw, because there is nothing lighter than white to draw it in.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.8.0 (2026-08-28)</h2>
+          <p>A theme is a whole palette now, and choosing one is the only choice you make.</p>
+          <h3>The light/dark switch is gone</h3>
+          <ul>
+            <li><strong>There is no longer a System / Light / Dark control</strong>, and the setting no longer exists. Each theme is either bright or dark by its own nature, and the picker tells you which — the label is worked out from the theme itself rather than written down beside it, so it cannot disagree with what you see.</li>
+            <li><strong>Changing your phone between light and dark mode no longer changes the app.</strong> It used to switch you to a different palette without asking.</li>
+            <li>Twenty palettes became twenty themes, and which of each pair survived was decided one at a time. Grayscale kept its bright form because that form has more contrast, and it exists for contrast. Royal Blue and Founder kept their dark forms, because what they were described as when they were offered was &quot;black, gold and silver&quot; and &quot;deep emerald and bronze&quot;.</li>
+            <li>Four new themes: Harbour, Naples, Rosewood and Carnival.</li>
+            <li>If you restore an old backup, the light/dark preference it contains is dropped on the way in rather than written to a device with nothing to read it.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.7.0 (2026-08-28)</h2>
+          <p>Fifteen themes shipped in 2.6.0. This is the release that found out they all looked the same, and fixed it.</p>
+          <h3>The finding</h3>
+          <ul>
+            <li>The same screen was rendered under every theme and the pictures compared, the way a person compares them rather than the way a test reads a colour value. <strong>A hundred and fifty-two theme pairs out of three hundred and eighty came out as the same screen</strong> — two of them closer together than a human eye can separate. Not one of the older palettes failed; it was every theme built on the shared shell, which is what the shell turned out to guarantee.</li>
+          </ul>
+          <h3>A theme is a template, not one colour</h3>
+          <ul>
+            <li>A theme used to be a fixed frame with a single accent dropped into it. A theme is now <strong>three to six colours of its own</strong> and a table saying where each one goes. Cards cycle through the theme&#x27;s own set, so which colour a metric has still means something within a theme, and stops pretending to identify one of eleven.</li>
+            <li><strong>Acid ships</strong> — a near-black green ground, a lime accent and an emerald second, sampled from the reference rather than eyeballed. Text on the accent resolves to the ground colour, never to white.</li>
+          </ul>
+          <h3>Choosing a theme</h3>
+          <ul>
+            <li><strong>The theme picker was previewing colours that eight themes shared.</strong> Two of its four swatches were identical across every new theme and the other two differed by a shade, so in bright mode eight of the twenty themes drew strips that were the same image, in three groups. The accent goes first now, and the difference between the worst-matched pair went from nothing at all to plainly visible.</li>
+          </ul>
+          <h3>Smaller</h3>
+          <ul>
+            <li>The developer menu shared one &quot;working&quot; flag between six buttons, so starting one made another say it was busy. It also described a sweep narrower than the one it performs, and did not mention that a typed server address cannot connect unless it was allowed for at build time.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.6.0 (2026-08-28)</h2>
+          <p>Fifteen themes, and the end of the glass.</p>
+          <h3>No glow</h3>
+          <ul>
+            <li><strong>The glass look introduced in 2.4.0 is retired.</strong> Cards cast no shadow and carry no lit top edge; they separate from the background by being a step apart from it and by an outline that is actually there. The shadow was costing the most on exactly the themes with the least room to render it.</li>
+            <li><strong>Cards belong to their theme.</strong> One set of card colours for the whole app meant sleep was the same lavender everywhere. Each theme works out its own set now, leaning each one slightly towards its accent — which also fixed a case where a card came out brighter than everything except the accent itself.</li>
+            <li>Fifteen themes, all with a bright and a dark form, none invite-only.</li>
+            <li>Six colours in the new set were wrong and were corrected before shipping rather than after. One target was missed and is reported rather than quietly excused: Ember&#x27;s bright form has nowhere further to put its alarm colour.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.5.0 (2026-08-28)</h2>
+          <p>Three things found on a real device.</p>
+          <h3>Fixed</h3>
+          <ul>
+            <li><strong>Dark backgrounds were banding.</strong> A shadow dark enough to see against a near-black ground travels only a handful of steps across the height of a card, which the eye reads as visible stripes. Shadows are now worked out from how much room the background actually has, and below a certain point no shadow is drawn at all — which also stopped one theme paying for a shadow that could never have shown.</li>
+            <li><strong>The accent colour had nowhere to go.</strong> Founder shipped its bright accent in the palette and on no pixel of the app. The accent now colours the selected tab, the selected day in both calendars, and the primary buttons. This turned up an older fault along the way: <strong>on every dark theme, the highlight behind the selected tab was a near-black shape on a dark bar</strong> — invisible.</li>
+            <li><strong>Cards were shouting over the accent.</strong> On the accent themes they are muted now, with the difference between them carried by lightness rather than by saturation, so they stay apart from each other without competing.</li>
+            <li>Six of the trend arrows had lost their colour and were drawn in the wrong one.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.4.4 (2026-08-28)</h2>
+          <p>The menu, and the first of the new palettes.</p>
+          <h3>Two groups instead of ten rows</h3>
+          <ul>
+            <li><strong>The main menu is Help and Support, Settings, and nothing else</strong> (plus developer tools on a debug build). The three groups that used to nest inside it are dissolved rather than folded deeper — nesting would have put Appearance four taps away, and this way nothing is more than three.</li>
+            <li><strong>&quot;Display &amp; Text Size&quot; no longer exists as a screen.</strong> Its contents sit directly under Settings.</li>
+            <li><strong>Medications and Friends left the menu.</strong> Both already have a place of their own on the bottom bar and on Home, so the menu was offering a second door to something you can already see.</li>
+            <li>Your device code is shown for support, with wording that says plainly it is not how you add people.</li>
+          </ul>
+          <h3>Fixed</h3>
+          <ul>
+            <li><strong>The theme picker was showing colours no theme had.</strong> Its swatches were written out by hand and had drifted: Calm previewed a near-white lavender when the theme is periwinkle, and it was wrong for four of the five themes. The swatches are read from the theme itself now.</li>
+          </ul>
+          <h3>Founder</h3>
+          <ul>
+            <li>A new dark palette: a flat near-black ground, a lime accent and an emerald second, taken from a reference image rather than guessed. Added alongside the existing themes rather than replacing any of them.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.4.3 (2026-08-28)</h2>
+          <h3>Fixed</h3>
+          <ul>
+            <li>Three descriptions in the developer menu were wrong, one of them in the dangerous direction — it claimed clearing demo data would leave demo medications behind and that a backup would carry them. Neither was true.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.4.2 (2026-08-28)</h2>
+          <p>Demo data you can actually look at, and a safety hole in how it was stored.</p>
+          <h3>Demo data</h3>
+          <ul>
+            <li>Turning on demo data now fills ninety days across everything the app tracks — readings, medications, tasks, three full cycles and four custom trackers. Gaps are real gaps, so the screens show what a real history looks like rather than a solid wall of numbers.</li>
+          </ul>
+          <h3>Fixed, and this one matters</h3>
+          <ul>
+            <li><strong>Demo medications were being stored as real ones.</strong> They went into your backup as real history, and on a phone with medication sharing switched on they were <strong>sent to your carers</strong>, where they were indistinguishable from your actual list.</li>
+            <li><strong>Removing demo data deleted real medications.</strong> It worked by name, against a list of fifteen common ones, with no confirmation — so on a real phone it destroyed those medications and their history and reported success.</li>
+            <li>Tasks, task history and custom trackers had no way of recording that a row was demo data at all. They do now, so removing demo data removes demo data and nothing else.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.4.1 (2026-08-28)</h2>
+          <p>The first install of 2.4.0 on a phone. Six things were wrong and are fixed.</p>
+          <h3>Fixed</h3>
+          <ul>
+            <li><strong>A metric&#x27;s own screen was one enormous button and no data.</strong> The record button was taking the whole height of the screen. The same fault was on the custom-tracker screen.</li>
+            <li><strong>Choosing a day in the past and then recording wrote the reading to today.</strong> Readings are always recorded for today, so on any other day the record button is replaced by a line saying so and a way back to today. There is nothing left to tap that could write the wrong day.</li>
+            <li><strong>One reading now draws a chart.</strong> With a single point the chart painted one rectangle from edge to edge with no scale at all.</li>
+            <li><strong>&quot;No record&quot; stopped shouting.</strong> It was set in the same large serif as a real reading, so a fresh install was a wall of it. It takes a quieter face now.</li>
+            <li>An empty tile said &quot;No record&quot; twice, once in the value and again directly underneath it.</li>
+            <li>Blood pressure was rendering as &quot;120…&quot; — the tile gave the reading a third of the width it needs and cut the second number off. A reading that does not fit is scaled down instead.</li>
+            <li>Pull-to-refresh is gone from Home. It advertised a refresh it did not perform; Home updates itself when you save a reading.</li>
+          </ul>
+          <h3>Cards that tell you which metric they are</h3>
+          <ul>
+            <li><strong>Every metric has its own colour and keeps it</strong>, so &quot;sleep is the indigo one&quot; is worth learning. The colours are spaced by how different they look rather than by where they sit on a colour wheel.</li>
+            <li><strong>Colour never becomes a verdict.</strong> A card&#x27;s colour is chosen from the name of the metric and from nothing else — no reading, no threshold, no date can reach it, and there is no red in the set.</li>
+            <li>A large soft figure sits behind each card, always shaded away from the text crossing it so the text gains contrast rather than losing it.</li>
+            <li>Trend arrows appear on &quot;higher&quot; and &quot;lower&quot; only, in the metric&#x27;s own colour. Nothing is red or green: the shape says the direction and the colour says only which metric.</li>
+            <li><strong>Symptoms and cycle left the tile grid</strong> and sit above it as buttons. They are journals, not a series of numbers, and a tile is the wrong shape for them.</li>
+            <li>Tiles in a row are all the same height. A tall card used to stretch an empty neighbour into a tall blank box.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
           <h2>2.4.0 (2026-08-28)</h2>
           <p>The interface again — this time how it looks, and help that finally describes the app you are using.</p>
           <h3>Glass</h3>
