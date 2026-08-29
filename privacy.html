@@ -7,12 +7,26 @@
   on 2026-08-23. Do not add a claim to this page that is not in those files;
   add it there first, with its evidence, and copy it here.
 
-  SIGNED OFF by the operator on 2026-08-23, covering the breach-claim wording
-  and the W112 correction. Cleared to publish.
+  The 2026-08-23 sign-off covered the breach-claim wording and the W112
+  correction. KK127 re-derived four of those claims from the code on
+  2026-08-29 and found them false, so that sign-off no longer covers this
+  page as it stands and the wording below needs re-signing before Y150:
 
-  If you change a claim here, change 01-privacy-and-data.md first and have the
-  wording re-signed. This page is downstream of that document; it is not a
-  place to draft in.
+    - "We never see a reading" as a headline, with the exception named 78
+      lines further down. A headline absolute is not rescued by a distant
+      qualifier.
+    - "This is the complete list", which omitted tagged medication names,
+      the device public key and the per-request log.
+    - "Never the reading" — verbatim the string
+      `app/test/what_leaves_phone_test.dart:88` exists to keep out of shipped
+      copy, and which that test could never have caught here.
+    - "Nothing in it names, contacts, or locates a person", contradicted 29
+      lines below by this page's own note on the notification token.
+
+  `scripts/absolutes.py` now fails the build on all four shapes, so this
+  particular drift cannot recur silently. If you change a claim here, change
+  01-privacy-and-data.md first and have the wording re-signed. This page is
+  downstream of that document; it is not a place to draft in.
 -->
 <html lang="en">
   <head>
@@ -72,11 +86,13 @@
         </div>
         <div class="grid reveal-group">
           <article class="card">
-            <h3>We never see a reading</h3>
+            <h3>A reading has no column here</h3>
             <p>
               Blood pressure, blood sugar, oxygen, heart rate, sleep, weight,
               water, cycle, symptoms — none of it has a column on our servers.
-              It lives in an encrypted database on your phone.
+              It lives in an encrypted database on your phone. Two things can
+              carry more than that, and both need you to act first:
+              <a href="#leaves">they are in the table below</a>.
             </p>
           </article>
           <article class="card">
@@ -97,13 +113,16 @@
       </section>
 
       <!-- ── what does leave ───────────────────────────────────────────── -->
-      <section class="wrap">
+      <section class="wrap" id="leaves">
         <div class="section-head reveal">
           <h2>What does leave your phone</h2>
         </div>
         <p>
-          Some features need a server to pass something between you and someone
-          you chose. This is the complete list.
+          Most of this is a server passing something between you and someone
+          you chose. The last two rows are not: they are things we send for our
+          own reasons rather than yours, and they are here because a list that
+          left them out would not be a list. Every request the app makes is one
+          of the rows below.
         </p>
 
         <div class="table-scroll reveal" style="margin-top: var(--gap-m)">
@@ -136,7 +155,34 @@
                   whether you logged it. A true or a false.
                 </td>
                 <td>
-                  Never the reading. There is no column that could hold one.
+                  Not the reading itself. There is no column that could hold
+                  one. The two rows below are the only ways a value crosses,
+                  and you act first in both.
+                </td>
+              </tr>
+              <tr>
+                <td>A carer asks for one reading</td>
+                <td>
+                  Only if you approve that request: the value, encrypted to their
+                  phone, held briefly and deleted when they pick it up.
+                </td>
+                <td>
+                  We keep no copy. Approving once does not approve the next.
+                </td>
+              </tr>
+              <tr>
+                <td>You tag a medication for a carer</td>
+                <td>
+                  Its name, its dose and how many of that week's doses you
+                  took, encrypted to that carer's phone. Only the ones you
+                  tagged, and only for the carer you tagged them for.
+                </td>
+                <td>
+                  <strong>Tagging is standing consent</strong>, unlike a
+                  reading: once tagged, it goes again on each update without
+                  asking you again. Untag it, or switch medications off
+                  altogether, and the next update tells their phone to forget
+                  what it holds.
                 </td>
               </tr>
               <tr>
@@ -150,16 +196,6 @@
                 </td>
               </tr>
               <tr>
-                <td>A carer asks for one reading</td>
-                <td>
-                  Only if you approve that request: the value, encrypted to their
-                  phone, held briefly and deleted when they pick it up.
-                </td>
-                <td>
-                  Nothing is kept. Approving once does not approve the next.
-                </td>
-              </tr>
-              <tr>
                 <td>You turn on notifications</td>
                 <td>A delivery token so messages can reach your phone.</td>
                 <td>No content of yours is stored with it.</td>
@@ -168,6 +204,29 @@
                 <td>You read an article</td>
                 <td>A request for the article.</td>
                 <td>It carries no identity at all.</td>
+              </tr>
+              <tr>
+                <td>The app first runs</td>
+                <td>
+                  Your random code, and the public half of a key pair this
+                  phone made — so that someone you later connect with has
+                  something to encrypt to.
+                </td>
+                <td>
+                  The private half never leaves the phone, and we cannot
+                  decrypt anything sealed with the public half.
+                </td>
+              </tr>
+              <tr>
+                <td>Every request the app makes</td>
+                <td>
+                  Your code, what was called, whether it worked, how long it
+                  took and when. Kept 30 days, so we can see the service is
+                  healthy and find out why it was not.
+                </td>
+                <td>
+                  Never the body of a request, and never a value you recorded.
+                </td>
               </tr>
             </tbody>
           </table>
@@ -186,7 +245,9 @@
             generated, which is not derived from anything about them.</p>
           </div>
           <p style="max-width: var(--measure)">
-            <strong>Nothing in it names, contacts, or locates a person.</strong>
+            <strong>Nothing in it names or locates a person.</strong> One thing
+            in it can reach one: the notification delivery token, which is why
+            it has its own card below rather than a footnote.
           </p>
         </div>
       </section>
@@ -250,12 +311,21 @@
             time.
           </li>
           <li>
+            Medications are the one thing that works differently. You tag them
+            one at a time, for one carer at a time, and it starts off — but a
+            tag stands until you remove it, rather than being asked again each
+            time. Switching medications off as a category stops all of it at
+            once.
+          </li>
+          <li>
             "Delete all data" clears your rows on our side and the app's data on
             this phone.
           </li>
           <li>
-            A backup file you export is the one copy that can exist outside this
-            phone. You choose whether to make one and where it goes.
+            A backup file you export is the copy you can make of your own
+            records. It is not quite the only copy off this phone: a carer you
+            tagged medications for holds those names on their phone, in their
+            own encrypted file, which is wiped if the link ends.
           </li>
         </ul>
       </section>

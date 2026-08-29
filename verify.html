@@ -60,8 +60,8 @@
         </div>
         <div class="grid reveal-group">
           <article class="card">
-            <h3>No reading value reaches our server</h3>
-            <p>Blood pressure, blood sugar, oxygen, heart rate, sleep, weight, water — none of these has a column on our side. What a caregiver can see is a tick against a category and a date.</p>
+            <h3>No reading value is stored on our server</h3>
+            <p>Blood pressure, blood sugar, oxygen, heart rate, sleep, weight, water — none of these has a column on our side. By default what a caregiver can see is a tick against a category and a date. Two things go further and both need you to act: a single reading you approve when they ask, and any medication you tag for them.</p>
             <p class="muted"><strong>Where:</strong> The table that records sharing holds four things: a random code, a date, a category, and yes-or-no. There is nowhere for a number to go.</p>
             <p class="muted"><strong>What keeps it true:</strong> A test fails the build if a forbidden column name appears in the table definitions or in a query.</p>
           </article>
@@ -136,7 +136,9 @@
             </div>
             <div class="stat">
               <b>0</b>
-              <span>readings, of anyone, on our servers</span>
+              <span>readings, of anyone, in our database &mdash; one can sit
+              encrypted in the hand-over store between approval and pickup,
+              which is the third card below</span>
             </div>
           </div>
 

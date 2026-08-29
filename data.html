@@ -40,13 +40,13 @@
         <div class="hero-in">
           <p class="eyebrow">Data</p>
           <h1>Every place anything is <span class="hl">kept</span>.</h1>
-          <p class="lede">Not a summary — the actual list. Six places hold something, and the section after them is what is provably not in any of the ones we run.</p>
+          <p class="lede">Not a summary — the actual list. Seven places hold something, and the section after them is what is provably not in any of the ones we run.</p>
         </div>
       </section>
 
       <section class="wrap">
         <div class="section-head reveal">
-          <h2>The six places</h2>
+          <h2>The seven places</h2>
         </div>
         <div class="grid reveal-group">
           <article class="card">
@@ -64,10 +64,12 @@
           <article class="card">
             <h3>On our server, durable</h3>
             <p>
-              Nineteen tables, none of which has a column for a number you
+              Twenty tables, none of which has a column for a number you
               recorded. What is there: random codes that stand for people, which
               of those codes are linked to which, whether a category was logged
-              on a date, and the encrypted text of anything you chose to share.
+              on a date, the encrypted text of anything you chose to share, the
+              public half of each phone&rsquo;s key, a delivery token for
+              notifications, and a 30-day log of which code called what.
             </p>
             <p class="muted">
               We can see that two codes are connected. We cannot see who they
@@ -77,13 +79,15 @@
           <article class="card">
             <h3>On our server, briefly</h3>
             <p>
-              One thing only: a reading you approved sending to someone,
-              encrypted to their phone and deleted when they pick it up. It has
-              an expiry even if they never do.
+              Anything one phone is handing another: a reading you approved
+              sending, or the medications you tagged for a carer. Encrypted to
+              their phone and deleted when they pick it up, with an expiry even
+              if they never do.
             </p>
             <p class="muted">
-              It is never written to the durable side, and never to either
-              phone.
+              None of it is written to the durable side. A reading is held in
+              memory on the receiving phone and written nowhere; a tagged
+              medication list is kept, which is the seventh place below.
             </p>
           </article>
           <article class="card">
@@ -107,6 +111,21 @@
             <p>
               Only what you asked for: a backup you exported, wherever you chose
               to put it. We never see it, and cannot open it.
+            </p>
+          </article>
+          <article class="card">
+            <h3>On a carer&rsquo;s phone, if you tagged medications</h3>
+            <p>
+              The names, doses and week of adherence you tagged for them, in
+              their own encrypted file rather than in their records. It is the
+              one place where something of yours sits on somebody else&rsquo;s
+              device.
+            </p>
+            <p class="muted">
+              It is left out of their backup on purpose, it is wiped if either
+              of you ends the link, and it goes when their app does. It exists
+              because our copy is deleted on pickup, so theirs is the only one
+              left.
             </p>
           </article>
         </div>
@@ -160,12 +179,18 @@
           <h2>How this list stays true</h2>
         </div>
         <p>
-          It is regenerated from the actual table definitions rather than
-          written from memory, and a test fails the build when a new table or a
-          new shareable category appears without the words catching up.
+          It does not, on its own. This page is written by hand against the
+          table definitions, and in August 2026 an audit found it two counts
+          and two places out of date &mdash; nineteen tables where there were
+          twenty, six places where there were seven. Saying it was generated
+          when it was not is how it drifted for that long.
         </p>
-        <p class="muted">
-          The tests are listed on <a href="verify.html">the checking page</a>.
+        <p>
+          What does hold it now is narrower and real: the sentences this page
+          must not contain are checked before it is published, so the absolutes
+          it used to carry cannot come back. The tests behind the underlying
+          claims are listed on <a href="verify.html">the checking page</a>, and
+          they guard the app rather than these words.
         </p>
       </section>
 

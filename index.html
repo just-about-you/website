@@ -72,28 +72,33 @@
           <div class="feature-media">
             <div class="device device-in device-float">
               <div class="device-screen" data-rotate>
+                <!-- KK127 — the Home and Trends captures that opened this
+                     rotation were of screens the app no longer has: Home was
+                     rebuilt and Trends was removed. No alt text can make a
+                     screenshot of a deleted screen honest, so they are out
+                     until the capture harness is re-run. -->
                 <img
                   class="is-current"
-                  src="assets/img/10-home.webp"
-                  width="1344"
-                  height="2992"
-                  alt="The home screen: a circular wheel with one wedge for each
-                       reading being tracked, and prompt cards below it."
-                />
-                <img
-                  src="assets/img/20-trends.webp"
-                  width="1344"
-                  height="2992"
-                  alt="The trends screen, showing a small chart and the latest
-                       value for each tracked reading."
-                  loading="lazy"
-                />
-                <img
                   src="assets/img/70-care.webp"
                   width="1344"
                   height="2992"
                   alt="The caring-for screen, showing whether each category was
                        logged today rather than any reading."
+                />
+                <img
+                  src="assets/img/62-medications.webp"
+                  width="1344"
+                  height="2992"
+                  alt="The medications screen, listing each medicine and whether
+                       it was taken."
+                  loading="lazy"
+                />
+                <img
+                  src="assets/img/40-tasks.webp"
+                  width="1344"
+                  height="2992"
+                  alt="The tasks screen, listing appointments and repeat
+                       prescriptions by date."
                   loading="lazy"
                 />
               </div>
@@ -354,8 +359,11 @@
           >
             What it would hold: random codes, which of those codes are linked to
             each other, the dates people checked in, a yes-or-no per category
-            per day, and text that was encrypted on the phone that wrote it.
-            Nothing in there names, contacts or locates a single person.
+            per day, text that was encrypted on the phone that wrote it, a
+            notification delivery token, and a 30-day log of which code called
+            what. Nothing in there names or locates a single person. The
+            delivery token could reach one, which is why the privacy page gives
+            it a section of its own.
           </p>
           <p style="text-align: center; margin-top: var(--gap-m)">
             <a class="btn btn--ghost" href="privacy.html"
@@ -400,29 +408,10 @@
         </ol>
 
         <div class="shot-row reveal" style="margin-top: var(--gap-xl)">
-          <figure>
-            <img
-              class="shot"
-              src="assets/img/10-home.webp"
-              width="1344"
-              height="2992"
-              alt="Home screen with a wheel of tracked readings."
-              loading="lazy"
-            />
-            <figcaption>Home — one wedge per reading.</figcaption>
-          </figure>
-          <figure>
-            <img
-              class="shot"
-              src="assets/img/20-trends.webp"
-              width="1344"
-              height="2992"
-              alt="Trends screen listing every tracked metric with a small
-                   chart."
-              loading="lazy"
-            />
-            <figcaption>Trends — every metric you track.</figcaption>
-          </figure>
+          <!-- KK127 — the Home and Trends figures that led this row are gone
+               for the same reason as the hero rotation: Home was rebuilt into
+               a tile grid and Trends was deleted, so both captures showed
+               screens nobody can open. -->
           <figure>
             <img
               class="shot"
@@ -467,8 +456,7 @@
         <div class="cta-panel reveal">
           <h2>Keep your own records.</h2>
           <p class="lede">
-            Free, no account, and nothing about you on our servers worth
-            stealing.
+            Free, no account, and not one reading of yours in our database.
           </p>
           <div class="cta-row">
             <span class="store-badge store-badge--soon">
