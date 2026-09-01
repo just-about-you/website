@@ -21,6 +21,17 @@ or no, and both need the person to act first: a single reading approved when a
 carer asks, and any medication tagged for a carer. A sentence that denies
 either of them is false, however well it reads.
 
+**A second kind of false, added by PP445.** A sentence can also be false
+because the thing it describes no longer exists. `privacy.html` published a
+"you read an article" row for eleven days after PP430 deleted the app's feed
+client and PP435 deleted the routes behind it, and no guard on either side of
+the fence could see it: the app test reads Dart strings, and this script only
+knew about absolutes. Copy describing a removed feature is not merely stale —
+it tells someone their data does something it can no longer do, which is the
+same harm the absolutes cause by the opposite route. So retired features get
+their own list below, on the same terms: a named phrase, and what makes it
+false.
+
 **What this is not.** It is not a style checker and it does not ban strong
 claims. "There is no column that could hold one" is true and stays. It bans
 named sentences that are false, each with its evidence.
@@ -148,8 +159,33 @@ SITE = [
     ),
 ]
 
+# ── Features that are gone, and the copy that outlived them (PP445) ────────
+#
+# Not absolutes. Each entry describes something the app no longer does, which
+# a reader has no way to discover is untrue. Delete an entry only when the
+# feature comes back — not when the phrase becomes inconvenient.
+RETIRED = [
+    (
+        'reading feed',
+        'PP430 deleted the app\'s feed client and PP435 the routes and the '
+        'RSA key. There is no feed and no article to ask for. What is left '
+        'under that heading is two requests with different shapes: GET '
+        '/content/messages, which carries no code and returns one fixed list '
+        'to everyone, and GET /themes/entitlements, which carries the uuid '
+        'and a bearer token — see privacyLeavesContentBody in '
+        'app/lib/l10n/arb/app_en.arb.',
+    ),
+    (
+        'you read an article',
+        'The privacy-table row PP445 replaced. It claimed a request that no '
+        'longer leaves the phone, on the page whose whole promise is that '
+        'every request the app makes is one of the rows below it.',
+    ),
+]
+
 BANNED = [(p, why, 'app') for p, why in PORTED] + \
-         [(p, why, 'site') for p, why in SITE]
+         [(p, why, 'site') for p, why in SITE] + \
+         [(p, why, 'retired') for p, why in RETIRED]
 
 # A page may quote a banned sentence in order to retract it — that is the
 # opposite of publishing it, and it is the most honest thing a page can do
@@ -206,17 +242,18 @@ def main():
                 hits.append((name, phrase, origin, why, context))
 
     print(f'checked {len(checked)} page(s) against {len(BANNED)} '
-          f'forbidden absolute(s)')
+          f'forbidden phrase(s)')
     if not hits:
-        print('  no forbidden absolute is published')
+        print('  no forbidden phrase is published')
         return 0
 
     for name, phrase, origin, why, context in hits:
         print(f'  FAIL: {name}: "{phrase}" [{origin}]')
         print(f'        …{context}…')
         print(f'        {why}')
-    print(f'\n{len(hits)} forbidden absolute(s) published. '
-          f'State the default plus the named exception instead.')
+    print(f'\n{len(hits)} forbidden phrase(s) published. '
+          f'State the default plus the named exception instead, and do not '
+          f'describe a feature that has been removed.')
     return 1
 
 
