@@ -14,6 +14,43 @@ ALLOWED_HOSTS = {'fonts.googleapis.com', 'fonts.gstatic.com'}
 problems = []
 
 
+# ── PP425 — a sibling repo that is missing must not read as "checked" ────
+#
+# Two guards in this repo need a repo that is not this one. The screenshot
+# manifest lives in `design-docs/`; the capture inventory and the changelog
+# live in `app/`. On a working copy of the six-repo tree both are there, and
+# the question "does the site agree with them?" has an answer.
+#
+# On a checkout that has neither, the honest answer is "unanswerable" — and
+# what these guards used to do with that was print SKIP and exit 0. A green
+# tick. CI clones this repo alone, so the only cross-repo guard the site had
+# printed SKIP on every run since it was written, and every green Y140 gate
+# since has been read as evidence the manifest agreed. It was evidence of
+# nothing. A guard that could not run is not a guard that passed.
+#
+# So unanswerable is a local convenience and a CI failure. `CI` is set by
+# GitHub Actions and by every other runner, so this is right by default and
+# cannot be forgotten in a workflow edit. The escape hatch is named for what it
+# actually does, and it shows up in a diff.
+def siblings_are_required():
+    if os.environ.get('ALLOW_MISSING_SIBLING_REPOS') == '1':
+        return False
+    return bool(os.environ.get('CI'))
+
+
+def missing_sibling(repo, what):
+    """Excuse a guard that could not run for want of `repo`, or fail on it."""
+    if siblings_are_required():
+        problems.append(
+            f'no {repo} checkout beside this repo, so {what} was not '
+            f'checked. In CI that is a failure and not a skip: check the '
+            f'sibling out, or set ALLOW_MISSING_SIBLING_REPOS=1 to say out '
+            f'loud that this run does not check it')
+    else:
+        print(f'  SKIP: no {repo} checkout beside this repo — {what} '
+              f'not checkable here')
+
+
 def resolve(page, ref):
     """A page-relative reference, as a browser would resolve it.
 
@@ -77,6 +114,10 @@ def check(page, html):
     for phrase in ('diagnose your', 'treats ', 'cures ', 'medical advice for you'):
         if phrase in html.lower():
             problems.append(f'{name}: possible clinical claim -> "{phrase}"')
+
+    # ...and the same claim made as a shape rather than as one of four
+    # phrases. See VERDICT_SHAPES.
+    check_verdict_shape(name, html)
 
 
 # Y130 — the site may only reference screenshots the capture harness produced.
@@ -222,6 +263,81 @@ def check_prose(page, html):
                                 f'"{sentence[:60]}..."')
 
 
+# ── PP425 — a clinical claim has a shape, not a spelling ────────────────
+#
+# The four fixed substrings in `check()` catch a page offering to diagnose or
+# to treat. They do not catch the sentence this product is actually at risk of
+# publishing, which is a verdict about the reader's own reading: *"your blood
+# pressure is normal"*. The app refuses precisely that at construction —
+# `MetricTileCard` rejects `normal`, `high`, `low`, `stage`, `overweight` and
+# `obese` as status text — and `about.html` publishes that refusal as a
+# promise to the reader. Until now the site itself was free to break it.
+#
+# A longer substring list would not do, because the failure is a shape and not
+# a word. `normal` appears legitimately on this site inside the sentence that
+# lists the forbidden words; `high` and `low` are ordinary English. So what is
+# matched is the shape: the reader's own reading, a linking verb, and a
+# verdict, inside one sentence.
+#
+# The test of this test is that it must NOT fire on the population-reference
+# wording `about.html` and `terms.html` carry — "coloured against published
+# general guidelines … nothing in it states a verdict about your health" —
+# which is the legitimate way to say this and is operator-signed copy. That is
+# why the pattern demands `your <reading>` and not the reading alone: a
+# guideline is about everybody, a verdict is about you. Both pages are checked
+# on every run and neither matches.
+READING = (r'(?:blood pressure|blood sugar|blood glucose|glucose|oxygen'
+           r'|heart rate|pulse|weight|bmi|body mass index|sleep'
+           r'|readings?|numbers?|levels?|results?|scores?)')
+VERDICT = (r'(?:normal|abnormal|healthy|unhealthy|elevated|too high|too low'
+           r'|high|low|overweight|obese|borderline|stage \d'
+           r'|fine|good|bad|poor|excellent|concerning|worrying)')
+LINK = r'(?:is|are|was|were|looks?|seems?|appears?|reads?|came back)'
+# A named condition, for the second shape. Deliberately narrower than VERDICT:
+# "you have high blood pressure" is a diagnosis, "you have good reason" is
+# English, and only the first may be caught.
+CONDITION = (rf'(?:overweight|obese|obesity|hypertensive|hypertension'
+             rf'|pre-?hypertension|pre-?diabetes|pre-?diabetic|diabetes'
+             rf'|diabetic|(?:high|low|elevated|abnormal)\s+(?:\w+\s+)?'
+             rf'{READING})')
+
+VERDICT_SHAPES = (
+    # "your blood pressure is normal", "your numbers look fine"
+    re.compile(rf'\byour\s+(?:\w+\s+){{0,2}}{READING}\b[^.?!]{{0,40}}?'
+               rf'\b{LINK}\b\s+(?:\w+\s+){{0,3}}{VERDICT}\b', re.I),
+    # "you are overweight", "you have high blood pressure"
+    re.compile(rf'\byou\s+(?:are|were|have|had|may have|might have)\b'
+               rf'[^.?!]{{0,30}}?\b{CONDITION}\b', re.I),
+)
+
+BLOCK_END = re.compile(
+    r'</(?:p|h[1-6]|li|td|th|div|section|article|figcaption|blockquote)>',
+    re.I)
+
+
+def prose(html):
+    """The page as sentences, with block boundaries kept as sentence ends.
+
+    `strip_tags` turns every tag into a space, which would let a heading and
+    the paragraph beneath it run together into a sentence neither of them
+    wrote — which is exactly how a shape test invents a claim nobody
+    published. The shapes above refuse to cross `.?!`, so block ends become
+    one.
+    """
+    html = re.sub(r'<(script|style)\b.*?</\1>', ' ', html, flags=re.S)
+    html = BLOCK_END.sub('. ', html)
+    return ' '.join(words(re.sub(r'<[^>]+>', ' ', html)))
+
+
+def check_verdict_shape(name, html):
+    text = prose(html)
+    for pattern in VERDICT_SHAPES:
+        for hit in pattern.finditer(text):
+            problems.append(
+                f'{name}: states a verdict about the reader rather than '
+                f'against a published guideline -> "{hit.group(0).strip()}"')
+
+
 def html_pages():
     """Every page on the site, at any depth.
 
@@ -254,6 +370,22 @@ DESIGN_DOCS = os.path.normpath(os.path.join(ROOT, '..', 'design-docs'))
 MANIFEST = os.path.join(DESIGN_DOCS, 'assets', 'MANIFEST.md')
 
 
+def images_used_by_site():
+    """Every capture the site references, named as the PNG the harness wrote.
+
+    BB102 — the site ships WebP built from the captures, so the name is
+    compared back to the PNG. The manifest and the inventory are both records
+    of what the harness produced; the extension is this site's business, not
+    the harness's.
+    """
+    used = set()
+    for page in html_pages():
+        html = open(page, encoding='utf-8').read()
+        for src in re.findall(r'src="(?:\.\./)*assets/img/([^"]+)"', html):
+            used.add(os.path.splitext(src)[0] + '.png')
+    return used
+
+
 def check_manifest():
     # design-docs is a separate repo. On a checkout that has it — any working
     # copy of the four-repo tree — the manifest must be there and must agree
@@ -262,8 +394,9 @@ def check_manifest():
     # Absent sibling repo != missing manifest, and conflating them made the
     # Pages deploy fail on a check it could never have passed.
     if not os.path.isdir(DESIGN_DOCS):
-        print('  SKIP: no design-docs checkout beside this repo — '
-              'manifest agreement not checkable here')
+        # PP425 — this used to print and return, which passed. See
+        # `missing_sibling`.
+        missing_sibling('design-docs', 'agreement with the screenshot manifest')
         return
     if not os.path.exists(MANIFEST):
         problems.append('no screenshot manifest at ' + MANIFEST)
@@ -272,19 +405,104 @@ def check_manifest():
     if not listed:
         problems.append('manifest lists no images — it should name every capture')
         return
-    used = set()
-    for page in html_pages():
-        html = open(page, encoding='utf-8').read()
-        for src in re.findall(r'src="(?:\.\./)*assets/img/([^"]+)"', html):
-            # BB102 — the site ships WebP built from the captures, so the name
-            # is compared back to the PNG the manifest lists. The manifest is
-            # the record of what the harness produced; the extension is this
-            # site's business, not the harness's.
-            used.add(os.path.splitext(src)[0] + '.png')
-    for name in sorted(used - listed):
+    for name in sorted(images_used_by_site() - listed):
         problems.append(
             f'{name} is used by the site but is not in the capture manifest — '
             'run scripts/sync-assets.py, or recapture')
+
+
+# ── PP425 — the site may not ship a capture the app has declared wrong ───
+#
+# `check_manifest` above is one-directional: it fails when the site uses an
+# image the manifest does not list, and says nothing when the site uses an
+# image that is listed *and* known to photograph a screen that no longer
+# exists. Both `40-tasks` and `83-medications-full` are in that state and both
+# ship today — one of them on the landing page.
+#
+# **Where the marker lives, and why it is not in the manifest.** The obvious
+# move is a machine-readable `stale:` line in `design-docs/assets/MANIFEST.md`,
+# next to the prose that already says `30-people.png` and `50-checkin.png`
+# "mislead as a set". That is refused, on two grounds:
+#
+#   1. **MANIFEST.md is generated, and rewritten whole.** The capture driver
+#      (`app/test_driver/integration_test.dart:88-93`) builds the entire file
+#      from a template and the folder listing on every run, and the file says
+#      so in its first line. Any marker written there survives until the next
+#      `flutter drive` and not one run longer — a guard with a scheduled
+#      deletion date.
+#   2. **The inventory already exists and is already enforced.** KK150 put it
+#      in `app/lib/features/help/help_capture_inventory.dart`, where
+#      `app/test/help_capture_freshness_test.dart` holds it in both
+#      directions: an entry must carry a reason, a date and the task that
+#      retakes the shot, and it must still match the PNG on disk, so a
+#      regenerated capture whose entry was left behind fails. MANIFEST.md's
+#      own prose records that the list moved there for exactly this reason. A
+#      second copy in a second repo would be a second thing to keep true.
+#
+# So this reads the app's list rather than growing one here, and
+# `design-docs/` needs no change at all.
+#
+# **What this cannot see**, stated rather than pretended away: the app's
+# inventory is per-screen, and `30-people` / `50-checkin` are stale for a
+# reason that is not on their screen — they were shot when People and Check-in
+# were bottom-bar destinations, and it is `app_shell.dart` that changed, not
+# `people_screen.dart`. Both therefore sit in the fingerprint half of the
+# inventory rather than the stale half, and this guard passes them. Closing
+# that is a change in `app/`, not here: either add
+# `lib/shared/widgets/app_shell.dart` to their source sets — which trips their
+# fingerprints immediately, because the shell did change — or list them in
+# `knownStaleCaptures`. Recorded in README.md under "Cross-repo guards".
+APP = os.path.normpath(os.path.join(ROOT, '..', 'app'))
+CAPTURE_INVENTORY = os.path.join(
+    APP, 'lib', 'features', 'help', 'help_capture_inventory.dart')
+
+
+def known_stale_captures():
+    """`knownStaleCaptures` from the app, as {basename: the task that retakes}.
+
+    Read out of Dart with a regex, which is worth being uneasy about — so the
+    caller treats an empty parse as a failure rather than as an empty list. A
+    reader that quietly stops matching is a guard that quietly stops guarding,
+    which is the whole complaint this task is answering.
+    """
+    src = open(CAPTURE_INVENTORY, encoding='utf-8').read()
+    body = re.search(
+        r'const Map<String, StaleCapture> knownStaleCaptures = \{(.*?)\n\};',
+        src, re.S)
+    if not body:
+        return {}
+    found = {}
+    for entry in re.finditer(r"^  '([^']+)': StaleCapture\((.*?)\n  \),",
+                             body.group(1), re.S | re.M):
+        task = re.search(r"regeneratedBy: '([^']*)'", entry.group(2))
+        found[entry.group(1)] = task.group(1) if task else 'unassigned'
+    return found
+
+
+def check_stale_captures():
+    if not os.path.isdir(APP):
+        missing_sibling('app', 'the captures the app has declared stale')
+        return
+    if not os.path.exists(CAPTURE_INVENTORY):
+        problems.append('no capture inventory at ' + CAPTURE_INVENTORY)
+        return
+    stale = known_stale_captures()
+    if not stale:
+        problems.append(
+            'the capture inventory parsed to no entries — '
+            'help_capture_inventory.dart has moved out from under the reader '
+            'in check.py, and an empty list here passes everything')
+        return
+    print(f'  read {len(stale)} known-stale capture(s) from the app inventory')
+    for png in sorted(images_used_by_site()):
+        base = os.path.splitext(png)[0]
+        if base in stale:
+            problems.append(
+                f'{png} is shipped by the site and is in the app\'s '
+                f'knownStaleCaptures — it photographs a screen that no longer '
+                f'looks like that, and the recapture belongs to '
+                f'{stale[base]}. Drop the picture or wait for that task; do '
+                f'not caption around it')
 
 
 pages = html_pages()
@@ -295,6 +513,7 @@ for page in pages:
     check_prose(page, html)
 
 check_manifest()
+check_stale_captures()
 check_chrome()
 
 print(f'checked {len(pages)} page(s)')

@@ -31,8 +31,29 @@ jobs:
   check:
     name: Y140 gate
     runs-on: ubuntu-latest
+
+    env:
+      # GitHub sets this already. It is repeated here because two of the
+      # guards below change behaviour on it -- a guard that cannot reach the
+      # sibling repo it needs fails here instead of skipping -- and a
+      # behaviour switch that is only ever set invisibly is one nobody
+      # reviewing this file would know about. PP425.
+      CI: 'true'
+
     steps:
-      - uses: actions/checkout@v4
+      # PP425 -- the site is checked out into `website/` rather than at the
+      # workspace root, so the workspace has the same shape as a working copy
+      # of the six-repo tree: `website/`, `app/` and `design-docs/` as
+      # siblings. That is the layout the guards already assume, and it is the
+      # only way `actions/checkout` can put a second repo "beside" the first,
+      # since `path:` may not escape the workspace.
+      #
+      # The `deploy` job below is deliberately NOT changed: it checks out at
+      # the root and uploads `.`, which is what Pages must serve.
+      - name: The site
+        uses: actions/checkout@v4
+        with:
+          path: website
 
       - uses: actions/setup-python@v5
         with:
@@ -41,26 +62,26 @@ jobs:
       # Every script here is stdlib-only by design, so there is no install step
       # and nothing to pin.
 
-      # Exits 1 on: a dead internal link, an image that does not resolve, an
-      # image with no alt text, an external host outside the Google Fonts
-      # allowlist, or an image the capture manifest omits.
-      - name: Links, alt text, external hosts, capture manifest
-        run: python scripts/check.py
+      # These two need nothing but this repo, so they run before the sibling
+      # checkouts. If cross-repo access is ever broken, the in-repo half of
+      # the gate still reports rather than being skipped by an earlier step's
+      # failure.
 
       # KK127. The app has been guarded against these sentences since M123
       # shipped and this site was not, which is how `privacy.html` came to
       # publish the exact string `app/test/what_leaves_phone_test.dart` exists
       # to keep out of shipped copy. It caught 18 of them on first run.
       #
-      # This runs here rather than inside check.py so that a failure names
-      # itself: "the site published a forbidden absolute" is a different
-      # conversation from "a link is dead", and burying it in a general gate
-      # is how the last one went unnoticed.
+      # This runs as its own step so that a failure names itself: "the site
+      # published a forbidden absolute" is a different conversation from "a
+      # link is dead", and burying it in a general gate is how the last one
+      # went unnoticed.
       - name: Forbidden absolutes
+        working-directory: website
         run: python scripts/absolutes.py
 
       # accessibility.html claims colour contrast is checked before the site
-      # goes anywhere. It was not — contrast.py existed and nothing ran it —
+      # goes anywhere. It was not -- contrast.py existed and nothing ran it --
       # so either the claim or the process had to change, and the process was
       # the cheaper half. It passes on the current tokens with room to spare.
       #
@@ -72,7 +93,77 @@ jobs:
       # says plainly that reflow is run by hand and on which pages, which is
       # the honest half of the fix until the harness covers everything.
       - name: WCAG contrast, computed from the tokens
+        working-directory: website
         run: python scripts/contrast.py
+
+      # ---- the two sibling repos the cross-repo guards read ---------------
+      #
+      # PP425. Both of these are new, and both are the answer to the same
+      # complaint: the guards that read another repo printed SKIP here and
+      # exited 0, so a green tick on this job meant "the manifest agreed" to
+      # everyone reading it and meant nothing at all. The scripts now fail
+      # rather than skip when `CI` is set (see `siblings_are_required` in
+      # check.py), which makes a missing sibling loud -- and these two steps
+      # are what make the loud case not happen.
+      #
+      # `app` is a big repository and only two files of it are read here, so
+      # the checkout is sparse. `sparse-checkout-cone-mode: false` because
+      # these are file paths, not directories.
+      #
+      # **The token.** `github.token` is scoped to this repository, and can
+      # clone a sibling only because a public repository can be cloned by
+      # anybody. If `app` or `design-docs` is private -- which could not be
+      # confirmed from the machine this was written on -- these steps fail
+      # with a 404 and the fix is a fine-grained PAT or GitHub App token with
+      # read access to both, stored as the `SIBLING_REPO_TOKEN` secret, which
+      # is then used automatically. A fork PR has no secrets and falls back to
+      # `github.token`, which is correct for a public sibling and a hard
+      # failure for a private one; that failure is legible, which is the
+      # point. What must never come back is the version where it is quiet.
+      - name: app (sibling -- CHANGELOG.md and the capture inventory)
+        uses: actions/checkout@v4
+        with:
+          repository: just-about-you/app
+          path: app
+          token: ${{ secrets.SIBLING_REPO_TOKEN || github.token }}
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            CHANGELOG.md
+            lib/features/help/help_capture_inventory.dart
+
+      - name: design-docs (sibling -- the screenshot manifest)
+        uses: actions/checkout@v4
+        with:
+          repository: just-about-you/design-docs
+          path: design-docs
+          token: ${{ secrets.SIBLING_REPO_TOKEN || github.token }}
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            assets/MANIFEST.md
+
+      # Exits 1 on: a dead internal link, an image that does not resolve, an
+      # image with no alt text, an external host outside the Google Fonts
+      # allowlist, an image the capture manifest omits, an image the app has
+      # already declared stale (PP425), or a sentence shaped like a verdict
+      # about the reader's own reading (PP425).
+      - name: Links, alt text, external hosts, capture manifest, clinical shape
+        working-directory: website
+        run: python scripts/check.py
+
+      # PP425 -- `changes.html` is rendered from `app/CHANGELOG.md` and was
+      # regenerated by hand, so it could lag the app silently and did: it
+      # stopped at 2.12.0 while the changelog reached 2.19.0, and nothing on
+      # this site or in this workflow said so.
+      #
+      # **This step is red on the commit that added it, and that is the
+      # point.** Regenerating the page here would put it straight back to
+      # STALE the moment the next release entry lands, so the regeneration is
+      # sequenced to the release task and this row is what stops that being
+      # forgotten again. Clearing it is `python scripts/build-changes.py` in
+      # `website/`, run at ship time -- not a grace period here.
+      - name: changes.html agrees with app/CHANGELOG.md
+        working-directory: website
+        run: python scripts/build-changes.py --check
 
   deploy:
     name: Publish

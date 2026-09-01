@@ -143,13 +143,27 @@ PAGE = '''<!doctype html>
 def main():
     if not os.path.exists(SOURCE):
         # `app` is a separate repository. On a checkout that has it -- any
-        # working copy of the four-repo tree -- staleness is a real question
-        # and an unanswered one is a failure. On a checkout that does not (CI
-        # clones this repo alone), the question is unanswerable rather than
-        # answered "no". Same distinction check.py draws for the screenshot
-        # manifest, and for the same reason: conflating them turns a gate into
-        # a step that can only fail.
+        # working copy of the six-repo tree -- staleness is a real question and
+        # an unanswered one is a failure. On a checkout that does not, the
+        # question is unanswerable rather than answered "no", and the two are
+        # not the same thing.
+        #
+        # PP425 -- but "unanswerable" is only tolerable where nobody is
+        # reading the exit code as an answer. CI cloned this repo alone, so
+        # this printed SKIP and exited 0 on every run, and the workflow did
+        # not call it at all; now it does, and the workflow checks `app` out
+        # beside this repo. If that ever stops working, this fails rather than
+        # waving through a run that checked nothing. Same rule, same escape
+        # hatch and the same reasoning as `siblings_are_required` in check.py,
+        # which carries the long version.
         if '--check' in sys.argv:
+            if (os.environ.get('ALLOW_MISSING_SIBLING_REPOS') != '1'
+                    and os.environ.get('CI')):
+                print('  FAIL: no app checkout beside this repo, so agreement '
+                      'with the changelog was not checked. In CI that is a '
+                      'failure: check `app` out, or set '
+                      'ALLOW_MISSING_SIBLING_REPOS=1 to say so out loud')
+                return 1
             print('  SKIP: no app checkout beside this repo -- '
                   'changelog agreement not checkable here')
             return 0
