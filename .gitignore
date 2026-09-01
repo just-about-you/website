@@ -4,3 +4,7 @@
 # OS noise
 .DS_Store
 Thumbs.db
+
+# Python bytecode. scripts/ ships to Pages as-is, so this must not be tracked.
+__pycache__/
+*.pyc
