@@ -479,13 +479,68 @@ def known_stale_captures():
     return found
 
 
-def check_stale_captures():
-    if not os.path.isdir(APP):
-        missing_sibling('app', 'the captures the app has declared stale')
-        return
-    if not os.path.exists(CAPTURE_INVENTORY):
-        problems.append('no capture inventory at ' + CAPTURE_INVENTORY)
-        return
+# ── PP440 — a deleted screen is a worse picture than a drifted one ───────
+#
+# `knownStaleCaptures` is "this photograph no longer looks like the screen".
+# `retiredCaptures`, in the same file, is the stronger statement: **the screen
+# is gone**, no step in the app renders the picture, and the asset must not be
+# in the app's bundle at all. Reading only the first half meant the site could
+# ship a picture of a surface that does not exist and the gate would call it
+# green — and it did: `62-medications.webp` is on the landing page twice, and
+# MM260 deleted that screen outright.
+#
+# That green was the expensive part. A guard that catches stale-but-real
+# captures while missing deleted ones reads as coverage of both, so nobody
+# looks. The two maps are read together for that reason, and counted out loud
+# on every run so the coverage number is visible rather than assumed.
+#
+# The same regex-over-Dart unease applies, and gets the same answer as above:
+# an empty parse is a failure, never an empty list. Two ways this reader can
+# stop matching — the map is renamed, or the entry shape changes — and both
+# land on `retiredCaptures` returning `{}`, which the caller reports loudly.
+def _dart_string(text):
+    """Every quoted literal in a Dart expression, unescaped and joined.
+
+    Values in `retiredCaptures` are adjacent-literal concatenations spread
+    over several lines, and the file uses **both** quote styles for keys and
+    values, so both are matched. Escapes are undone, so `\\'` reads back as an
+    apostrophe rather than ending a literal early.
+    """
+    parts = []
+    for m in re.finditer(r"'((?:\\.|[^'\\])*)'|\"((?:\\.|[^\"\\])*)\"",
+                         text, re.S):
+        raw = m.group(1) if m.group(1) is not None else m.group(2)
+        parts.append(re.sub(r'\\(.)', r'\1', raw))
+    return ' '.join(''.join(parts).split())
+
+
+def retired_captures():
+    """`retiredCaptures` from the app, as {basename: why it was retired}."""
+    src = open(CAPTURE_INVENTORY, encoding='utf-8').read()
+    body = re.search(
+        r'const Map<String, String> retiredCaptures = \{(.*?)\n\};',
+        src, re.S)
+    if not body:
+        return {}
+    text = body.group(1)
+    starts = [m.start() for m in re.finditer(r"""^  ['"]""", text, re.M)]
+    found = {}
+    for i, start in enumerate(starts):
+        end = starts[i + 1] if i + 1 < len(starts) else len(text)
+        chunk = text[start:end]
+        key = re.match(r"""^  (['"])([^'"]+)\1:""", chunk)
+        if not key:
+            continue
+        found[key.group(2)] = _dart_string(chunk[key.end():])
+    return found
+
+
+# Set when either capture guard fires, so the run can say once at the end that
+# this red was chosen. See CAPTURE_RED_NOTE.
+capture_problems = []
+
+
+def check_stale_captures(used):
     stale = known_stale_captures()
     if not stale:
         problems.append(
@@ -494,15 +549,107 @@ def check_stale_captures():
             'in check.py, and an empty list here passes everything')
         return
     print(f'  read {len(stale)} known-stale capture(s) from the app inventory')
-    for png in sorted(images_used_by_site()):
+    for png in used:
         base = os.path.splitext(png)[0]
         if base in stale:
+            capture_problems.append(png)
             problems.append(
                 f'{png} is shipped by the site and is in the app\'s '
                 f'knownStaleCaptures — it photographs a screen that no longer '
                 f'looks like that, and the recapture belongs to '
                 f'{stale[base]}. Drop the picture or wait for that task; do '
                 f'not caption around it')
+
+
+def check_retired_captures(used):
+    retired = retired_captures()
+    if not retired:
+        problems.append(
+            'the retired-capture list parsed to no entries — '
+            'retiredCaptures in help_capture_inventory.dart has moved out '
+            'from under the reader in check.py, and an empty list here '
+            'passes everything')
+        return
+    print(f'  read {len(retired)} retired capture(s) from the app inventory')
+    for png in used:
+        base = os.path.splitext(png)[0]
+        if base in retired:
+            capture_problems.append(png)
+            # The app's reasons run to a paragraph each. One line of it here,
+            # and the file named for the rest: a failure nobody can read to the
+            # end is a failure nobody reads.
+            why = retired[base]
+            if len(why) > 150:
+                why = why[:150].rsplit(' ', 1)[0] + '...'
+            problems.append(
+                f'{png} is shipped by the site and is in the app\'s '
+                f'retiredCaptures — the screen it photographs was deleted, so '
+                f'this is not a picture that has drifted out of date, it is a '
+                f'picture of something that is not in the app at all. The '
+                f'app\'s reason: "{why}" (in full in '
+                f'help_capture_inventory.dart). A recapture cannot fix this '
+                f'one — there is nothing left to photograph — so clearing it '
+                f'means a different picture or none, which is the operator\'s '
+                f'call. See README.md, "Known red, and who clears it"')
+
+
+def check_app_captures():
+    """Both capture guards, over one sibling checkout and one image list.
+
+    PP440 split this in two: `knownStaleCaptures` and `retiredCaptures` are
+    different claims about a picture and deserve different sentences, but they
+    share a precondition and a subject, and duplicating the missing-sibling
+    branch would report the same absent repo twice.
+    """
+    if not os.path.isdir(APP):
+        missing_sibling(
+            'app', 'the captures the app has declared stale or retired')
+        return
+    if not os.path.exists(CAPTURE_INVENTORY):
+        problems.append('no capture inventory at ' + CAPTURE_INVENTORY)
+        return
+    used = sorted(images_used_by_site())
+    check_stale_captures(used)
+    check_retired_captures(used)
+
+
+# ── PP440 — why this build is red, printed where the red is read ─────────
+#
+# The capture failures are a standing red that nobody is going to clear soon,
+# and the operator named the risk in the act of accepting it: a build that is
+# always red invites someone to "fix" it by softening the guard. The CI log is
+# what a person actually reads first, so the log says whose decision it was and
+# what does and does not clear it. README.md carries the same thing at length.
+#
+# Written in plain ASCII, deliberately. Every other printed string in this file
+# is cp1252-safe; the box-drawing rules used in the comments above are not, and
+# a Windows console raises UnicodeEncodeError on them, which would turn "the
+# build is red for a reason" into a crash on the machine this site is edited
+# from. The comment rules are never printed. This is.
+CAPTURE_RED_NOTE = """
+  ---- The capture failures above are a decision, not a regression ----
+
+  Decided by the operator on 2026-09-01. Asked whether to drop the pictures or
+  to accept a red build, they chose:
+
+      "Accept the red build until EE192. The pictures stay up. The site stays
+       un-deployable until the captures are re-shot."
+
+  Why it cannot be cleared by fixing the pictures: operator ruling CC130
+  (2026-08-29) defers all recapture indefinitely, so nothing here can re-shoot
+  them, and dropping them was put to the operator and declined.
+
+  What clears it: EE192, the capture run. The entries then leave
+  knownStaleCaptures in app/, and this goes green with no change in this repo.
+  One of them is not a re-shoot: see the retiredCaptures line above, whose
+  screen no longer exists. That one needs an operator decision on what picture
+  replaces it, and no capture run can make it for them.
+
+  What does NOT clear it: softening, skipping, allow-listing or grace-
+  periodding this check. That reverses a decision the operator made on purpose
+  and hides it from the next person. README.md, "Known red, and who clears
+  it", is the long version.
+"""
 
 
 pages = html_pages()
@@ -513,12 +660,14 @@ for page in pages:
     check_prose(page, html)
 
 check_manifest()
-check_stale_captures()
+check_app_captures()
 check_chrome()
 
 print(f'checked {len(pages)} page(s)')
 if problems:
     for p in problems:
         print('  FAIL:', p)
+    if capture_problems:
+        print(CAPTURE_RED_NOTE)
     sys.exit(1)
 print('  all checks passed')

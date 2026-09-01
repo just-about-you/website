@@ -27,7 +27,8 @@ artefact, and GitHub Pages serves this directory as-is.
 ```bash
 python scripts/check.py                  # links, alt text, hosts, structure,
                                          # prose, the capture manifest, stale
-                                         # captures, clinical claims by shape
+                                         # and retired captures, clinical
+                                         # claims by shape
 python scripts/absolutes.py              # sentences these pages may not publish
 python scripts/contrast.py               # WCAG contrast, from tokens.css
 python scripts/build-changes.py --check  # changes.html agrees with the changelog
@@ -110,23 +111,73 @@ that it must stay silent on the population-reference wording `about.html` and
 it states a verdict"). That is why it demands `your <reading>` rather than the
 reading alone: a guideline is about everybody, a verdict is about you.
 
+**A retired capture is a different failure from a stale one, and until PP440
+only one of the two was read.** `help_capture_inventory.dart` carries two maps.
+`knownStaleCaptures` says *this photograph no longer looks like the screen*;
+`retiredCaptures` says the stronger thing — *the screen is gone*, no step in
+the app renders the picture, and the asset must not be in the app's bundle at
+all. `check.py` read only the first, so the site could ship a photograph of a
+surface that does not exist and the gate would call it green. It did:
+`62-medications.webp` is on the landing page twice (`index.html:89` and
+`:430`) and MM260 deleted that screen outright. That green was the expensive
+part — a guard that catches stale-but-real captures while missing deleted ones
+reads as coverage of both, so nobody looks. Both maps are read now, and the
+run prints both counts (23 stale, 6 retired) so the coverage is visible rather
+than assumed.
+
+Both readers are regexes over Dart source, which is worth being uneasy about,
+so both treat **an empty parse as a failure and never as an empty list**. Two
+ways a reader can stop matching — the map is renamed, or the entry shape
+changes — and both land on `parsed to no entries`, which fails the build with
+that sentence. A reader that quietly stops matching is a guard that quietly
+stops guarding, and that is the whole complaint these two guards answer.
+
 ### Known red, and who clears it
 
-The gate is red on the commit that wired all this up, deliberately, on two
-counts. Neither is cleared by weakening a check.
+The gate is red, deliberately, on two counts. **Neither is cleared by weakening
+a check**, and the failing run says so itself: `check.py` prints the decision
+below under the capture failures, because the CI log is what a person actually
+reads first.
 
 - **`changes.html` is seven releases behind.** The changelog carries 2.13.0 to
   2.19.0 and the page stops at 2.12.0. Regenerating it now would put it back to
   STALE the moment the next release entry lands, so it is sequenced to the
   release task: run `python scripts/build-changes.py` at ship time.
-- **`40-tasks.webp` and `83-medications-full.webp` are known-stale captures and
-  the site ships both** — the first of them on the landing page. They cannot be
-  fixed by recapturing here: operator ruling CC130 (2026-08-29) keeps captures
-  out of this scope, and `knownStaleCaptures` assigns both to EE192. The choice
-  on the site side is to drop the two pictures or to wait for that task, and it
-  is a content decision, not a guard one, so PP425 makes it visible rather than
-  taking it. Precedent for dropping them: KK127 did exactly that with five
-  other captures rather than caption pictures of screens nobody can open.
+- **Twelve captures the app has declared wrong, and the site ships all of
+  them.** Eleven are in `knownStaleCaptures` (`12-home-entry-sheet`,
+  `30-people`, `40-tasks`, `41-tasks-add`, `42-tasks-repeat`,
+  `43-tasks-share`, `50-checkin`, `70-care`, `71-medication-sharing`,
+  `72-reading-request`, `83-medications-full`) and the twelfth,
+  `62-medications`, is in `retiredCaptures`. Two of them are on the landing
+  page. Since `deploy` needs `check`, this red means the site does not
+  publish at all.
+
+**The red is an operator decision, taken 2026-09-01.** The operator was asked
+whether to drop the pictures or to accept a red build, and chose:
+
+> Accept the red build until EE192. The pictures stay up. The site stays
+> un-deployable until the captures are re-shot.
+
+Recorded here at that length because the operator named the risk in the act of
+taking it: *a standing red build invites someone to "fix" it by softening the
+guard.* So, plainly —
+
+- **Why it cannot be fixed here.** Operator ruling CC130 (2026-08-29) defers
+  all recapture indefinitely, so nothing in this repo can re-shoot them. The
+  other exit — dropping the pictures, which is what KK127 did with five other
+  captures — was put to the operator and **declined**.
+- **What clears it.** EE192, the capture run. The entries then leave
+  `knownStaleCaptures` in `app/` and this repo goes green with no change here.
+- **What does not clear it.** Softening, skipping, allow-listing or
+  grace-periodding `check.py`. PP440 made the build *redder* by adding the
+  retired-capture guard, on the reasoning that the decision was to accept a red
+  build and not to cap how red it is. Undoing either guard reverses a decision
+  that was made on purpose and hides it from the next person.
+- **One of the twelve is not a re-shoot.** `62-medications` photographs a
+  deleted screen, so EE192 has nothing to point a camera at. Clearing that one
+  means a different picture or none — a content decision, and the operator's,
+  not one a capture run or a guard edit can make. Flagged here rather than
+  taken.
 
 `privacy.html` publishes the W110 wording as a public legal statement. The
 2026-08-23 sign-off no longer covers it: KK127 re-derived four of its claims
