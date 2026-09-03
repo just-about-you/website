@@ -255,6 +255,39 @@ section + section {
 }
 
 /* A card that floats beside the device, carrying one claim. */
+/* WW370 - the four trust documents as a set, at the head of each of them. */
+.trust-set {
+  display: grid;
+  gap: var(--gap-s);
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  margin-top: var(--gap-l);
+}
+
+.trust-set a {
+  display: grid;
+  gap: 0.15rem;
+  padding: var(--gap-s) var(--gap-m);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius-m);
+  background: var(--paper);
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.trust-set a[aria-current="page"] {
+  background: var(--tint);
+}
+
+.trust-set b {
+  color: var(--sage);
+  font-weight: 600;
+}
+
+.trust-set span {
+  color: var(--ink-soft);
+  font-size: var(--step--1);
+}
+
 /* WW240 - the promoted hero claims. A list in the flow, not two boxes
  * floated beside the device and hidden under 62rem. */
 .claims {
