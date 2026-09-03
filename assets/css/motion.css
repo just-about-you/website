@@ -158,8 +158,8 @@
 .card:hover,
 .steps li:hover {
   transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--emerald) 35%, var(--line));
-  box-shadow: 0 14px 38px rgba(22, 36, 28, 0.11);
+  border-color: color-mix(in srgb, var(--sage) 35%, var(--line));
+  box-shadow: 0 14px 38px rgba(var(--shadow-rgb), 0.11);
 }
 
 /* Hover lift is pointer-only. On touch it fires on tap and sticks. */

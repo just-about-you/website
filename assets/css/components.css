@@ -28,7 +28,7 @@ body::before {
   background:
     radial-gradient(
       60% 50% at 78% 12%,
-      color-mix(in srgb, var(--emerald) 11%, transparent),
+      color-mix(in srgb, var(--sage) 11%, transparent),
       transparent 70%
     ),
     radial-gradient(
@@ -59,7 +59,7 @@ body > * {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: color-mix(in srgb, var(--sand) 82%, transparent);
+  background: color-mix(in srgb, var(--ground) 82%, transparent);
   border-bottom: 1px solid transparent;
   transition: border-color 0.25s ease, background 0.25s ease;
 }
@@ -72,7 +72,7 @@ body > * {
 
 .header-shell.is-stuck {
   border-bottom-color: var(--line);
-  background: color-mix(in srgb, var(--sand) 92%, transparent);
+  background: color-mix(in srgb, var(--ground) 92%, transparent);
 }
 
 .site-header {
@@ -136,7 +136,7 @@ section + section {
 
 /* Emphasis inside a headline, without leaving the palette. */
 .hl {
-  color: var(--emerald);
+  color: var(--sage);
   font-style: italic;
 }
 
@@ -154,8 +154,8 @@ section + section {
   display: inline-flex;
   align-items: center;
   gap: 0.7em;
-  background: var(--ink-surface);
-  color: var(--on-ink-surface);
+  background: var(--pine);
+  color: var(--on-pine);
   border-radius: var(--radius-m);
   padding: 0.62em 1.15em;
   text-decoration: none;
@@ -166,7 +166,7 @@ section + section {
 
 .store-badge:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(22, 36, 28, 0.16);
+  box-shadow: 0 10px 28px rgba(var(--shadow-rgb), 0.16);
 }
 
 .store-badge svg {
@@ -210,11 +210,11 @@ section + section {
   padding: 0.55rem;
   background: linear-gradient(
     160deg,
-    color-mix(in srgb, var(--ink) 88%, var(--emerald)),
+    color-mix(in srgb, var(--ink) 88%, var(--sage)),
     var(--ink)
   );
-  box-shadow: 0 2px 6px rgba(22, 36, 28, 0.14),
-    0 28px 70px rgba(22, 36, 28, 0.24);
+  box-shadow: 0 2px 6px rgba(var(--shadow-rgb), 0.14),
+    0 28px 70px rgba(var(--shadow-rgb), 0.24);
 }
 
 .device::after {
@@ -227,7 +227,7 @@ section + section {
   width: 22%;
   height: 0.28rem;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--on-ink-surface) 22%, transparent);
+  background: color-mix(in srgb, var(--on-pine) 22%, transparent);
   z-index: 2;
 }
 
@@ -260,7 +260,7 @@ section + section {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--radius-m);
-  box-shadow: 0 12px 34px rgba(22, 36, 28, 0.14);
+  box-shadow: 0 12px 34px rgba(var(--shadow-rgb), 0.14);
   padding: 0.72rem 0.95rem;
   font-size: var(--step--1);
   line-height: 1.35;
@@ -355,7 +355,7 @@ section + section {
 
 .feature-media .shot {
   width: min(15rem, 60vw);
-  box-shadow: 0 18px 48px rgba(22, 36, 28, 0.16);
+  box-shadow: 0 18px 48px rgba(var(--shadow-rgb), 0.16);
 }
 
 /* ── stat strip ───────────────────────────────────────────────────────── */
@@ -371,7 +371,7 @@ section + section {
   text-align: center;
   padding: var(--gap-m) var(--gap-s);
   border-radius: var(--radius-m);
-  border: 1px solid color-mix(in srgb, var(--on-ink-surface) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--on-pine) 18%, transparent);
 }
 
 .stat b {
@@ -387,7 +387,7 @@ section + section {
   margin-top: var(--gap-xs);
   font-size: var(--step--1);
   line-height: 1.4;
-  color: color-mix(in srgb, var(--on-ink-surface) 78%, transparent);
+  color: color-mix(in srgb, var(--on-pine) 78%, transparent);
 }
 
 /* ── numbered steps ───────────────────────────────────────────────────── */
@@ -425,7 +425,7 @@ section + section {
    * fails even the large-text threshold — and these numerals are content
    * (they carry the step order), not decoration. Solid emerald is 4.58:1.
    * Checked by scripts/contrast.py. */
-  color: var(--emerald);
+  color: var(--sage);
 }
 
 .steps h3 {

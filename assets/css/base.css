@@ -21,7 +21,7 @@ body {
   /* Explicit, not inherited. A transparent body borrows whatever ground the
    * host paints behind it, which is how a light-only design ends up with
    * white-on-white in a dark browser. */
-  background: var(--sand);
+  background: var(--ground);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--step-0);
@@ -66,7 +66,7 @@ p {
 
 a {
   /* Not --emerald: that is 4.19:1 on --sand, under AA. See tokens.css. */
-  color: var(--emerald-text);
+  color: var(--sage);
   text-underline-offset: 0.18em;
   text-decoration-thickness: from-font;
 }
@@ -77,7 +77,7 @@ a:hover {
 
 /* Visible for keyboard users, absent for mouse users. */
 :focus-visible {
-  outline: 2px solid var(--emerald-text);
+  outline: 2px solid var(--sage);
   outline-offset: 3px;
   border-radius: 3px;
 }
@@ -142,8 +142,8 @@ section {
 
 .btn {
   display: inline-block;
-  background: var(--ink-surface);
-  color: var(--on-ink-surface);
+  background: var(--pine);
+  color: var(--on-pine);
   font-family: var(--font-body);
   font-size: var(--step-0);
   font-weight: 500;
@@ -159,31 +159,37 @@ section {
   box-shadow: var(--shadow-card);
 }
 
+/* WW210 — `--edge`, not `--line`. This is a control whose ONLY boundary
+ * is its border: transparent fill, no shadow. contrast.py excuses the
+ * 1.25:1 `--line` pair because a card is also distinguished by a fill and
+ * a shadow, and its note ends "if a control is ever added whose ONLY
+ * boundary is --line, this stops being true". This button was that
+ * control, on the landing hero, since before that note was written. */
 .btn--ghost {
   background: transparent;
   color: var(--ink);
-  border-color: var(--line);
+  border-color: var(--edge);
 }
 
 /* The inverted band. Used sparingly — it is the loudest thing on the site. */
 .band {
-  background: var(--ink-surface);
-  color: var(--on-ink-surface);
+  background: var(--pine);
+  color: var(--on-pine);
 }
 
 .band h2,
 .band h3 {
-  color: var(--on-ink-surface);
+  color: var(--on-pine);
 }
 
 .band a {
-  color: var(--on-ink-surface);
+  color: var(--on-pine);
 }
 
 .band .muted,
 .band .lede,
 .band .eyebrow {
-  color: color-mix(in srgb, var(--on-ink-surface) 78%, transparent);
+  color: color-mix(in srgb, var(--on-pine) 78%, transparent);
 }
 
 /* ── screenshots ──────────────────────────────────────────────────────── */

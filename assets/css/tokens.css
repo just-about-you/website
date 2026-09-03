@@ -1,47 +1,69 @@
-/* Y110 — the site palette.
+/* Y110 / WW200 — the site palette, derived from the app's default theme.
  *
- * KK127: this used to say the values were copied verbatim from
- * `_founderLight` in `app/lib/core/theme/app_theme.dart`, and that the app
- * won any disagreement. `_founderLight` does not exist — the JJ cull rebuilt
- * the roster and `AppThemeStyle.founders` is now the `Acid` template, a dark
- * palette on a near-black ground. Following that rule would repaint this site
- * in acid yellow, so there is no upstream to follow: these are web values,
- * authored here. `scripts/contrast.py` reads them out of this file and fails
- * the build if a pair drops below AA, which is what holds them.
+ * KK127 recorded that there was no upstream to follow: the values here used to
+ * claim they came from `_founderLight` in the app, that name no longer existed
+ * after the JJ cull, and `AppThemeStyle.founders` had become `Acid` — a dark
+ * palette on a near-black ground. Following it would have painted this site
+ * acid yellow. That was true when it was written and is not true now.
+ *
+ * RR220 made **Clover** the app's default: light, white-and-green. So there is
+ * an upstream again, and WW200 follows it — but follows the part that carries
+ * identity rather than the part that carries a constraint.
+ *
+ * What is taken verbatim: `--sage` (#245f41) and `--pine` (#1a4231) are
+ * Clover's accent and accentSecondary, and `--tint` (#d2ecd8) is its panel.
+ *
+ * What is deliberately NOT taken: Clover's ground, #edfffb. The app's own
+ * comment says why — pure #ffffff measures ΔE 2.7 from `Palm` and is barred by
+ * a floor this site is not subject to, so that ground is "#ffffff walked 6.7
+ * in the only free direction", and the file states outright that the green
+ * identity lives in the accent. Copying a constraint artefact onto a 1440px
+ * surface would put a cyan cast across the whole site to satisfy a rule that
+ * does not apply here. It ships instead as `--on-pine`, ink on the dark band,
+ * where a cool near-white is exactly right and the cast is invisible.
+ *
+ * `--emerald-text` is GONE. It existed only because `--emerald` measured
+ * 4.19:1 on the old ground — under AA — so links needed a second, darker green
+ * nobody could tell from the first. `--sage` is 6.89:1 on `--ground`, so one
+ * green is legal everywhere and the patch token is not needed.
+ *
+ * `--edge` is NEW, and it closes a hole the old palette left open. See the
+ * note at the foot of `scripts/contrast.py`.
+ *
+ * `scripts/contrast.py` reads these values out of this file and fails the
+ * build if a pair drops below AA. It parses only `--name: #rrggbb;` — literal,
+ * six digits, lowercase, one per line — so a token written `#fff`, `rgb()` or
+ * `color-mix()` is INVISIBLE to it and goes unchecked silently. Keep the shape.
  *
  * LIGHT MODE ONLY, by operator instruction. There is deliberately no
- * `prefers-color-scheme: dark` block: the site commits to one look rather
- * than following the visitor's system setting, so every colour below is a
- * final value and `body` paints an explicit background.
+ * `prefers-color-scheme: dark` block: the site commits to one look rather than
+ * following the visitor's system setting, so every colour below is a final
+ * value and `body` paints an explicit background.
  */
 
 :root {
   /* ── surfaces ─────────────────────────────────────────────────────── */
-  --sand: #f0ede0; /* page ground */
-  --paper: #faf7ec; /* raised cards, panels */
-  --line: #dcd5be; /* hairlines, dividers, card borders */
+  --ground: #f1f6f2; /* page ground */
+  --paper: #fafcfa; /* raised cards, panels */
+  --tint: #d2ecd8; /* callout, badge and table-header fill — Clover's panel */
+  --line: #d3e0d6; /* decorative hairlines and dividers */
+  --edge: #6f8779; /* the ONLY boundary of a control — 3:1, see contrast.py */
 
   /* ── ink ──────────────────────────────────────────────────────────── */
-  --ink: #16241c; /* headings and body */
-  --ink-soft: #5e6e60; /* secondary text, captions, labels */
+  --ink: #13251d; /* headings and body */
+  --ink-soft: #4e6357; /* secondary text, captions, labels */
 
   /* ── accents ──────────────────────────────────────────────────────── */
-  --emerald: #14805c; /* the brand colour — fills, icons, accents */
-
-  /* Y140: the brand emerald is 4.19:1 on --sand, which is under AA's 4.5 for
-   * normal text. It passes on --paper (4.58) but links appear on both, so
-   * link TEXT uses this 5%-darker variant instead: 4.53:1 on sand, 4.96:1 on
-   * paper. Measured by scripts/contrast.py, which fails the build if either
-   * drifts back under. The brand colour itself is untouched — this exists so
-   * the palette did not have to change. */
-  --emerald-text: #137a57;
-  --bronze: #a8703c; /* secondary accent, used sparingly */
+  --sage: #245f41; /* the brand colour — links, icons, fills */
+  --bronze: #8f5e2e; /* counter-accent, used sparingly */
 
   /* ── the inverted surface ─────────────────────────────────────────── */
-  /* Fixed within the style regardless of light/dark in the app, which is
-   * why it reads as a deliberate "pop" rather than a theme artefact. */
-  --ink-surface: #1c4a38;
-  --on-ink-surface: #f0d9a8;
+  --pine: #1a4231;
+  --on-pine: #edfffb;
+
+  /* Shadow tint as a channel triple so no rule outside this file writes a
+   * literal colour. Not a text pair, so contrast.py does not read it. */
+  --shadow-rgb: 19, 37, 29;
 
   /* ── type ─────────────────────────────────────────────────────────── */
   /* Newsreader (serif) for display, Hanken Grotesk for body — the same
@@ -74,10 +96,11 @@
   --radius-s: 10px;
   --radius-m: 16px;
   --radius-l: 24px;
+  --radius-xl: 32px; /* the device frame and the CTA panel */
 
-  /* Low and warm. A neutral grey shadow on this sand reads as dirt. */
-  --shadow-card: 0 1px 2px rgba(22, 36, 28, 0.04),
-    0 8px 24px rgba(22, 36, 28, 0.06);
+  /* Low, and tinted to the ink. A neutral grey shadow reads as dirt. */
+  --shadow-card: 0 1px 2px rgba(var(--shadow-rgb), 0.04),
+    0 8px 24px rgba(var(--shadow-rgb), 0.06);
 
   --measure: 34rem; /* readable line length */
   --page-max: 68rem;
