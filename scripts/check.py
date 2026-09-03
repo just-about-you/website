@@ -79,11 +79,25 @@ def check(page, html):
             problems.append(f'{name}: image without alt text -> {src.group(1)}')
 
     # Internal links resolve.
+    #
+    # WW310 — a root-absolute `/foo.html` resolves against ROOT, not against the
+    # page's own directory. 404.html needs those: it is served for ANY missing
+    # path, including one directory down, where a relative `features.html`
+    # would resolve to `/features/features.html` and send a lost visitor
+    # somewhere else lost. Before this it was neither resolved nor skipped —
+    # `os.path.join(dirname, '/features.html')` returns '/features.html', which
+    # does not exist on disk, so every correct absolute link read as dead.
     for href in re.findall(r'href="([^"]+)"', html):
         if href.startswith(('http', 'mailto:', '#', './')):
             continue
         target = href.split('#')[0]
-        if target and not os.path.exists(resolve(page, target)):
+        if not target:
+            continue
+        if target.startswith('/'):
+            found = os.path.exists(os.path.join(ROOT, target.lstrip('/')))
+        else:
+            found = os.path.exists(resolve(page, target))
+        if not found:
             problems.append(f'{name}: dead link -> {href}')
 
     # No external host except Google Fonts. A CDN script or a remote image is

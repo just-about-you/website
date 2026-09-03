@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Contact — Your Health</title>
-    <meta name="description" content="How to reach the person who builds Your Health, including how to report a security problem." />
+    <title>Page not found — Your Health</title>
+    <meta name="description" content="That page is not here. The features, the privacy account and the help pages are, and they are linked from this one." />
     <!-- chrome:assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,58 +36,61 @@
     </div>
     <!-- /chrome:header -->
 
+    <!--
+      WW310 — there was no 404 page, and this round deletes three files
+      (features/over-time.html, which documented the Trends screen EE131
+      removed, and features/appearance.html + features/app-lock.html, merged
+      into features/making-it-yours.html).
+
+      GitHub Pages has no redirects. Without this file every inbound link to a
+      deleted page — a bookmark, a search result, something written down — lands
+      on GitHub's own default, which says nothing about this site and offers no
+      way back into it.
+
+      check.py globs **/*.html, so this page is held to the same structure as
+      every other: one h1, a title, a meta description, a skip link, alt text on
+      any image. It is not a feature page, so the data-role and prose ceilings
+      do not apply to it.
+    -->
     <main id="main">
-      <section class="wrap hero" style="padding-bottom: var(--gap-l)">
+      <section class="wrap hero">
         <div class="hero-in">
-          <p class="eyebrow">Contact</p>
-          <h1>Getting in touch.</h1>
-          <p class="lede">Your Health is an independent project. There is no support desk and no ticket system — messages reach the person who writes the code.</p>
+          <p class="eyebrow">Not found</p>
+          <h1>That page is not <span class="hl">here</span>.</h1>
+          <p class="lede">It may have moved, or it may never have existed. A few pages were merged into others recently, so an older link can land here.</p>
+          <div class="cta-row">
+            <a class="btn" href="/">Back to the start</a>
+            <a class="btn btn--ghost" href="/features.html">What the app does</a>
+          </div>
         </div>
       </section>
 
       <section class="wrap">
+        <div class="section-head reveal">
+          <h2>The pages people usually want</h2>
+        </div>
         <div class="grid reveal-group">
           <article class="card">
-            <h3>A business address is being set up</h3>
-            <p>
-              This page is a placeholder while that is arranged. It will carry
-              a postal address and a monitored email address before the site
-              goes live.
-            </p>
-            <p class="muted">
-              We would rather show nothing than show an address that does not
-              work.
-            </p>
+            <h3><a href="/features.html">Features</a></h3>
+            <p>What the app does, one page per part of it.</p>
           </article>
           <article class="card">
-            <h3>Reporting a security problem</h3>
-            <p>
-              If you have found something that affects other people’s data,
-              please say so first and publish afterwards. A route for this
-              lands with the address above.
-            </p>
-            <p class="muted">
-              What we can promise now: it goes to a person, not a queue.
-            </p>
+            <h3><a href="/privacy.html">Privacy</a></h3>
+            <p>What is stored, where, and what is not stored at all.</p>
           </article>
           <article class="card">
-            <h3>What we cannot help with</h3>
-            <p>
-              We cannot recover a lost backup password, and we cannot see your
-              data to look at a problem in it. Both of those are the point of
-              the design rather than gaps in it.
-            </p>
-            <p class="muted">
-              <a href="verify.html">Why we cannot</a>.
-            </p>
+            <h3><a href="/verify.html">How to check this</a></h3>
+            <p>Every claim on this site, against the test that holds it.</p>
+          </article>
+          <article class="card">
+            <h3><a href="/help.html">Help</a></h3>
+            <p>The things you might need before or without the app.</p>
           </article>
         </div>
       </section>
-
     </main>
 
-    <div class="wrap">
-      <!-- chrome:footer -->
+    <!-- chrome:footer -->
       <footer class="site-footer">
         <nav aria-label="Footer">
           <a href="features.html">Features</a>
@@ -107,6 +110,5 @@
         </p>
       </footer>
       <!-- /chrome:footer -->
-    </div>
   </body>
 </html>

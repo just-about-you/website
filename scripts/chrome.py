@@ -32,9 +32,16 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # for our features", and it is worse for the half of the audience the split
 # exists to serve. The features hub carries them instead, and the header stays
 # the size someone can take in at a glance.
+# WW360 - five, not four, and this is a deliberate amendment of the note
+# above. That note defends four against TWELVE, which was the right call and
+# is not what this changes. `verify.html` goes claim by claim - eleven of
+# them, each tied to the named test that holds it - and it was reachable only
+# from the footer. It is the page that answers a sceptic, buried where only
+# somebody already convinced would scroll. Five is still glanceable.
 TOP_NAV = [
     ('features.html', 'Features'),
     ('privacy.html', 'Privacy'),
+    ('verify.html', 'How to check'),
     ('help.html', 'Help'),
     ('about.html', 'About'),
 ]
