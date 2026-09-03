@@ -38,6 +38,9 @@ h2,
 h3 {
   font-family: var(--font-display);
   font-weight: 400; /* Newsreader ships Regular only — see pubspec.yaml */
+  /* WW220 — leading by size, not one value. A uniform 1.12 gives a 24px
+   * h3 the same leading as a 58px h1, which collides two-line card
+   * titles while leaving display headings airy. */
   line-height: 1.12;
   letter-spacing: -0.015em;
   margin: 0 0 var(--gap-s);
@@ -46,12 +49,14 @@ h3 {
 
 h1 {
   font-size: var(--step-4);
+  line-height: 1.06;
 }
 h2 {
   font-size: var(--step-3);
 }
 h3 {
   font-size: var(--step-2);
+  line-height: 1.25;
 }
 
 p,
@@ -196,12 +201,14 @@ section {
 
 /* The captures are 1344x2992 phone frames. Constrained by height rather than
  * width so a row of them lines up regardless of aspect drift. */
+/* WW230 — the same frame the hero uses. Previously a bare image with a
+ * 1px hairline, which made one site carry two screenshot treatments. */
 .shot {
   display: block;
   height: auto;
   max-width: 100%;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-l);
+  border: 0.5rem solid var(--pine);
+  border-radius: var(--radius-xl);
   background: var(--paper);
 }
 

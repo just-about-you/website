@@ -122,8 +122,14 @@ section + section {
 
 .hero h1 {
   /* Bigger than the base scale: the hero headline is the one place on the
-   * site that is allowed to shout. */
-  font-size: clamp(2.6rem, 1.6rem + 4.4vw, 4.9rem);
+   * site that is allowed to shout.
+   *
+   * WW220 capped this from 4.9rem. Newsreader ships Regular ONLY (see the
+   * note on font-weight in base.css), and a 400-weight serif at 78px is a
+   * hairline — thin strokes, wide counters, the look of a display face
+   * being used at a size it has no weight for. 3.6rem holds the stroke
+   * and lets the sentence run longer, which suits the copy better. */
+  font-size: clamp(2.4rem, 1.5rem + 3.6vw, 3.6rem);
   letter-spacing: -0.025em;
   margin-bottom: var(--gap-m);
 }
@@ -203,37 +209,29 @@ section + section {
 /* ── device frame ─────────────────────────────────────────────────────── */
 
 .device {
+  /* WW230 — one screenshot treatment. The hero used to frame its capture in a
+   * gradient bezel with a fake speaker slot while every other screenshot on
+   * the site was a bare image with a hairline, so the same phone appeared
+   * framed on the landing page and unframed one section later.
+   *
+   * The bezel is solid --pine rather than a gradient: a gradient bezel is the
+   * single most dated thing on the page, and a solid one ties the frame to the
+   * palette instead of imitating a product shot. */
   position: relative;
-  width: min(17.5rem, 68vw);
+  width: var(--device-w, min(20rem, 74vw));
   margin-inline: auto;
-  border-radius: 2.2rem;
-  padding: 0.55rem;
-  background: linear-gradient(
-    160deg,
-    color-mix(in srgb, var(--ink) 88%, var(--sage)),
-    var(--ink)
-  );
+  border-radius: var(--radius-xl);
+  padding: 0.5rem;
+  background: var(--pine);
   box-shadow: 0 2px 6px rgba(var(--shadow-rgb), 0.14),
     0 28px 70px rgba(var(--shadow-rgb), 0.24);
 }
 
-.device::after {
-  /* The speaker slot. Purely decorative, hidden from assistive tech. */
-  content: "";
-  position: absolute;
-  top: 1.05rem;
-  left: 50%;
-  translate: -50% 0;
-  width: 22%;
-  height: 0.28rem;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--on-pine) 22%, transparent);
-  z-index: 2;
-}
-
 .device-screen {
   position: relative;
-  border-radius: 1.75rem;
+  /* WW230 — derived from the frame rather than a magic number, so the
+   * inner corner stays concentric if --radius-xl ever moves. */
+  border-radius: calc(var(--radius-xl) - 8px);
   overflow: hidden;
   background: var(--paper);
   aspect-ratio: 1344 / 2992;
@@ -244,7 +242,10 @@ section + section {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* WW230 — contain, not cover. On an exact-aspect capture cover is a
+   * no-op today and silently crops the first time a recapture lands at a
+   * different aspect, which WW120 has just made likely. */
+  object-fit: contain;
   opacity: 0;
   transition: opacity 0.9s ease;
 }
@@ -254,6 +255,27 @@ section + section {
 }
 
 /* A card that floats beside the device, carrying one claim. */
+/* WW240 - the promoted hero claims. A list in the flow, not two boxes
+ * floated beside the device and hidden under 62rem. */
+.claims {
+  list-style: none;
+  margin: var(--gap-m) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--gap-xs);
+  max-width: var(--measure);
+}
+
+.claims li {
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.claims b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
 .float-card {
   position: absolute;
   z-index: 3;

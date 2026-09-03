@@ -109,21 +109,11 @@
   }
 }
 
-/* A very slow drift, so the hero is never completely static. Deliberately
- * small — 6px over 7s reads as "alive", 20px reads as "broken". */
-.js .device-float {
-  animation: drift 7s ease-in-out 1.4s infinite;
-}
-
-@keyframes drift {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
+/* WW230 — the 7s infinite `drift` on the hero device is gone. An
+ * element that never stops moving, on a page whose argument is calm, is a
+ * contradiction; it was also the most template-ish thing on the site. The
+ * one-shot `rise-device` entrance below stays: it arrives and then it is
+ * still. */
 
 .js .float-card {
   animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) backwards;

@@ -67,10 +67,20 @@
                 >See exactly what we store</a
               >
             </div>
+            <!-- WW240 - these two were `.float-card`, absolutely
+                 positioned beside the device and `display: none` below
+                 62rem. They are the two sharpest sentences on the page
+                 and they did not exist on a phone, on a site whose
+                 product is an Android app. In the flow now, at every
+                 width, in reading order. -->
+            <ul class="claims">
+              <li><b>No sign-up</b> No email, no password, no name.</li>
+              <li><b>They see a tick</b> Not your blood pressure.</li>
+            </ul>
           </div>
 
           <div class="feature-media">
-            <div class="device device-in device-float">
+            <div class="device device-in">
               <div class="device-screen" data-rotate>
                 <!-- KK127 — the Home and Trends captures that opened this
                      rotation were of screens the app no longer has: Home was
@@ -102,14 +112,6 @@
                   loading="lazy"
                 />
               </div>
-              <p class="float-card float-card--a">
-                <b>No sign-up</b>
-                <span>No email, no password, no name.</span>
-              </p>
-              <p class="float-card float-card--b">
-                <b>They see a tick</b>
-                <span>Not your blood pressure.</span>
-              </p>
             </div>
           </div>
         </div>

@@ -16,8 +16,22 @@ argument for the site carrying the heavy set except that nobody had looked.
     python scripts/sync-assets.py           # build, report what changed
     python scripts/sync-assets.py --check   # fail if out of date, write nothing
 
-Width is chosen so the site never upscales: the widest a screenshot is drawn is
-the `.device` frame at ~420 CSS px, so 900 px covers 2x displays with room over.
+Width is chosen so the site never upscales. WW230 re-derived it, because the
+old sentence here — "the widest a screenshot is drawn is the `.device` frame at
+~420 CSS px, so 900 px covers 2x displays with room over" — was wrong about the
+frame and therefore wrong about the multiple.
+
+Measured: `.device` is `min(20rem, 74vw)`, so **320 CSS px**, and the image
+inside it sits within `0.5rem` of padding on each side, so it renders at **304
+px**. `.feature-media .shot` is `min(15rem, 60vw)` = 240 px, narrower. 304 px
+is the widest any capture is drawn.
+
+So 900 px is not 2x of 420. It is **just under 3x of 304**, which is the density
+of ordinary current Android hardware (2.75x-3.5x) rather than headroom over 2x.
+The number is unchanged and correct; only the reason was wrong, which is worth
+saying plainly — a constant justified by a measurement nobody re-took is a
+constant nobody can move safely. If the frame changes, this follows it: target
+= widest rendered width x 3, rounded up.
 """
 import io
 import os
