@@ -65,6 +65,74 @@
       <section class="wrap" style="padding-block: var(--gap-l)">
         <div class="grid reveal-group">
         <article class="card" style="grid-column: 1 / -1">
+          <h2>2.19.0 (2026-08-30)</h2>
+          <h3>The header bands again</h3>
+          <ul>
+            <li><strong>The pale square in the top corner is gone.</strong> The soft glow in each band was being drawn as a rectangle, so its square corner sat outside the band&#x27;s rounded one and its edges stopped short of the band on three sides. It is now shaped like the band it lives in.</li>
+            <li><strong>Every screen holds its menu button the same distance from the top.</strong> Home was the one that looked right and the other four were 8 pixels tighter; Home&#x27;s spacing is now all of them.</li>
+            <li><strong>Every screen says what it is for.</strong> Care and Medication had a title and nothing else; both now carry a line under it, like Tasks and Actions already did. Home is unchanged.</li>
+          </ul>
+          <p>Two things that were quietly wrong: a title or description no longer runs off the screen at the largest text size, and the time headings in your medication list (&quot;8:00 AM — 0 of 1&quot;) no longer overflow at that size either.</p>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.18.0 (2026-08-30)</h2>
+          <h3>One button on Medication, not two</h3>
+          <ul>
+            <li>The Medication header had a sliders button and a plus. They looked like the same thing and were not: the plus added a medication, the sliders opened a list whose only unique job was <strong>removing</strong> one.</li>
+            <li><strong>Removing a medication now lives on the medication itself.</strong> Press and hold it in your day to open its own screen — the one that already showed how you have been doing with it — and remove it there. It asks first, which the old button never did: on the list a single mis-tap removed a medication with no confirmation at all. The doses you already ticked are kept either way.</li>
+            <li>The list those buttons disagreed about is gone, and the help that described it has been rewritten.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.17.0 (2026-08-30)</h2>
+          <h3>The header bands, properly spaced</h3>
+          <ul>
+            <li><strong>The empty space under every band is gone.</strong> The band was leaving a full corner&#x27;s worth of room below its contents on the reasoning that the curve needed it — but a curve only needs that much room at the very corner, and nothing was ever that close to one. On Care, whose band is a title and nothing else, the band was more empty space than content.</li>
+            <li><strong>The menu button lines up with the title beside it.</strong> An icon sits inside its own tappable square, so padding the square to the edge left the icon itself adrift. The same fix applies to the two week arrows.</li>
+            <li><strong>Every band starts its content the same distance from the top</strong>, rather than each screen deciding for itself.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.16.0 (2026-08-30)</h2>
+          <h3>The header band, tidied</h3>
+          <ul>
+            <li><strong>It sits away from the edges now</strong>, including a gap under the notification bar, so it reads as one shape laid on the page rather than a strip stuck to three sides of the screen.</li>
+            <li><strong>All four corners are drawn the same.</strong> The bottom two carried a lit edge the top two did not, which made one end of the band look different from the other.</li>
+            <li><strong>Titles line up.</strong> Each screen was padding its own heading by a different amount — and on Medication by different amounts on the left and the right — so the same band held its contents in a different place on every screen.</li>
+            <li><strong>The Tasks heading is capitalised</strong>, like the other four.</li>
+            <li>The selected day no longer touches the side of the band. Its tap area is unchanged; only the coloured shape inside it moved.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.15.0 (2026-08-30)</h2>
+          <h3>Three fixes to the new header</h3>
+          <ul>
+            <li><strong>On Medication the title was being drawn over the clock.</strong> That screen let its contents run up behind the status bar, which did no harm while the top of it was just a line of text on the background. With a band up there it overlapped. It now starts below the status bar like every other screen.</li>
+            <li><strong>Tasks has the row of days.</strong> It had kept a small &quot;today&quot; link that opened a calendar, which was easy to miss beside the seven days on Home and Medication. Tapping the month above the row still jumps to any date, so something you finished last month is still one tap away.</li>
+            <li><strong>The band is rounded at the top as well as the bottom</strong>, so it reads as one shape rather than a strip. The row of days is inset slightly from the edges with it, so the selected day no longer sits hard against the side of the screen.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.14.0 (2026-08-30)</h2>
+          <h3>The header has depth, and every screen has one</h3>
+          <ul>
+            <li>The band at the top of Home had become its own surface, but it still read flat: the line under it was a hard white rule, and on the dark themes the band could not cast a shadow at all — there is nothing darker than a near-black page for a shadow to be made of. The line is now a tone of the band&#x27;s own colour, the bottom edge catches light like a raised panel, and the band sits further from the page than a card does, so it no longer looks like one big empty card.</li>
+            <li><strong>Tasks, Medication, Actions and Care now have the same band.</strong> Tasks and Medication keep their day controls in it, the way Home keeps its row of days. Actions and Care show their name and a line about the screen.</li>
+            <li>The menu button moved into the band on those four screens too, and the empty bar it used to sit in is gone — so every screen gives back the space Home gave back.</li>
+          </ul>
+          <p>Two screens were quietly painting over the page&#x27;s background and are not any more, so the colour behind Tasks and Actions now matches everywhere else.</p>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.13.0 (2026-08-30)</h2>
+          <h3>The header is its own surface now</h3>
+          <ul>
+            <li>The band at the top of Home held the greeting, Friends and Help, and the row of days — but it was painted in exactly the same colour as the page behind it, with a single thin line underneath doing all the work of separating the two. It now sits on a surface of its own, the same material your cards are made of, so the top of the screen reads as a header rather than as the background with a line drawn across it.</li>
+            <li><strong>Each theme lights its own header.</strong> The colour your theme uses for highlights now glows softly in the top corner of the band, so the header looks like it belongs to the theme you picked rather than being the one part of the screen that ignored it.</li>
+            <li>The Friends and Help buttons became outlines. On the new surface a filled button would have been the same colour as the band it sits on.</li>
+          </ul>
+          <p>Every colour in the band was checked against the surface it is actually drawn on, in all sixteen themes — including Stark, the high-contrast one.</p>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
           <h2>2.12.0 (2026-08-30)</h2>
           <p>The top of the screen was the part that had not been rethought. Now it has.</p>
           <h3>One header instead of four loose pieces</h3>

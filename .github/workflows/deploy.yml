@@ -160,12 +160,17 @@ jobs:
       # stopped at 2.12.0 while the changelog reached 2.19.0, and nothing on
       # this site or in this workflow said so.
       #
-      # **This step is red on the commit that added it, and that is the
-      # point.** Regenerating the page here would put it straight back to
-      # STALE the moment the next release entry lands, so the regeneration is
-      # sequenced to the release task and this row is what stops that being
-      # forgotten again. Clearing it is `python scripts/build-changes.py` in
-      # `website/`, run at ship time -- not a grace period here.
+      # This step was red on the commit that added it, deliberately, and WW130
+      # cleared it: the page now renders 24 releases and reaches 2.19.0.
+      #
+      # The original note argued against regenerating, because the page "would
+      # go straight back to STALE the moment the next release entry lands".
+      # That is an argument for this step existing, not for leaving the page
+      # seven releases behind -- the whole job of a --check in CI is to be the
+      # thing that notices. PP425 fixed this same drift once by hand and it
+      # came back, which is the evidence. Clearing it stays
+      # `python scripts/build-changes.py` in `website/`, run at ship time --
+      # never a grace period here.
       - name: changes.html agrees with app/CHANGELOG.md
         working-directory: website
         run: python scripts/build-changes.py --check

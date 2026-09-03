@@ -457,20 +457,34 @@ CAPTURE_INVENTORY = os.path.join(
     APP, 'lib', 'features', 'help', 'help_capture_inventory.dart')
 
 
-def known_stale_captures():
-    """`knownStaleCaptures` from the app, as {basename: the task that retakes}.
+def known_stale_captures(src=None):
+    """`knownStaleCaptures` from the app.
 
-    Read out of Dart with a regex, which is worth being uneasy about — so the
-    caller treats an empty parse as a failure rather than as an empty list. A
-    reader that quietly stops matching is a guard that quietly stops guarding,
-    which is the whole complaint this task is answering.
+    Returns **None** when the declaration is absent — the reader has broken and
+    the caller must fail. Returns a **dict, possibly empty**, when it is
+    present: an empty map is a real and expected state.
+
+    WW100 — those two were one return value until 2026-09-03, and the day the
+    map legitimately drained the guard accused the app of moving a file that
+    had not moved. TT150 retook all 29 shipped captures on Clover, every one
+    moved to a recorded fingerprint, and the map emptied exactly as it was
+    designed to. `if not body: return {}` could not tell that from a reader
+    that had stopped matching, so it reported the wrong one.
+
+    Failing safe was right and stays: an absent declaration is still a hard
+    failure, because a reader that quietly stops matching is a guard that
+    quietly stops guarding. What changes is that a drained queue is no longer
+    mistaken for one.
+
+    [src] is for the self-test below; production reads the file.
     """
-    src = open(CAPTURE_INVENTORY, encoding='utf-8').read()
+    if src is None:
+        src = open(CAPTURE_INVENTORY, encoding='utf-8').read()
     body = re.search(
         r'const Map<String, StaleCapture> knownStaleCaptures = \{(.*?)\n\};',
         src, re.S)
     if not body:
-        return {}
+        return None
     found = {}
     for entry in re.finditer(r"^  '([^']+)': StaleCapture\((.*?)\n  \),",
                              body.group(1), re.S | re.M):
@@ -542,11 +556,15 @@ capture_problems = []
 
 def check_stale_captures(used):
     stale = known_stale_captures()
-    if not stale:
+    if stale is None:
         problems.append(
-            'the capture inventory parsed to no entries — '
-            'help_capture_inventory.dart has moved out from under the reader '
-            'in check.py, and an empty list here passes everything')
+            'the knownStaleCaptures declaration was not found in '
+            'help_capture_inventory.dart — the reader in check.py has broken, '
+            'and an empty result here would pass everything')
+        return
+    if not stale:
+        print('  the app declares no known-stale captures — the map is '
+              'present and empty, which is the drained state, not a failure')
         return
     print(f'  read {len(stale)} known-stale capture(s) from the app inventory')
     for png in used:
@@ -635,21 +653,57 @@ CAPTURE_RED_NOTE = """
       "Accept the red build until EE192. The pictures stay up. The site stays
        un-deployable until the captures are re-shot."
 
-  Why it cannot be cleared by fixing the pictures: operator ruling CC130
-  (2026-08-29) defers all recapture indefinitely, so nothing here can re-shoot
-  them, and dropping them was put to the operator and declined.
+  Why it could not be cleared by fixing the pictures: operator ruling CC130
+  (2026-08-29) deferred all recapture indefinitely, so nothing here could
+  re-shoot them, and dropping them was put to the operator and declined.
 
-  What clears it: EE192, the capture run. The entries then leave
-  knownStaleCaptures in app/, and this goes green with no change in this repo.
-  One of them is not a re-shoot: see the retiredCaptures line above, whose
-  screen no longer exists. That one needs an operator decision on what picture
-  replaces it, and no capture run can make it for them.
+  THE CAPTURE RUN HAPPENED. On 2026-09-02 the app's TT150 retook all 29
+  shipped captures on Clover and knownStaleCaptures drained, so eleven of the
+  twelve failures this note used to cover no longer occur, and WW120 re-synced
+  the site's copies. If you are reading this note at all, what is left is the
+  twelfth.
+
+  It is not a re-shoot: see the retiredCaptures line above, whose screen no
+  longer exists. That one needs an operator decision on what picture replaces
+  it, and no capture run can make it for them.
 
   What does NOT clear it: softening, skipping, allow-listing or grace-
   periodding this check. That reverses a decision the operator made on purpose
   and hides it from the next person. README.md, "Known red, and who clears
   it", is the long version.
 """
+
+
+if '--self-test' in sys.argv:
+    # WW100 — the three states the reader must tell apart, exercised on
+    # fixtures rather than asserted in a comment. The middle one is today's
+    # real file: TT150 drained the map and left the declaration standing.
+    ABSENT = 'const Map<String, RetiredCapture> retiredCaptures = {\n};\n'
+    EMPTY = ('const Map<String, StaleCapture> knownStaleCaptures = {\n'
+             '  // Empty, and that is the point.\n};\n')
+    ONE = ("const Map<String, StaleCapture> knownStaleCaptures = {\n"
+           "  '10-home': StaleCapture(\n"
+           "    reason: 'x',\n"
+           "    regeneratedBy: 'WW999',\n"
+           "  ),\n};\n")
+    cases = [
+        ('declaration absent  -> None (reader broken)',
+         known_stale_captures(ABSENT), None),
+        ('present and empty   -> {} (drained, not a failure)',
+         known_stale_captures(EMPTY), {}),
+        ('present with entries-> parsed',
+         known_stale_captures(ONE), {'10-home': 'WW999'}),
+    ]
+    bad = 0
+    for label, got, want in cases:
+        ok = got == want and type(got) is type(want)
+        print(f'  {"ok  " if ok else "FAIL"} {label}: {got!r}')
+        bad += 0 if ok else 1
+    # The distinction only matters if the two empties are distinguishable.
+    if known_stale_captures(ABSENT) is known_stale_captures(EMPTY):
+        print('  FAIL absent and empty are still the same value')
+        bad += 1
+    sys.exit(1 if bad else 0)
 
 
 pages = html_pages()
