@@ -146,9 +146,56 @@ fixtures rather than leaving the distinction asserted in a comment.
 
 ### Known red, and who cleared it
 
-**The gate is green.** It was red from 2026-09-01 to 2026-09-03, on purpose,
-and this section is kept rather than deleted because how it cleared is the
-part worth reading.
+**The gate is red again, and it has been for longer than anyone here knew.**
+Found 2026-09-07 while queueing two captures for `BBB130`.
+
+`check.py`'s `known_stale_captures()` matched the declaration inside
+`app/lib/features/help/help_capture_inventory.dart`. The app's **YY215 split
+that declaration out** into `help_capture_queue.dart` — a plain library the
+inventory re-exports, so every Dart caller kept working and nothing in `app/`
+noticed. This reader is not a Dart caller. It matches source text, and the
+text moved out from under it.
+
+What that cost, stated plainly: from YY215 until now this check resolved
+**zero** captures where it should have resolved sixteen, and every run since
+has been the same single line — *the declaration was not found*. It failed
+rather than passed, which is WW100's doing and the one good thing here: an
+absent declaration returns `None` and the caller treats that as a hard
+failure, precisely so a reader that stops matching cannot be mistaken for a
+drained queue. So this was red-and-blind rather than green-and-blind, which is
+the better of the two and still a guard that was not doing its job.
+
+`BBB121` reads both files. With the reader seeing its subject again,
+**fourteen shipped pictures fail**: ten owned by `XX180`, and four owned by
+`BBB130` — `30-people`, `31-people-invite`, `32-people-add` and `70-care`. The
+friend row collapsed into a drawer and gained a search field, the Add someone
+sheet lost its friend/cared-for toggle, and the caregiver chips gained the
+control that ends a caregiver's access.
+
+It was twelve when this section was first written, hours earlier in the same
+round, and the number moved twice as the round went on. **That is the point of
+writing it down rather than saying "some":** a count that cannot go stale is a
+count nobody has to check, and this one has now been wrong once already.
+
+The operator ruling below is unchanged and still governs: the pictures stay
+up, the site stays un-deployable until the captures are re-shot. Nothing was
+softened to make this go quiet.
+
+**This section's own warning is what happened, one level up.** It says
+*n known failures hide an n+1th*. A broken reader hides all of them,
+and it does so while printing a message that reads like a tooling complaint
+rather than a coverage hole. The lesson to carry: when a guard reads another
+repo's source as **text**, a refactor in that repo is a change to this one —
+count what the guard resolves before and after, because a plausible-looking
+error line is not evidence that it is still looking at anything.
+
+---
+
+**What follows is the previous, resolved red**, kept because how it cleared is
+the part worth reading.
+
+**The gate was green from 2026-09-03.** It was red from 2026-09-01 to
+2026-09-03, on purpose.
 
 The red was twelve captures the app had declared wrong. **Eleven of them were
 in `knownStaleCaptures`, and the app retook all of them under TT150 on

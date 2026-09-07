@@ -470,6 +470,41 @@ APP = os.path.normpath(os.path.join(ROOT, '..', 'app'))
 CAPTURE_INVENTORY = os.path.join(
     APP, 'lib', 'features', 'help', 'help_capture_inventory.dart')
 
+# BBB121 — **and the queue, which is a second file now.**
+#
+# `knownStaleCaptures` lived in `help_capture_inventory.dart` until the app's
+# YY215 split it into `help_capture_queue.dart` — a plain library the inventory
+# re-exports, so every Dart caller kept working and nothing in `app/` noticed.
+# This reader is not a Dart caller. It matches source text, and the text it
+# matches moved out from under it.
+#
+# It failed rather than passed, which is the one good thing here and is
+# WW100's doing: an absent declaration returns None and the caller treats that
+# as a hard failure, precisely so a reader that stops matching cannot be
+# mistaken for a drained queue. So the site build has been red since the split
+# rather than green-and-blind — the better of the two failures, and still a
+# guard that was not doing its job.
+#
+# Both files are read and concatenated. Reading the queue alone would work
+# today and break the day anything moves back; reading both means the search
+# follows the declaration wherever in the pair it sits.
+CAPTURE_QUEUE = os.path.join(
+    APP, 'lib', 'features', 'help', 'help_capture_queue.dart')
+
+
+def capture_sources():
+    """The inventory and the queue, concatenated.
+
+    Two files since the app's YY215 split; see the note on [CAPTURE_QUEUE].
+    A missing file is not tolerated quietly — the whole point of this reader is
+    that it cannot be allowed to look at nothing and report calm.
+    """
+    parts = []
+    for path in (CAPTURE_INVENTORY, CAPTURE_QUEUE):
+        with open(path, encoding='utf-8') as fh:
+            parts.append(fh.read())
+    return '\n'.join(parts)
+
 
 def known_stale_captures(src=None):
     """`knownStaleCaptures` from the app.
@@ -493,7 +528,7 @@ def known_stale_captures(src=None):
     [src] is for the self-test below; production reads the file.
     """
     if src is None:
-        src = open(CAPTURE_INVENTORY, encoding='utf-8').read()
+        src = capture_sources()
     body = re.search(
         r'const Map<String, StaleCapture> knownStaleCaptures = \{(.*?)\n\};',
         src, re.S)
