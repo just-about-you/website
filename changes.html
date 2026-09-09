@@ -66,6 +66,68 @@
       <section class="wrap" style="padding-block: var(--gap-l)">
         <div class="grid reveal-group">
         <article class="card" style="grid-column: 1 / -1">
+          <h2>2.22.0 (2026-09-09)</h2>
+          <h3>Every year</h3>
+          <ul>
+            <li><strong>A repeat can be yearly now.</strong> The choice was day, week or month, so a birthday had to be written as &quot;every 12 months&quot; — which places exactly the same dates, and which nobody thinks to look for. Year is a fourth option in the same row, and the sentence under it reads back the date it lands on: &quot;Every year on 17 August&quot;, not just &quot;Every year&quot;.</li>
+            <li><strong>A yearly repeat that falls on 29 February keeps the years that have one</strong> and skips the years that do not, the same way a monthly repeat on the 31st already behaved.</li>
+            <li>Three things that only a long gap could reach were fixed with it: a repeat of three years or more used to find its first date and then quietly stop looking, a reminder the phone did not recognise could re-arm itself every morning, and a repeat restored from a newer backup now reads as &quot;does not repeat&quot; rather than as &quot;every day&quot;.</li>
+          </ul>
+          <h3>Tasks that last more than a day</h3>
+          <ul>
+            <li><strong>A task with an end date now shows on every day it covers.</strong> It was drawn on its first day only, which looked like a short task rather than a wrong one. The calendar dots missed those days too, including a task that started in one month and ran into the next.</li>
+            <li><strong>Ticking a multi-day task ticks the whole thing.</strong> Marking it done on the Wednesday used to leave the Tuesday and Thursday of the same task unticked — one task with three separate answers, on every phone it was shared with.</li>
+          </ul>
+          <h3>The repeat screen, and the screen under a reading</h3>
+          <ul>
+            <li><strong>The repeat sentence stays on one line.</strong> &quot;Every [1] week&quot; had been breaking in half, with the unit dropping to its own row and drawing as a full-width bar that looked like something to type in. All the units are visible at once now, and the one you chose looks chosen — it used to be a button that cycled to the next one when tapped.</li>
+            <li><strong>The days of the week are one row of seven.</strong> They wrapped after five, so a week read as a block of five days and a stray pair.</li>
+            <li><strong>Choosing when a repeat ends takes one control</strong>, not three stacked options that pushed the summary and both buttons off the bottom of the sheet.</li>
+            <li><strong>The sections under a reading&#x27;s chart are readable.</strong> They began with no heading and were set in small grey type barely different from their own titles, so the whole block read as one paragraph. Each sits on a card now, with its title heavier than its text and an arrow showing which way a number moved.</li>
+            <li><strong>The note about clinical norms is gone from that screen</strong>, which does not use them. It is unchanged where it does apply — the sheet you enter a reading in still says where its ranges come from.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.21.0 (2026-09-07)</h2>
+          <h3>Adding a task is one screen</h3>
+          <ul>
+            <li><strong>The six-step wizard is a single form.</strong> The name is at the top and every other row is already answered, so a task that needs nothing but a name is one tap from saved.</li>
+            <li><strong>Repeats are a real rule now</strong> — every so many days, weeks, months, on the weekdays you pick, ending never, on a date, or after a number of times — and the screen states it back to you as a sentence.</li>
+            <li><strong>A shared task can repeat.</strong> The rule travels with the task, and a tick belongs to one day of it rather than to the whole series, so finishing today does not finish next week for everybody.</li>
+          </ul>
+          <h3>Asking for a reading is out of sight</h3>
+          <ul>
+            <li><strong>The half of &quot;reading requests&quot; that could still be seen is hidden.</strong> The button that made a request was removed in an earlier version and its replacement is still to come, so what was left was a screen that could receive a request nothing could send. It is switched off rather than deleted, and comes back with the other half.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
+          <h2>2.20.0 (2026-09-05)</h2>
+          <h3>The calendars fold away</h3>
+          <ul>
+            <li><strong>Tasks and Medication now open on your list, not on a calendar.</strong> The month sits behind a date button under the header — tap it and the calendar drops down, tap a day and it folds back up with that day&#x27;s list underneath. The button always tells you which day you are looking at, so nothing is lost when the calendar is closed.</li>
+            <li><strong>The calendar opens closed every time.</strong> It does not remember being left open, on purpose: a screen that greets you the same way every time is one you stop having to read.</li>
+            <li><strong>The date control is a proper button now</strong>, the same width as everything else on the screen and outlined in your theme&#x27;s own colour, so it reads as something to press rather than as a line of text above the list.</li>
+          </ul>
+          <h3>The dots on the Tasks calendar</h3>
+          <ul>
+            <li><strong>Days you share a task on now get a dot.</strong> They never did — the calendar only ever counted your own tasks, so a day whose only task came from someone else looked empty even though tapping it showed the task.</li>
+            <li><strong>The dots are slightly bigger</strong>, and if the app cannot check a month for any reason it now says so, instead of showing a month with no dots — which looked exactly like a month with nothing in it.</li>
+          </ul>
+          <h3>Home&#x27;s cards</h3>
+          <ul>
+            <li><strong>A card with nothing in it now offers to fill it.</strong> Every tile was being laid out as tall as the tallest one, so a metric you had not logged carried about a quarter of a card in bare panel. That space is now a button that opens that metric&#x27;s entry sheet — the emptiest card became the fastest way to stop it being empty.</li>
+            <li><strong>Blood pressure is full-width, and uses the room.</strong> A wide card now draws a fortnight of history where a narrow one draws a week, rather than the same week stretched wider. Blood sugar stays wide but keeps its seven days, because its chart plots time of day rather than date, and a fortnight there is just twice as many dots on the same 24 hours.</li>
+            <li><strong>Charts draw themselves in when a reading arrives</strong>, and the value settles in with it. Both run once and then stop, and neither replays when you come back to Home — a card only animates when it has something new to show.</li>
+            <li><strong>Your medication has a card now</strong> — the next dose time, and which medicine it is. Nothing else: it is there to answer one question at a glance.</li>
+            <li><strong>The Tasks and Medication cards are shorter and bolder.</strong> They used to be stretched to the height of the tallest card beside them, which left the Tasks card mostly empty. They are their own row now, half the height, in larger type, and exactly the same size as each other.</li>
+            <li><strong>You can rearrange the cards.</strong> Press and hold one, move it, let go. Only positions that leave the grid tidy are offered, so it never leaves a hole. If you use a screen reader or a keyboard, the arrow keys move a card too. Settings → Appearance has a &quot;Reset tile order&quot; if you want the original back.</li>
+          </ul>
+          <h3>Tasks on Home</h3>
+          <ul>
+            <li><strong>The tasks card is now a tile the same size as the others</strong>, showing one number: everything on today, yours and shared together. A day with nothing on it says &quot;Nothing scheduled&quot; rather than showing a zero, because finishing everything and never having anything are not the same thing.</li>
+          </ul>
+        </article>
+        <article class="card" style="grid-column: 1 / -1">
           <h2>2.19.0 (2026-08-30)</h2>
           <h3>The header bands again</h3>
           <ul>
